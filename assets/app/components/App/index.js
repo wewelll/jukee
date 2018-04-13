@@ -80,10 +80,9 @@ App.defaultProps = {
   username: '',
 };
 
-const mapDispatchToProps = dispatch => ({
-  dispatch,
-  logout: () => dispatch(logout()),
-});
+const mapDispatchToProps = {
+  logout,
+};
 
 const mapStateProps = state => ({
   username: state.session.currentUser.username,
