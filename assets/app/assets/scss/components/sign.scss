@@ -1,0 +1,76 @@
+.login, .signup {
+  height: 100%;
+  width: 100%;
+  background: $grey;
+  padding-top: 40px;
+
+  .input {
+    position: relative;
+
+    .validation-error {
+      white-space: nowrap;
+      padding: 0 5px;
+      padding-bottom: 2px;
+      top: 5px;
+      left: 110%;
+      position: absolute;
+      background: $error;
+      color: white;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+
+      &:before {
+        content:"";
+        position: absolute;
+        right: 100%;
+        width: 0;
+        height: 0;
+        border-top: 13px solid transparent;
+        border-right: 20px solid $error;
+        border-bottom: 13px solid transparent;
+      }
+    }
+  }
+
+  .form-login, .form-signup {
+    margin: 0 auto;
+    max-width: 330px;
+    padding: 15px;
+    background: white;
+  }
+
+  .form-login {
+    input[type="email"] {
+      margin-bottom: -1px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    input[type="password"] {
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+      margin-bottom: 25px;
+    }
+  }
+
+  .form-signup {
+    input[name="name"] {
+      margin-bottom: -1px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    input[name="password"] {
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+      margin-bottom: 25px;
+    }
+
+    input[type="email"],
+    input[name="username"] {
+      margin-bottom: -1px;
+      border-radius: 0;
+      border-radius: 0;
+    }
+  }
+}
