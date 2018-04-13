@@ -2,6 +2,18 @@
 
 This is a basic setup for an React(16) + Phoenix(1.3)/Elixir(1.5) project, using webpack(3) and users with authentication.
 
+## INSTALL PROJECT
+
+```
+mix deps.get
+mix deps.compile
+mix ecto.create
+mix ecto.migrate
+cd assets
+yarn install
+cd ..
+```
+
 ## STARTING PROJECT
 
 ### Start the database
