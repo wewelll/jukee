@@ -6,6 +6,7 @@ import { reset } from 'redux-form';
 import api from 'utils/api';
 import { types as sessionTypes } from 'actions/session';
 import { types as errorTypes } from 'actions/errors';
+import routes from 'config/routes';
 
 function setCurrentUser(response) {
   localStorage.setItem('token', JSON.stringify(response.meta.token));
@@ -94,7 +95,7 @@ function* callAuthenticate() {
     yield put({ type: sessionTypes.AUTHENTICATION_FAILURE });
     yield put({ type: errorTypes.NEW_ERROR, message: result.data.errors });
     localStorage.removeItem('token');
-    window.location = '/login';
+    window.location = routes.login;
   }
 }
 

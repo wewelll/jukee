@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 
+import routes from 'config/routes';
 
 export default class MatchAuthenticated extends Component {
   render() {
@@ -19,9 +20,11 @@ export default class MatchAuthenticated extends Component {
         exact={exact}
         path={path}
         render={(props) => {
-          if (isAuthenticated) { return <RouteComponent {...props} />; }
-          if (willAuthenticate) { return null; }
-          if (!willAuthenticate && !isAuthenticated) { return <Redirect to={{ pathname: '/login' }} />; }
+          if (isAuthenticated) return <RouteComponent {...props} />;
+          if (willAuthenticate) return null;
+          if (!willAuthenticate && !isAuthenticated) {
+            return <Redirect to={{ pathname: routes.login }} />;
+          }
           return null;
         }}
       />

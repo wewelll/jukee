@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 
+import routes from 'config/routes';
 
 export default class RedirectAuthenticated extends Component {
   render() {
@@ -19,7 +20,7 @@ export default class RedirectAuthenticated extends Component {
         exact={exact}
         path={path}
         render={(props) => {
-          if (isAuthenticated) { return <Redirect to={{ pathname: '/' }} />; }
+          if (isAuthenticated) { return <Redirect to={{ pathname: routes.app }} />; }
           if (willAuthenticate) { return null; }
           return <RouteComponent {...props} />;
         }}

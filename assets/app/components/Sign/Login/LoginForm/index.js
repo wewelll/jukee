@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import { FormInput } from 'components';
 import { login } from 'actions/session';
+import routes from 'config/routes';
 
 class LoginForm extends Component {
   submit = (data, dispatch) => dispatch(login(data));
@@ -35,7 +36,7 @@ class LoginForm extends Component {
           {submittingForm ? 'Logging in...' : 'Login'}
         </button>
         <hr />
-        <Link to="/signup" className="btn">
+        <Link to={routes.signup} className="btn">
           Create a new account
         </Link>
       </form>
