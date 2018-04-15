@@ -1,6 +1,6 @@
 export default {
-  landing: '/landing',
-  app: '/',
+  landing: '/',
+  app: '/app',
   signup: '/signup',
   login: '/login',
 };
