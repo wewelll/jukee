@@ -5,7 +5,6 @@ import DocumentTitle from 'react-document-title';
 
 import { logout } from 'actions/session';
 
-
 export class App extends Component {
   render() {
     const { username } = this.props;
@@ -18,18 +17,29 @@ export class App extends Component {
               <nav>
                 <span className="logo" />
                 <ul className="nav nav-pills pull-right">
-                  <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
+                  <li>
+                    <a href="http://www.phoenixframework.org/docs">
+                      Get Started
+                    </a>
+                  </li>
 
-                  <button className="btn btn-sm" onClick={this.props.logout}>Logout</button>
+                  <button className="btn btn-sm" onClick={this.props.logout}>
+                    Logout
+                  </button>
                 </ul>
               </nav>
             </header>
 
             <main role="main">
               <div className="jumbotron">
-                <h2 id="heading">Hello, <span className="username">{ username }</span>!</h2>
+                <h2 id="heading">
+                  Hello, <span className="username">{username}</span>!
+                </h2>
                 <h2>Welcome to Phoenix</h2>
-                <p className="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
+                <p className="lead">
+                  A productive web framework that<br />does not compromise speed
+                  and maintainability.
+                </p>
               </div>
 
               <div className="row marketing">
@@ -37,13 +47,17 @@ export class App extends Component {
                   <h4>Resources</h4>
                   <ul>
                     <li>
-                      <a href="http://phoenixframework.org/docs/overview">Guides</a>
+                      <a href="http://phoenixframework.org/docs/overview">
+                        Guides
+                      </a>
                     </li>
                     <li>
                       <a href="https://hexdocs.pm/phoenix">Docs</a>
                     </li>
                     <li>
-                      <a href="https://github.com/phoenixframework/phoenix">Source</a>
+                      <a href="https://github.com/phoenixframework/phoenix">
+                        Source
+                      </a>
                     </li>
                   </ul>
                 </div>
@@ -52,13 +66,19 @@ export class App extends Component {
                   <h4>Help</h4>
                   <ul>
                     <li>
-                      <a href="http://groups.google.com/group/phoenix-talk">Mailing list</a>
+                      <a href="http://groups.google.com/group/phoenix-talk">
+                        Mailing list
+                      </a>
                     </li>
                     <li>
-                      <a href="http://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on freenode IRC</a>
+                      <a href="http://webchat.freenode.net/?channels=elixir-lang">
+                        #elixir-lang on freenode IRC
+                      </a>
                     </li>
                     <li>
-                      <a href="https://twitter.com/elixirphoenix">@elixirphoenix</a>
+                      <a href="https://twitter.com/elixirphoenix">
+                        @elixirphoenix
+                      </a>
                     </li>
                   </ul>
                 </div>

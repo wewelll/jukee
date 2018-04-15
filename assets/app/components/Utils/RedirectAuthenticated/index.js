@@ -20,15 +20,18 @@ export default class RedirectAuthenticated extends Component {
         exact={exact}
         path={path}
         render={(props) => {
-          if (isAuthenticated) { return <Redirect to={{ pathname: routes.app }} />; }
-          if (willAuthenticate) { return null; }
+          if (isAuthenticated) {
+            return <Redirect to={{ pathname: routes.app }} />;
+          }
+          if (willAuthenticate) {
+            return null;
+          }
           return <RouteComponent {...props} />;
         }}
       />
     );
   }
 }
-
 
 RedirectAuthenticated.propTypes = {
   component: PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types

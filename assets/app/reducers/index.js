@@ -13,10 +13,9 @@ const appReducer = combineReducers({
   routing: routerReducer,
 });
 
-export default function (state, action) {
+export default function(state, action) {
   if (action.type === sessionTypes.LOGOUT) {
     return appReducer(undefined, action);
   }
   return appReducer(state, action);
 }
-

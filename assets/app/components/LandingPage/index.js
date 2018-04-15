@@ -15,7 +15,8 @@ export class LandingPage extends PureComponent {
           <br />
           <Link to={routes.signup}>Sign Up</Link>
         </div>
-      </DocumentTitle>);
+      </DocumentTitle>
+    );
   }
 }
 

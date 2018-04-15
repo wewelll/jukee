@@ -4,7 +4,7 @@ const initialState = {
   errors: [],
 };
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case errorTypes.NEW_ERROR:
       return {

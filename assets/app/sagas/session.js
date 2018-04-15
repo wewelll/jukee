@@ -12,7 +12,6 @@ function setCurrentUser(response) {
   localStorage.setItem('token', JSON.stringify(response.meta.token));
 }
 
-
 // Login
 
 function login(data) {
@@ -23,7 +22,10 @@ function* callLogin({ data }) {
   const result = yield call(login, data);
 
   if (result.data.data) {
-    yield put({ type: sessionTypes.AUTHENTICATION_SUCCESS, response: result.data });
+    yield put({
+      type: sessionTypes.AUTHENTICATION_SUCCESS,
+      response: result.data,
+    });
     setCurrentUser(result.data);
     yield put(reset('signup'));
   } else {
@@ -47,7 +49,10 @@ function* callSignup({ data }) {
   const result = yield call(signup, data);
 
   if (result.data.data) {
-    yield put({ type: sessionTypes.AUTHENTICATION_SUCCESS, response: result.data });
+    yield put({
+      type: sessionTypes.AUTHENTICATION_SUCCESS,
+      response: result.data,
+    });
     setCurrentUser(result.data);
     yield put(reset('signup'));
     // yield put(push('/'));
@@ -58,7 +63,6 @@ function* callSignup({ data }) {
     // yield put(push('/login'));
   }
 }
-
 
 function* signupSaga() {
   yield* takeEvery(sessionTypes.SIGNUP_REQUEST, callSignup);
@@ -89,7 +93,10 @@ function* callAuthenticate() {
   const result = yield call(authenticate);
 
   if (result.data.data) {
-    yield put({ type: sessionTypes.AUTHENTICATION_SUCCESS, response: result.data });
+    yield put({
+      type: sessionTypes.AUTHENTICATION_SUCCESS,
+      response: result.data,
+    });
     setCurrentUser(result.data);
   } else {
     yield put({ type: sessionTypes.AUTHENTICATION_FAILURE });

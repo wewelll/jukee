@@ -32,7 +32,6 @@ export default class MatchAuthenticated extends Component {
   }
 }
 
-
 MatchAuthenticated.propTypes = {
   component: PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
   path: PropTypes.string.isRequired,

@@ -6,7 +6,6 @@ import { routerMiddleware } from 'react-router-redux';
 
 import reducers from 'reducers';
 
-
 const loggerMiddleware = createLogger({
   level: 'info',
   collapsed: true,
@@ -28,8 +27,7 @@ export default function configureStore(browserHistory) {
     middleware = [...middleware, loggerMiddleware];
   }
 
-  const createStoreWithMiddleware =
-    composeEnhancers(applyMiddleware(...middleware))(createStore);
+  const createStoreWithMiddleware = composeEnhancers(applyMiddleware(...middleware))(createStore);
 
   return createStoreWithMiddleware(reducers);
 }

@@ -21,7 +21,6 @@ export class Signup extends Component {
   }
 }
 
-
 Signup.propTypes = {
   submittingForm: PropTypes.bool,
 };

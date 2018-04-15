@@ -4,10 +4,7 @@ import PropTypes from 'prop-types';
 export default class Input extends Component {
   render() {
     const {
-      input,
-      type,
-      placeholder,
-      meta,
+      input, type, placeholder, meta,
     } = this.props;
 
     return (
@@ -18,9 +15,8 @@ export default class Input extends Component {
           placeholder={placeholder}
           className="form-control"
         />
-        {meta.touched && meta.error &&
-          <div className="validation-error">{meta.error}</div>
-        }
+        {meta.touched &&
+          meta.error && <div className="validation-error">{meta.error}</div>}
       </div>
     );
   }

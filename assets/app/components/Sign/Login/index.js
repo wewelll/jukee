@@ -21,7 +21,6 @@ export class Login extends Component {
   }
 }
 
-
 Login.propTypes = {
   submittingForm: PropTypes.bool,
 };
@@ -29,7 +28,6 @@ Login.propTypes = {
 Login.defaultProps = {
   submittingForm: false,
 };
-
 
 const mapStateProps = state => ({
   submittingForm: state.session.submittingForm,

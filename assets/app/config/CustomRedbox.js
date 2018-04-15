@@ -43,11 +43,7 @@ const styles = {
 
 export default class CustomRedbox extends React.Component {
   render() {
-    return (
-      <Redbox
-        error={this.props.error}
-        style={styles}
-      />);
+    return <Redbox error={this.props.error} style={styles} />;
   }
 }
 

@@ -4,7 +4,6 @@ import { Route, Switch } from 'react-router';
 import { ConnectedRouter as Router } from 'react-router-redux';
 import PropTypes from 'prop-types';
 
-
 import { authenticate, unauthenticate } from 'actions/session';
 import {
   App,
@@ -42,9 +41,24 @@ class Root extends Component {
         <Router history={this.props.history}>
           <Switch>
             <Route exact path={routes.landing} component={LandingPage} />
-            <MatchAuthenticated exact path={routes.app} component={App} {...authProps} />
-            <RedirectAuthenticated exact path={routes.signup} component={Signup} {...authProps} />
-            <RedirectAuthenticated exact path={routes.login} component={Login} {...authProps} />
+            <MatchAuthenticated
+              exact
+              path={routes.app}
+              component={App}
+              {...authProps}
+            />
+            <RedirectAuthenticated
+              exact
+              path={routes.signup}
+              component={Signup}
+              {...authProps}
+            />
+            <RedirectAuthenticated
+              exact
+              path={routes.login}
+              component={Login}
+              {...authProps}
+            />
             <Route component={NotFound} />
           </Switch>
         </Router>
@@ -52,7 +66,6 @@ class Root extends Component {
     );
   }
 }
-
 
 Root.propTypes = {
   history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types

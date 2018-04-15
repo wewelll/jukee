@@ -14,7 +14,11 @@ class LoginForm extends Component {
     const { handleSubmit, submittingForm, invalid } = this.props;
 
     return (
-      <form className="form-login card" onSubmit={handleSubmit(this.submit)} noValidate>
+      <form
+        className="form-login card"
+        onSubmit={handleSubmit(this.submit)}
+        noValidate
+      >
         <h3>Login to Jukee</h3>
         <Field
           name="email"
@@ -44,7 +48,6 @@ class LoginForm extends Component {
   }
 }
 
-
 LoginForm.propTypes = {
   submittingForm: PropTypes.bool,
   invalid: PropTypes.bool.isRequired,
@@ -54,7 +57,6 @@ LoginForm.propTypes = {
 LoginForm.defaultProps = {
   submittingForm: false,
 };
-
 
 const validate = (values) => {
   const errors = {};

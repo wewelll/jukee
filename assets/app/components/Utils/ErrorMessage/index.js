@@ -20,7 +20,6 @@ export class ErrorMessage extends Component {
     }
   }
 
-
   addNotification(message) {
     this.notificationSystem.addNotification({
       message,
@@ -28,14 +27,14 @@ export class ErrorMessage extends Component {
     });
   }
 
-
   render() {
     return (
       <div className="errorMessage">
-        <NotificationSystem ref={(n) => {
-          this.notificationSystem = n;
-          return n;
-        }}
+        <NotificationSystem
+          ref={(n) => {
+            this.notificationSystem = n;
+            return n;
+          }}
         />
       </div>
     );
