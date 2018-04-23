@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Form, Input } from 'semantic-ui-react';
 
-export default class Input extends Component {
+export default class FormInput extends Component {
   render() {
     const {
       input, type, placeholder, meta,
     } = this.props;
 
     return (
-      <div className="input">
-        <input
+      <Form.Field error={!!(meta.touched && meta.error)}>
+        <Input
           {...input}
           type={type}
           placeholder={placeholder}
-          className="form-control"
         />
         {meta.touched &&
-          meta.error && <div className="validation-error">{meta.error}</div>}
-      </div>
+          meta.error && <span>{meta.error}</span>}
+      </Form.Field>
     );
   }
 }
 
-Input.propTypes = {
+FormInput.propTypes = {
   input: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   label: PropTypes.string,
   type: PropTypes.string,
@@ -30,7 +30,7 @@ Input.propTypes = {
   meta: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
-Input.defaultProps = {
+FormInput.defaultProps = {
   label: '',
   type: '',
   placeholder: '',

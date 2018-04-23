@@ -12,11 +12,7 @@ export class Login extends Component {
     return (
       <DocumentTitle title="Login">
         <Layout>
-          <div className="login">
-            <div className="container">
-              <LoginForm submittingForm={submittingForm} />
-            </div>
-          </div>
+          <LoginForm submittingForm={submittingForm} />
         </Layout>
       </DocumentTitle>
     );

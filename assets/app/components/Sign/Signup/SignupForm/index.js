@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
+import { Form } from 'semantic-ui-react';
 import { FormInput } from 'components';
 import { signup } from 'actions/session';
 import routes from 'config/routes';
@@ -14,8 +14,7 @@ class SignupForm extends Component {
     const { handleSubmit, submittingForm, invalid } = this.props;
 
     return (
-      <form
-        className="form-signup card"
+      <Form
         onSubmit={handleSubmit(this.submit)}
         noValidate
       >
@@ -25,41 +24,35 @@ class SignupForm extends Component {
           type="text"
           component={FormInput}
           placeholder="Full name"
-          className="form-control"
         />
         <Field
           name="username"
           type="text"
           component={FormInput}
           placeholder="Username"
-          className="form-control"
         />
         <Field
           name="email"
           type="email"
           component={FormInput}
           placeholder="Email"
-          className="form-control"
         />
         <Field
           name="password"
           type="password"
           component={FormInput}
           placeholder="Password"
-          className="form-control"
         />
-        <button
+        <Form.Button
           type="submit"
           disabled={invalid || submittingForm}
-          className="btn btn-primary btn-lg btn-block"
         >
           {submittingForm ? 'Submitting...' : 'Sign up'}
-        </button>
-        <hr />
+        </Form.Button>
         <Link to={routes.login} className="btn">
           Login to your account
         </Link>
-      </form>
+      </Form>
     );
   }
 }
