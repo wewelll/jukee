@@ -26,7 +26,6 @@ const config = {
     './main.js',
     // entry point
 
-    './assets/scss/index.scss',
     'jquery/dist/jquery.js',
   ],
 

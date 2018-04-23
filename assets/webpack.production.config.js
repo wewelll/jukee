@@ -9,7 +9,6 @@ const config = {
 
   entry: [
     './main.js',
-    './assets/scss/index.scss',
   ],
 
   context: resolve(__dirname, 'app'),
