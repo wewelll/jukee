@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
 
-import { SignupForm } from 'components';
+import { Layout, SignupForm } from 'components';
 
 export class Signup extends Component {
   render() {
@@ -11,11 +11,13 @@ export class Signup extends Component {
 
     return (
       <DocumentTitle title="Signup">
-        <div className="signup">
-          <div className="container">
-            <SignupForm submittingForm={submittingForm} />
+        <Layout>
+          <div className="signup">
+            <div className="container">
+              <SignupForm submittingForm={submittingForm} />
+            </div>
           </div>
-        </div>
+        </Layout>
       </DocumentTitle>
     );
   }

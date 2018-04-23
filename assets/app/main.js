@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
-import createHistory from 'history/createBrowserHistory';
 import { browserHistory } from 'react-router';
 
+import history from 'utils/history';
 import configureStore, { sagaMiddleware } from 'store';
 import Root from 'config/Root';
 import CustomRedbox from 'config/CustomRedbox';
@@ -16,9 +16,6 @@ import 'font-awesome/css/font-awesome.css';
 const store = configureStore(browserHistory);
 
 sagaMiddleware.run(Sagas);
-
-const history = createHistory();
-
 
 const render = (Component) => {
   ReactDOM.render(

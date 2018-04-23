@@ -8,6 +8,7 @@ const mapDispatchToProps = {
 
 const mapStateProps = state => ({
   username: state.session.currentUser.username,
+  isAuthenticated: state.session.isAuthenticated,
 });
 
 export default connect(mapStateProps, mapDispatchToProps)(Layout);

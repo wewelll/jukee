@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
+import { Layout, LoginForm } from 'components';
 
-import { LoginForm } from 'components';
 
 export class Login extends Component {
   render() {
@@ -11,11 +11,13 @@ export class Login extends Component {
 
     return (
       <DocumentTitle title="Login">
-        <div className="login">
-          <div className="container">
-            <LoginForm submittingForm={submittingForm} />
+        <Layout>
+          <div className="login">
+            <div className="container">
+              <LoginForm submittingForm={submittingForm} />
+            </div>
           </div>
-        </div>
+        </Layout>
       </DocumentTitle>
     );
   }
