@@ -21,7 +21,7 @@ export default class RedirectAuthenticated extends Component {
         path={path}
         render={(props) => {
           if (isAuthenticated) {
-            return <Redirect to={{ pathname: routes.app }} />;
+            return <Redirect to={{ pathname: routes.createRoom }} />;
           }
           if (willAuthenticate) {
             return null;

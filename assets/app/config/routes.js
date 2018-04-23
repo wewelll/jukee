@@ -1,6 +1,6 @@
 export default {
   landing: '/',
-  app: '/app',
+  createRoom: '/create-room',
   signup: '/signup',
   login: '/login',
 };

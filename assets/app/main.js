@@ -10,7 +10,7 @@ import Root from 'config/Root';
 import CustomRedbox from 'config/CustomRedbox';
 import Sagas from 'sagas';
 
-import 'bootstrap/dist/css/bootstrap.css';
+import 'semantic-ui-css/semantic.min.css';
 import 'font-awesome/css/font-awesome.css';
 
 const store = configureStore(browserHistory);

@@ -1,6 +1,6 @@
 const { resolve } = require('path');
 
-const publicPath = 'http://localhost:3000/'; 
+const publicPath = 'http://localhost:3000/';
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
@@ -22,14 +22,12 @@ const config = {
     'webpack/hot/only-dev-server',
     // bundle the client for hot reloading
     // only- means to only hot reload for successful updates
- 
+
     './main.js',
     // entry point
 
     './assets/scss/index.scss',
     'jquery/dist/jquery.js',
-    'tether/dist/js/tether.js',
-    'bootstrap/dist/js/bootstrap.js',
   ],
 
   resolve: {
@@ -48,10 +46,10 @@ const config = {
   output: {
     filename: 'js/app.js',
     path: resolve(__dirname, '../priv/static'),
-    publicPath: publicPath,
+    publicPath,
     hotUpdateChunkFilename: 'hot-update.js',
     hotUpdateMainFilename: 'hot-update.json',
-    crossOriginLoading: "anonymous",
+    crossOriginLoading: 'anonymous',
   },
 
   context: resolve(__dirname, 'app'),
