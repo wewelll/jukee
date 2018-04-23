@@ -17,17 +17,16 @@ export class Layout extends Component {
     const { username, children, logout } = this.props;
 
     return (
-      <div>
+      <Container>
+        <div />
         <Header>
-          <Header.Content>
-            <UserDropdown username={username} logout={logout} />
-          </Header.Content>
+          <UserDropdown username={username} logout={logout} />
         </Header>
 
         <Container role="main">
           {children}
         </Container>
-      </div>
+      </Container>
     );
   }
 }
