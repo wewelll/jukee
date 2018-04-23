@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Header, Icon, Dropdown } from 'semantic-ui-react';
+import { Container, Icon, Header } from 'semantic-ui-react';
+import UserDropdown from './UserDropdown';
 
 export class Layout extends Component {
   renderHeaderUsername() {
@@ -19,18 +20,7 @@ export class Layout extends Component {
       <div>
         <Header>
           <Header.Content>
-            <Dropdown
-              trigger={this.renderHeaderUsername()}
-              options={[{
-                key: 'user',
-                text: <span>Signed in as <strong>{username}</strong></span>,
-                disabled: true,
-              }, {
-                key: 'logout',
-                text: 'Logout',
-                onClick: logout,
-              }]}
-            />
+            <UserDropdown username={username} logout={logout} />
           </Header.Content>
         </Header>
 
