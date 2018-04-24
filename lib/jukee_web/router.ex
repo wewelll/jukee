@@ -46,6 +46,7 @@ defmodule JukeeWeb.Router do
       delete("/sessions", SessionController, :delete)
       post("/sessions/refresh", SessionController, :refresh)
       resources("/users", UserController, except: [:create])
+      resources("/rooms", RoomController)
     end
   end
 
