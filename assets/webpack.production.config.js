@@ -22,6 +22,7 @@ const config = {
       store: resolve(__dirname, 'app/store'),
       utils: resolve(__dirname, 'app/utils'),
       sagas: resolve(__dirname, 'app/sagas'),
+      selectors: resolve(__dirname, 'app/selectors'),
     },
   },
 
