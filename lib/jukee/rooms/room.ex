@@ -15,6 +15,7 @@ defmodule Jukee.Rooms.Room do
     room
     |> cast(attrs, [:url])
     |> validate_required([:url])
+    |> validate_format(:url, ~r/^[a-zA-Z0-9_-]*$/)
     |> unique_constraint(:url)
   end
 end
