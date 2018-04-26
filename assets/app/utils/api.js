@@ -25,8 +25,7 @@ export default {
   },
 
   post(url, data) {
-    return axios.post(`${API}${url}`, data, { headers: headers() })
-      .catch(error => error.response);
+    return axios.post(`${API}${url}`, data, { headers: headers() });
   },
 
   patch(url, data) {

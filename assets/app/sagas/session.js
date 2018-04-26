@@ -19,18 +19,17 @@ function login(data) {
 }
 
 function* callLogin({ data }) {
-  const result = yield call(login, data);
-
-  if (result.data.data) {
+  try {
+    const result = yield call(login, data);
     yield put({
       type: sessionTypes.AUTHENTICATION_SUCCESS,
       response: result.data,
     });
     setCurrentUser(result.data);
     yield put(reset('signup'));
-  } else {
+  } catch (error) {
     yield put({ type: sessionTypes.AUTHENTICATION_FAILURE });
-    yield put({ type: errorTypes.NEW_ERROR, message: result.data.errors });
+    yield put({ type: errorTypes.NEW_ERROR, message: error.response.data.errors });
     localStorage.removeItem('token');
   }
 }
@@ -46,9 +45,8 @@ function signup(data) {
 }
 
 function* callSignup({ data }) {
-  const result = yield call(signup, data);
-
-  if (result.data.data) {
+  try {
+    const result = yield call(signup, data);
     yield put({
       type: sessionTypes.AUTHENTICATION_SUCCESS,
       response: result.data,
@@ -56,9 +54,9 @@ function* callSignup({ data }) {
     setCurrentUser(result.data);
     yield put(reset('signup'));
     // yield put(push('/'));
-  } else {
+  } catch (error) {
     yield put({ type: sessionTypes.AUTHENTICATION_FAILURE });
-    yield put({ type: errorTypes.NEW_ERROR, message: result.data.errors });
+    yield put({ type: errorTypes.NEW_ERROR, message: error.response.data.errors });
     localStorage.removeItem('token');
     // yield put(push('/login'));
   }
@@ -90,17 +88,16 @@ function authenticate() {
 }
 
 function* callAuthenticate() {
-  const result = yield call(authenticate);
-
-  if (result.data.data) {
+  try {
+    const result = yield call(authenticate);
     yield put({
       type: sessionTypes.AUTHENTICATION_SUCCESS,
       response: result.data,
     });
     setCurrentUser(result.data);
-  } else {
+  } catch (error) {
     yield put({ type: sessionTypes.AUTHENTICATION_FAILURE });
-    yield put({ type: errorTypes.NEW_ERROR, message: result.data.errors });
+    yield put({ type: errorTypes.NEW_ERROR, message: error.response.data.errors });
     localStorage.removeItem('token');
     window.location = routes.login;
   }
