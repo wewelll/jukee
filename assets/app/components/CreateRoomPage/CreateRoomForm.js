@@ -8,7 +8,7 @@ class CreateRoomForm extends PureComponent {
     return (
       <Container textAlign="center">
         <Form>
-          <Field name="url" component={FormInput} action="Create a room" placeholder="Room name" />
+          <Field name="url" label="jukee.co/room/" component={FormInput} action="Create a room" placeholder="room name" />
         </Form>
       </Container>
     );
