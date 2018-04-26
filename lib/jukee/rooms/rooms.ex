@@ -49,9 +49,10 @@ defmodule Jukee.Rooms do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_room(attrs \\ %{}) do
+  def create_room(attrs \\ %{}, current_user) do
     %Room{}
     |> Room.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:creator, current_user)
     |> Repo.insert()
   end
 

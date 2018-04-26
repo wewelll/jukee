@@ -12,7 +12,8 @@ defmodule JukeeWeb.RoomController do
   end
 
   def create(conn, %{"room" => room_params}) do
-    with {:ok, %Room{} = room} <- Rooms.create_room(room_params) do
+    current_user = Jukee.Accounts.get_current_user(conn)
+    with {:ok, %Room{} = room} <- Rooms.create_room(room_params, current_user) do
       conn
       |> put_status(:created)
       |> render("show.json", room: room)
