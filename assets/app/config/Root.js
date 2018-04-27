@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { authenticate, unauthenticate } from 'actions/session';
 import {
   CreateRoomPage,
+  RoomPage,
   ErrorMessage,
   NotFound,
   Signup,
@@ -41,12 +42,6 @@ class Root extends Component {
         <Router history={this.props.history}>
           <Switch>
             <Route exact path={routes.landing} component={LandingPage} />
-            <MatchAuthenticated
-              exact
-              path={routes.createRoom}
-              component={CreateRoomPage}
-              {...authProps}
-            />
             <RedirectAuthenticated
               exact
               path={routes.signup}
@@ -57,6 +52,18 @@ class Root extends Component {
               exact
               path={routes.login}
               component={Login}
+              {...authProps}
+            />
+            <MatchAuthenticated
+              exact
+              path={routes.createRoom}
+              component={CreateRoomPage}
+              {...authProps}
+            />
+            <MatchAuthenticated
+              exact
+              path={routes.room}
+              component={RoomPage}
               {...authProps}
             />
             <Route component={NotFound} />
