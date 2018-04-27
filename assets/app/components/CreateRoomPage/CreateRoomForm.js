@@ -1,15 +1,11 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'recompose';
 import PropTypes from 'prop-types';
-import { reduxForm, Field } from 'redux-form';
+import { Field } from 'redux-form';
 import { Form, Container, Button } from 'semantic-ui-react';
 import { FormInput } from 'components';
 import { createRoomRoutine } from 'actions/room';
 import { CREATE_ROOM_FORM } from 'utils/constants/forms';
-import { getCreateRoomFormUrlValue } from 'selectors/room';
 import history from 'utils/history';
-import api from 'utils/api';
 
 class CreateRoomForm extends PureComponent {
   handleSubmit = (event) => {
@@ -57,32 +53,4 @@ CreateRoomForm.defaultProps = {
   urlValue: undefined,
 };
 
-
-const asyncValidate = ({ [CREATE_ROOM_FORM.fields.url]: url }) =>
-  api.get(`/room-by-url/${url}`)
-    .catch(() => undefined)
-    .then((result) => {
-      if (result) {
-        /* eslint-disable-next-line no-throw-literal */
-        throw {
-          _error: CREATE_ROOM_FORM.errors.roomExists,
-        };
-      }
-    });
-
-const mapStateToProps = (state, { error }) => ({
-  urlValue: getCreateRoomFormUrlValue(state),
-  roomExists: error === CREATE_ROOM_FORM.errors.roomExists,
-});
-
-const enhance = compose(
-  reduxForm({
-    form: CREATE_ROOM_FORM.name,
-    asyncValidate,
-    asyncChangeFields: [CREATE_ROOM_FORM.fields.url],
-  }),
-  connect(mapStateToProps),
-);
-
-
-export default enhance(CreateRoomForm);
+export default CreateRoomForm;

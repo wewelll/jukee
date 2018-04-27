@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import DocumentTitle from 'react-document-title';
 import { Layout } from 'components';
-import CreateRoomForm from './CreateRoomForm';
+import CreateRoomForm from './CreateRoomFormWrapper';
 
 class CreateRoomPage extends PureComponent {
   render() {
