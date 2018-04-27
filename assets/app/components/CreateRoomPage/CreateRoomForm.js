@@ -12,20 +12,21 @@ import history from 'utils/history';
 import api from 'utils/api';
 
 class CreateRoomForm extends PureComponent {
-  submitOrEnterRoom = () => {
-    const { handleSubmit, roomExists, urlValue } = this.props;
-    if (roomExists) {
-      history.push(`/room/${urlValue}`);
-    } else {
-      handleSubmit(createRoomRoutine)();
-    }
+  handleSubmit = (event) => {
+    const { handleSubmit, urlValue } = this.props;
+    handleSubmit(createRoomRoutine)(event)
+      .catch(() => {
+        if (this.props.roomExists) {
+          history.push(`/room/${urlValue}`);
+        }
+      });
   }
 
   render() {
     const { roomExists, submitting } = this.props;
     return (
       <Container textAlign="center">
-        <Form onSubmit={this.submitOrEnterRoom}>
+        <Form onSubmit={this.handleSubmit}>
           <Field
             name={CREATE_ROOM_FORM.fields.url}
             label="jukee.co/room/"
