@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
-import { Form, Container } from 'semantic-ui-react';
+import { Form, Container, Button } from 'semantic-ui-react';
 import { FormInput } from 'components';
 import { createRoomRoutine } from 'actions/room';
 import { CREATE_ROOM_FORM } from 'utils/constants/forms';
@@ -13,8 +13,8 @@ import api from 'utils/api';
 
 class CreateRoomForm extends PureComponent {
   submitOrEnterRoom = () => {
-    const { handleSubmit, error, urlValue } = this.props;
-    if (error === CREATE_ROOM_FORM.errors.roomExists) {
+    const { handleSubmit, roomExists, urlValue } = this.props;
+    if (roomExists) {
       history.push(`/room/${urlValue}`);
     } else {
       handleSubmit(createRoomRoutine)();
@@ -22,6 +22,7 @@ class CreateRoomForm extends PureComponent {
   }
 
   render() {
+    const { roomExists, submitting } = this.props;
     return (
       <Container textAlign="center">
         <Form onSubmit={this.submitOrEnterRoom}>
@@ -29,9 +30,13 @@ class CreateRoomForm extends PureComponent {
             name={CREATE_ROOM_FORM.fields.url}
             label="jukee.co/room/"
             component={FormInput}
-            action={{
-              content: 'Create a room',
-            }}
+            action={
+              <Button
+                loading={submitting}
+              >
+                {roomExists ? 'Join the room' : 'Create a room'}
+              </Button>
+            }
             placeholder="room name"
           />
         </Form>
@@ -42,12 +47,12 @@ class CreateRoomForm extends PureComponent {
 
 CreateRoomForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  error: PropTypes.string,
   urlValue: PropTypes.string,
+  roomExists: PropTypes.bool.isRequired,
+  submitting: PropTypes.bool.isRequired,
 };
 
 CreateRoomForm.defaultProps = {
-  error: undefined,
   urlValue: undefined,
 };
 
@@ -64,17 +69,18 @@ const asyncValidate = ({ [CREATE_ROOM_FORM.fields.url]: url }) =>
       }
     });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, { error }) => ({
   urlValue: getCreateRoomFormUrlValue(state),
+  roomExists: error === CREATE_ROOM_FORM.errors.roomExists,
 });
 
 const enhance = compose(
-  connect(mapStateToProps),
   reduxForm({
     form: CREATE_ROOM_FORM.name,
     asyncValidate,
     asyncChangeFields: [CREATE_ROOM_FORM.fields.url],
   }),
+  connect(mapStateToProps),
 );
 
 
