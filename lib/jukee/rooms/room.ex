@@ -6,6 +6,7 @@ defmodule Jukee.Rooms.Room do
   schema "rooms" do
     field :url, :string
     belongs_to :creator, Jukee.Accounts.User
+    has_one :player, Jukee.Players.Player
 
     timestamps()
   end
