@@ -25,6 +25,11 @@ defmodule JukeeWeb.RoomController do
     render(conn, "show.json", room: room)
   end
 
+  def show_by_url(conn, %{"url" => url}) do
+    room = Rooms.get_room_by_url!(url)
+    render(conn, "show.json", room: room)
+  end
+
   def update(conn, %{"id" => id, "room" => room_params}) do
     room = Rooms.get_room!(id)
 

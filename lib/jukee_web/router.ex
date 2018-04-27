@@ -47,6 +47,7 @@ defmodule JukeeWeb.Router do
       post("/sessions/refresh", SessionController, :refresh)
       resources("/users", UserController, except: [:create])
       resources("/rooms", RoomController)
+      get("/room-by-url/:url", RoomController, :show_by_url)
     end
   end
 

@@ -37,6 +37,22 @@ defmodule Jukee.Rooms do
   """
   def get_room!(id), do: Repo.get!(Room, id)
 
+    @doc """
+  Gets a single room by url.
+
+  Raises `Ecto.NoResultsError` if the Room does not exist.
+
+  ## Examples
+
+      iex> get_room_by_url!('toto')
+      %Room{}
+
+      iex> get_room_by_url!('this-url-does-not-exists')
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_room_by_url!(url), do: Repo.get_by!(Room, url: url)
+
   @doc """
   Creates a room.
 
