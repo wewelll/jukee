@@ -3,4 +3,7 @@ export const CREATE_ROOM_FORM = {
   fields: {
     url: 'url',
   },
+  errors: {
+    roomExists: 'roomExists',
+  },
 };
