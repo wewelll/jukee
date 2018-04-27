@@ -12,16 +12,9 @@ function headers() {
   };
 }
 
-function queryString(params) {
-  const query = Object.keys(params)
-    .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
-    .join('&');
-  return `${query.length ? '?' : ''}${query}`;
-}
-
 export default {
   get(url, params = {}) {
-    return axios.get(`${API}${url}${queryString(params)}`, { headers: headers() });
+    return axios.get(`${API}${url}`, { headers: headers(), params });
   },
 
   post(url, data) {
