@@ -2,6 +2,7 @@ import { takeEvery } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 import { SubmissionError, reset } from 'redux-form';
 import history from 'utils/history';
+import { CREATE_ROOM_FORM } from 'utils/constants/forms';
 
 import api from 'utils/api';
 import { createRoomRoutine } from 'actions/room';
@@ -15,7 +16,7 @@ function* callCreateRoom({ payload: room }) {
   try {
     const createdRoom = yield call(createRoom, room);
     yield put(createRoomRoutine.success());
-    yield put(reset('createRoom'));
+    yield put(reset(CREATE_ROOM_FORM.name));
     yield call(history.push, `/room/${createdRoom.url}`);
   } catch (error) {
     const formError = new SubmissionError(error.response.data.errors);

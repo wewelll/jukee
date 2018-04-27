@@ -4,6 +4,7 @@ import { reduxForm, Field } from 'redux-form';
 import { Form, Container } from 'semantic-ui-react';
 import { FormInput } from 'components';
 import { createRoomRoutine } from 'actions/room';
+import { CREATE_ROOM_FORM } from 'utils/constants/forms';
 
 class CreateRoomForm extends PureComponent {
   render() {
@@ -12,7 +13,7 @@ class CreateRoomForm extends PureComponent {
       <Container textAlign="center">
         <Form onSubmit={handleSubmit(createRoomRoutine)}>
           <Field
-            name="url"
+            name={CREATE_ROOM_FORM.fields.url}
             label="jukee.co/room/"
             component={FormInput}
             action={{
@@ -32,5 +33,5 @@ CreateRoomForm.propTypes = {
 };
 
 export default reduxForm({
-  form: 'createRoom',
+  form: CREATE_ROOM_FORM.name,
 })(CreateRoomForm);
