@@ -18,6 +18,6 @@ function* callGetRoomByUrl({ payload: url }) {
   }
 }
 
-export default function* createRoom() {
+export default function* getRoomByUrlSaga() {
   yield* takeEvery(getRoomByUrlRoutine.REQUEST, callGetRoomByUrl);
 }
