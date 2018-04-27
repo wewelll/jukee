@@ -1,3 +1,4 @@
 import createRoom from './createRoom';
+import getRoomByUrl from './getRoomByUrl';
 
-export default [createRoom];
+export default [createRoom, getRoomByUrl];

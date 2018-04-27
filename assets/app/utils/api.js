@@ -20,7 +20,7 @@ function queryString(params) {
 }
 
 export default {
-  fetch(url, params = {}) {
+  get(url, params = {}) {
     return axios.get(`${API}${url}${queryString(params)}`, { headers: headers() });
   },
 
