@@ -17,6 +17,5 @@ defmodule Jukee.Players.Player do
   def changeset(player, attrs) do
     player
     |> cast(attrs, [:playing, :track_start, :volume, :muted])
-    |> validate_required([:playing, :track_start, :volume, :muted])
   end
 end

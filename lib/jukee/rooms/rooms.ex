@@ -7,6 +7,8 @@ defmodule Jukee.Rooms do
   alias Jukee.Repo
 
   alias Jukee.Rooms.Room
+  alias Jukee.Players
+  alias Jukee.Players.Player
 
   @doc """
   Returns the list of rooms.
@@ -66,9 +68,11 @@ defmodule Jukee.Rooms do
 
   """
   def create_room(attrs \\ %{}, current_user) do
+    {:ok, player} = Players.create_player()
     %Room{}
     |> Room.changeset(attrs)
     |> Ecto.Changeset.put_assoc(:creator, current_user)
+    |> Ecto.Changeset.put_assoc(:player, player)
     |> Repo.insert()
   end
 
