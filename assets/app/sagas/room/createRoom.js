@@ -6,6 +6,7 @@ import { CREATE_ROOM_FORM } from 'utils/constants/forms';
 
 import api from 'utils/api';
 import { createRoomRoutine } from 'actions/room';
+import routes, { createRoute } from 'config/routes';
 
 function* createRoom(room) {
   const response = yield call(api.post, '/rooms', { room });
@@ -17,7 +18,7 @@ function* callCreateRoom({ payload: room }) {
     const createdRoom = yield call(createRoom, room);
     yield put(createRoomRoutine.success());
     yield put(reset(CREATE_ROOM_FORM.name));
-    yield call(history.push, `/room/${createdRoom.url}`);
+    yield call(history.push, createRoute(routes.room, { roomUrl: createdRoom.url }));
   } catch (error) {
     const formError = new SubmissionError(error.response.data.errors);
     yield put(createRoomRoutine.failure(formError));

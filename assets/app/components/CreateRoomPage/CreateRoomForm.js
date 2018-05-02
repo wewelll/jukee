@@ -6,6 +6,7 @@ import { FormInput } from 'components';
 import { createRoomRoutine } from 'actions/room';
 import { CREATE_ROOM_FORM } from 'utils/constants/forms';
 import history from 'utils/history';
+import routes, { createRoute } from 'config/routes';
 
 class CreateRoomForm extends PureComponent {
   getLabelProps() {
@@ -32,7 +33,7 @@ class CreateRoomForm extends PureComponent {
     handleSubmit(createRoomRoutine)(event)
       .catch(() => {
         if (this.props.roomExists) {
-          history.push(`/room/${urlValue}`);
+          history.push(createRoute(routes.room, { roomUrl: urlValue }));
         }
       });
   }
