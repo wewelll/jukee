@@ -20,7 +20,9 @@ defmodule Jukee.Rooms do
 
   """
   def list_rooms do
-    Repo.all(Room)
+    Room
+    |> Repo.all()
+    |> Repo.preload(:player)
   end
 
   @doc """
@@ -37,7 +39,11 @@ defmodule Jukee.Rooms do
       ** (Ecto.NoResultsError)
 
   """
-  def get_room!(id), do: Repo.get!(Room, id)
+  def get_room!(id) do
+    Room
+    |> Repo.get!(id)
+    |> Repo.preload(:player)
+  end
 
     @doc """
   Gets a single room by url.
@@ -53,7 +59,11 @@ defmodule Jukee.Rooms do
       ** (Ecto.NoResultsError)
 
   """
-  def get_room_by_url!(url), do: Repo.get_by!(Room, url: url)
+  def get_room_by_url!(url) do
+    Room
+    |> Repo.get_by!(url: url)
+    |> Repo.preload(:player)
+  end
 
   @doc """
   Creates a room.

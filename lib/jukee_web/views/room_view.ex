@@ -12,6 +12,7 @@ defmodule JukeeWeb.RoomView do
 
   def render("room.json", %{room: room}) do
     %{id: room.id,
-      url: room.url}
+      url: room.url,
+      playerId: room.player.id}
   end
 end
