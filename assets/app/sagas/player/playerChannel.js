@@ -1,20 +1,23 @@
 import { eventChannel } from 'redux-saga';
 import { call, put, take, race } from 'redux-saga/effects';
 
-import { connectToPlayerRoutine, disconnectPlayerRoutine } from 'actions/player';
+import {
+  connectToPlayerRoutine,
+  disconnectPlayerRoutine,
+  sendPlayerEventRoutine,
+  playerEvent,
+} from 'actions/player';
 import { connectToSocket, joinChannel } from 'utils/socket';
 
-const emitAction = (emit, type) => (payload) => {
-  emit({ type, payload });
+const emitAction = (emit, eventName) => (payload) => {
+  emit({ type: playerEvent, eventName, payload });
 };
 
 function createSocketChannel(channel) {
   return eventChannel((emit) => {
-    channel.on('player_progress', emitAction(emit, 'PLAYER_PROGRESS'));
+    ['player_progress'].map(eventName => channel.on(eventName, emitAction(emit, eventName)));
 
-    return () => {
-      channel.leave();
-    };
+    return () => channel.leave();
   });
 }
 
@@ -22,6 +25,13 @@ function* externalListener(socketChannel) {
   while (true) {
     const action = yield take(socketChannel);
     yield put(action);
+  }
+}
+
+function* internalListener(channel) {
+  while (true) {
+    const { eventName, payload } = yield take(sendPlayerEventRoutine.REQUEST);
+    channel.push(eventName, payload);
   }
 }
 
@@ -40,7 +50,10 @@ export default function* playerChannelSaga() {
     const socketChannel = yield call(createSocketChannel, channel);
 
     const { cancel } = yield race({
-      task: call(externalListener, socketChannel),
+      task: [
+        call(externalListener, socketChannel),
+        call(internalListener, channel),
+      ],
       cancel: take(disconnectPlayerRoutine.REQUEST),
     });
 
