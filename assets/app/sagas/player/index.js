@@ -1,3 +1,3 @@
-// import playerChannel from './playerChannel';
+import playerChannel from './playerChannel';
 
-export default [];
+export default [playerChannel];
