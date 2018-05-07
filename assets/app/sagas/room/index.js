@@ -1,4 +1,4 @@
 import createRoom from './createRoom';
-import getRoomByUrl from './getRoomByUrl';
+import joinRoom from './joinRoom';
 
-export default [createRoom, getRoomByUrl];
+export default [createRoom, joinRoom];
