@@ -1,7 +1,7 @@
-import { eventChannel, takeLatest } from 'redux-saga';
-import { call, put, take } from 'redux-saga/effects';
+import { eventChannel } from 'redux-saga';
+import { call, put, take, race } from 'redux-saga/effects';
 
-import { connectToPlayerRoutine } from 'actions/player';
+import { connectToPlayerRoutine, disconnectPlayerRoutine } from 'actions/player';
 import { connectToSocket, joinChannel } from 'utils/socket';
 
 const emitAction = (emit, type) => (payload) => {
@@ -18,18 +18,7 @@ function createSocketChannel(channel) {
   });
 }
 
-function* connectToPlayerChannel({ payload: { playerId } }) {
-  let channel;
-  try {
-    const socket = yield call(connectToSocket, '/socket');
-    channel = yield call(joinChannel, socket, `player:${playerId}`);
-    yield put(connectToPlayerRoutine.success());
-  } catch (e) {
-    yield put(connectToPlayerRoutine.failure());
-  }
-
-  const socketChannel = yield call(createSocketChannel, channel);
-
+function* externalListener(socketChannel) {
   while (true) {
     const action = yield take(socketChannel);
     yield put(action);
@@ -37,5 +26,31 @@ function* connectToPlayerChannel({ payload: { playerId } }) {
 }
 
 export default function* playerChannelSaga() {
-  yield* takeLatest(connectToPlayerRoutine.REQUEST, connectToPlayerChannel);
+  while (true) {
+    const { payload: { playerId } } = yield take(connectToPlayerRoutine.REQUEST);
+    let channel;
+    try {
+      const socket = yield call(connectToSocket, '/socket');
+      channel = yield call(joinChannel, socket, `player:${playerId}`);
+      yield put(connectToPlayerRoutine.success());
+    } catch (e) {
+      yield put(connectToPlayerRoutine.failure(e));
+    }
+
+    const socketChannel = yield call(createSocketChannel, channel);
+
+    const { cancel } = yield race({
+      task: call(externalListener, socketChannel),
+      cancel: take(disconnectPlayerRoutine.REQUEST),
+    });
+
+    if (cancel) {
+      try {
+        socketChannel.close();
+        yield put(disconnectPlayerRoutine.success());
+      } catch (e) {
+        yield put(disconnectPlayerRoutine.failure(e));
+      }
+    }
+  }
 }
