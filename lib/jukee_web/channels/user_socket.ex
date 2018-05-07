@@ -2,7 +2,7 @@ defmodule JukeeWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", JukeeWeb.RoomChannel
+  channel "player:*", JukeeWeb.PlayerChannel
 
   ## Transports
   transport(:websocket, Phoenix.Transports.WebSocket, timeout: 45_000)
