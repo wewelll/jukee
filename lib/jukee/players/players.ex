@@ -101,4 +101,100 @@ defmodule Jukee.Players do
   def change_player(%Player{} = player) do
     Player.changeset(player, %{})
   end
+
+  alias Jukee.Players.PlayerTrack
+
+  @doc """
+  Returns the list of players_tracks.
+
+  ## Examples
+
+      iex> list_players_tracks()
+      [%PlayerTrack{}, ...]
+
+  """
+  def list_players_tracks do
+    Repo.all(PlayerTrack)
+  end
+
+  @doc """
+  Gets a single player_track.
+
+  Raises `Ecto.NoResultsError` if the Player track does not exist.
+
+  ## Examples
+
+      iex> get_player_track!(123)
+      %PlayerTrack{}
+
+      iex> get_player_track!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_player_track!(id), do: Repo.get!(PlayerTrack, id)
+
+  @doc """
+  Creates a player_track.
+
+  ## Examples
+
+      iex> create_player_track(%{field: value})
+      {:ok, %PlayerTrack{}}
+
+      iex> create_player_track(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_player_track(attrs \\ %{}) do
+    %PlayerTrack{}
+    |> PlayerTrack.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a player_track.
+
+  ## Examples
+
+      iex> update_player_track(player_track, %{field: new_value})
+      {:ok, %PlayerTrack{}}
+
+      iex> update_player_track(player_track, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_player_track(%PlayerTrack{} = player_track, attrs) do
+    player_track
+    |> PlayerTrack.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a PlayerTrack.
+
+  ## Examples
+
+      iex> delete_player_track(player_track)
+      {:ok, %PlayerTrack{}}
+
+      iex> delete_player_track(player_track)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_player_track(%PlayerTrack{} = player_track) do
+    Repo.delete(player_track)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking player_track changes.
+
+  ## Examples
+
+      iex> change_player_track(player_track)
+      %Ecto.Changeset{source: %PlayerTrack{}}
+
+  """
+  def change_player_track(%PlayerTrack{} = player_track) do
+    PlayerTrack.changeset(player_track, %{})
+  end
 end

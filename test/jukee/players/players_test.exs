@@ -68,4 +68,62 @@
 #       assert %Ecto.Changeset{} = Players.change_player(player)
 #     end
 #   end
+# 
+#   describe "players_tracks" do
+#     alias Jukee.Players.PlayerTrack
+
+#     @valid_attrs %{}
+#     @update_attrs %{}
+#     @invalid_attrs %{}
+
+#     def player_track_fixture(attrs \\ %{}) do
+#       {:ok, player_track} =
+#         attrs
+#         |> Enum.into(@valid_attrs)
+#         |> Players.create_player_track()
+
+#       player_track
+#     end
+
+#     test "list_players_tracks/0 returns all players_tracks" do
+#       player_track = player_track_fixture()
+#       assert Players.list_players_tracks() == [player_track]
+#     end
+
+#     test "get_player_track!/1 returns the player_track with given id" do
+#       player_track = player_track_fixture()
+#       assert Players.get_player_track!(player_track.id) == player_track
+#     end
+
+#     test "create_player_track/1 with valid data creates a player_track" do
+#       assert {:ok, %PlayerTrack{} = player_track} = Players.create_player_track(@valid_attrs)
+#     end
+
+#     test "create_player_track/1 with invalid data returns error changeset" do
+#       assert {:error, %Ecto.Changeset{}} = Players.create_player_track(@invalid_attrs)
+#     end
+
+#     test "update_player_track/2 with valid data updates the player_track" do
+#       player_track = player_track_fixture()
+#       assert {:ok, player_track} = Players.update_player_track(player_track, @update_attrs)
+#       assert %PlayerTrack{} = player_track
+#     end
+
+#     test "update_player_track/2 with invalid data returns error changeset" do
+#       player_track = player_track_fixture()
+#       assert {:error, %Ecto.Changeset{}} = Players.update_player_track(player_track, @invalid_attrs)
+#       assert player_track == Players.get_player_track!(player_track.id)
+#     end
+
+#     test "delete_player_track/1 deletes the player_track" do
+#       player_track = player_track_fixture()
+#       assert {:ok, %PlayerTrack{}} = Players.delete_player_track(player_track)
+#       assert_raise Ecto.NoResultsError, fn -> Players.get_player_track!(player_track.id) end
+#     end
+
+#     test "change_player_track/1 returns a player_track changeset" do
+#       player_track = player_track_fixture()
+#       assert %Ecto.Changeset{} = Players.change_player_track(player_track)
+#     end
+#   end
 # end

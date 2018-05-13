@@ -9,6 +9,7 @@ defmodule Jukee.Players.Player do
     field :track_start, :naive_datetime
     field :volume, :float
     belongs_to :room, Jukee.Rooms.Room
+    many_to_many :tracks, Jukee.Tracks.Track, join_through: Jukee.Players.PlayerTrack
 
     timestamps()
   end
