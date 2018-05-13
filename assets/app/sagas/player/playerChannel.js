@@ -6,6 +6,7 @@ import {
   disconnectPlayerRoutine,
   sendPlayerEventRoutine,
   playerEvent,
+  playerEvents,
 } from 'actions/player';
 import { connectToSocket, joinChannel } from 'utils/socket';
 
@@ -15,7 +16,8 @@ const emitAction = (emit, eventName) => (payload) => {
 
 function createSocketChannel(channel) {
   return eventChannel((emit) => {
-    ['player_progress'].map(eventName => channel.on(eventName, emitAction(emit, eventName)));
+    Object.values(playerEvents)
+      .map(eventName => channel.on(eventName, emitAction(emit, eventName)));
 
     return () => channel.leave();
   });
