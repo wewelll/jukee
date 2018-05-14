@@ -7,7 +7,7 @@ defmodule JukeeWeb.PlayerTrackView do
     Map.merge(
       render_one(player_track.track, TrackView, "track.json"),
       %{
-        player_track_index: player_track.index,
+        playerTrackIndex: player_track.index,
       })
   end
 end
