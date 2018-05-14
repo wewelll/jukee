@@ -10,6 +10,7 @@ defmodule Jukee.Players.Player do
     field :volume, :float
     belongs_to :room, Jukee.Rooms.Room
     many_to_many :tracks, Jukee.Tracks.Track, join_through: Jukee.Players.PlayerTrack
+    has_many :player_tracks, Jukee.Players.PlayerTrack
 
     timestamps()
   end

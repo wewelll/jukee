@@ -1,6 +1,7 @@
 defmodule JukeeWeb.PlayerView do
   use JukeeWeb, :view
   alias JukeeWeb.PlayerView
+  alias JukeeWeb.PlayerTrackView
   alias JukeeWeb.TrackView
 
   def render("index.json", %{players: players}) do
@@ -17,7 +18,7 @@ defmodule JukeeWeb.PlayerView do
       track_start: player.track_start,
       volume: player.volume,
       muted: player.muted,
-      tracks: render_many(player.tracks, TrackView, "track.json"),
+      tracks: render_many(player.player_tracks, PlayerTrackView, "player_track.json"),
     }
   end
 

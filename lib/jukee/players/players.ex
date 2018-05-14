@@ -38,7 +38,7 @@ defmodule Jukee.Players do
   def get_player!(id) do
     Player
     |> Repo.get!(id)
-    |> Repo.preload(:tracks)
+    |> Repo.preload([player_tracks: [:track]])
   end
 
   @doc """
