@@ -6,6 +6,7 @@ defmodule Jukee.Players do
   import Ecto.Query, warn: false
   alias Jukee.Repo
 
+  alias Jukee.Players.PlayerTrack
   alias Jukee.Players.Player
 
   @doc """
@@ -38,7 +39,10 @@ defmodule Jukee.Players do
   def get_player!(id) do
     Player
     |> Repo.get!(id)
-    |> Repo.preload([player_tracks: [:track]])
+    |> Repo.preload([
+        player_tracks: [:track],
+        current_player_track: [:track],
+      ])
   end
 
   @doc """

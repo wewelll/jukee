@@ -18,6 +18,8 @@ defmodule JukeeWeb.PlayerView do
       track_start: player.track_start,
       volume: player.volume,
       muted: player.muted,
+      track_progress: player.track_progress,
+      current_track: render_one(player.current_player_track, PlayerTrackView, "player_track.json"),
       tracks: render_many(player.player_tracks, PlayerTrackView, "player_track.json"),
     }
   end
@@ -28,6 +30,7 @@ defmodule JukeeWeb.PlayerView do
       track_start: player.track_start,
       volume: player.volume,
       muted: player.muted,
+      track_progress: player.track_progress,
     }
   end
 end
