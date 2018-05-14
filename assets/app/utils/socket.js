@@ -63,15 +63,17 @@ import { Socket } from 'phoenix';
 // export default socket;
 /* eslint-enable */
 
-export function connectToSocket() {
+export const connectToSocket = () => {
   const socket = new Socket('/socket', { params: { token: window.userToken } });
   socket.connect();
   return socket;
-}
+};
 
 // channel.join is async, this is probably an error
-export function joinChannel(socket, channelName) {
+export const joinChannel = (socket, channelName) => new Promise((resolve, reject) => {
   const channel = socket.channel(channelName, {});
-  channel.join();
-  return channel;
-}
+  channel.join()
+    .receive('ok', () => resolve(channel))
+    .receive('error', ({ reason }) => reject(reason))
+    .receive('timeout', () => reject('timeout')); // eslint-disable-line prefer-promise-reject-errors
+});

@@ -16,6 +16,13 @@ const emitAction = (emit, eventName) => (payload) => {
   emit({ type: playerEvent, eventName, payload });
 };
 
+const pushEvent = (channel, eventName, payload) => new Promise((resolve, reject) => {
+  channel.push(eventName, payload)
+    .receive('ok', msg => resolve(msg))
+    .receive('error', reasons => reject(reasons))
+    .receive('timeout', () => reject('timeout')); // eslint-disable-line prefer-promise-reject-errors
+});
+
 function createSocketChannel(channel) {
   return eventChannel((emit) => {
     Object.values(playerEvents)
@@ -35,7 +42,12 @@ function* externalListener(socketChannel) {
 function* internalListener(channel) {
   while (true) {
     const { eventName, payload } = yield take(sendPlayerEventRoutine.REQUEST);
-    channel.push(eventName, payload);
+    try {
+      const msg = yield call(pushEvent, channel, eventName, payload);
+      yield put(sendPlayerEventRoutine.success(msg));
+    } catch (error) {
+      yield put(sendPlayerEventRoutine.failure(error));
+    }
   }
 }
 
@@ -54,8 +66,8 @@ export default function* playerChannelSaga() {
       channel = yield call(joinChannel, socket, `player:${playerId}`);
       yield call(fetchPlayer, playerId); // initialize the player
       yield put(connectToPlayerRoutine.success());
-    } catch (e) {
-      yield put(connectToPlayerRoutine.failure(e));
+    } catch (error) {
+      yield put(connectToPlayerRoutine.failure(error));
     }
 
     // start to listen to the websockets events

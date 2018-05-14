@@ -25,7 +25,7 @@ defmodule JukeeWeb.PlayerChannel do
   # broadcast to everyone in the current topic (player:lobby).
   def handle_in("shout", payload, socket) do
     broadcast socket, "shout", payload
-    {:noreply, socket}
+    {:reply, {:ok, payload}, socket}
   end
 
   # Everyone can join a player channel
