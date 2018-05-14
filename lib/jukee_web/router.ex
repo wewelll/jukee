@@ -48,6 +48,7 @@ defmodule JukeeWeb.Router do
       resources("/users", UserController, except: [:create])
       resources("/rooms", RoomController)
       get("/room-by-url/:url", RoomController, :show_by_url)
+      resources("/players", PlayerController, only: [:show])
     end
   end
 

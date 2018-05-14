@@ -4,12 +4,14 @@ import { reducer as form } from 'redux-form';
 
 import session from 'reducers/session';
 import errors from 'reducers/errors';
+import player from 'reducers/player';
 import { types as sessionTypes } from 'actions/session';
 
 const appReducer = combineReducers({
   form,
   session,
   errors,
+  player,
   routing: routerReducer,
 });
 
