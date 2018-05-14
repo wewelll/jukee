@@ -1,9 +1,10 @@
 defmodule JukeeWeb.PlayerView do
   use JukeeWeb, :view
   alias JukeeWeb.PlayerView
+  alias JukeeWeb.TrackView
 
   def render("index.json", %{players: players}) do
-    %{data: render_many(players, PlayerView, "player.json")}
+    %{data: render_many(players, PlayerView, "player_list.json")}
   end
 
   def render("show.json", %{player: player}) do
@@ -15,6 +16,17 @@ defmodule JukeeWeb.PlayerView do
       playing: player.playing,
       track_start: player.track_start,
       volume: player.volume,
-      muted: player.muted}
+      muted: player.muted,
+      tracks: render_many(player.tracks, TrackView, "track.json"),
+    }
+  end
+
+  def render("player_list.json", %{player: player}) do
+    %{id: player.id,
+      playing: player.playing,
+      track_start: player.track_start,
+      volume: player.volume,
+      muted: player.muted,
+    }
   end
 end

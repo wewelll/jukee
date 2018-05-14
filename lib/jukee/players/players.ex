@@ -35,7 +35,11 @@ defmodule Jukee.Players do
       ** (Ecto.NoResultsError)
 
   """
-  def get_player!(id), do: Repo.get!(Player, id)
+  def get_player!(id) do
+    Player
+    |> Repo.get!(id)
+    |> Repo.preload(:tracks)
+  end
 
   @doc """
   Creates a player.
