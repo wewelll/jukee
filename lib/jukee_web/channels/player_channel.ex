@@ -1,5 +1,7 @@
 defmodule JukeeWeb.PlayerChannel do
   use JukeeWeb, :channel
+  alias Jukee.Players
+  alias JukeeWeb.PlayerView
 
   def join("player:" <> player_id, payload, socket) do
     if authorized?(player_id, payload) do
@@ -21,11 +23,21 @@ defmodule JukeeWeb.PlayerChannel do
     {:reply, {:ok, payload}, socket}
   end
 
-  # It is also common to receive messages from the client and
-  # broadcast to everyone in the current topic (player:lobby).
-  def handle_in("shout", payload, socket) do
-    broadcast socket, "shout", payload
-    {:reply, {:ok, payload}, socket}
+  def handle_in("play_track", %{"playerTrackIndex" => player_track_index}, socket) do
+    player_id = get_player_id(socket)
+    Players.play_track_on_player(player_id, player_track_index)
+    broadcast_player_update(player_id, socket)
+    {:reply, {:ok, %{ message: "new track playing" }}, socket}
+  end
+
+  defp get_player_id(socket) do
+    "player:" <> player_id = socket.topic
+    player_id
+  end
+
+  defp broadcast_player_update(player_id, socket) do
+    player = Players.get_player!(player_id)
+    broadcast socket, "player_update", PlayerView.render("player.json", %{player: player})
   end
 
   # Everyone can join a player channel

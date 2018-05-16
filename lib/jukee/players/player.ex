@@ -13,7 +13,7 @@ defmodule Jukee.Players.Player do
     belongs_to :room, Jukee.Rooms.Room
     many_to_many :tracks, Jukee.Tracks.Track, join_through: Jukee.Players.PlayerTrack
     has_many :player_tracks, Jukee.Players.PlayerTrack
-    belongs_to :current_player_track, Jukee.Players.PlayerTrack
+    belongs_to :current_player_track, Jukee.Players.PlayerTrack, on_replace: :nilify
 
     timestamps()
   end

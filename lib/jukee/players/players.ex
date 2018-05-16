@@ -110,7 +110,14 @@ defmodule Jukee.Players do
     Player.changeset(player, %{})
   end
 
-  alias Jukee.Players.PlayerTrack
+  def play_track_on_player(player_id, player_track_index) do
+    player_track = Repo.get_by!(PlayerTrack, [player_id: player_id, index: player_track_index])
+    player = get_player!(player_id)
+    player
+    |> Player.changeset(%{playing: true, progress: 0})
+    |> Ecto.Changeset.put_assoc(:current_player_track, player_track)
+    |> Repo.update()
+  end
 
   @doc """
   Returns the list of players_tracks.

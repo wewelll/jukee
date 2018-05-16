@@ -6,14 +6,14 @@ import {
   connectToPlayerRoutine,
   disconnectPlayerRoutine,
   sendPlayerEventRoutine,
-  playerEvent,
+  types as playerTypes,
   playerEvents,
   initializePlayer,
 } from 'actions/player';
 import { connectToSocket, joinChannel } from 'utils/socket';
 
 const emitAction = (emit, eventName) => (payload) => {
-  emit({ type: playerEvent, eventName, payload });
+  emit({ type: playerTypes.PLAYER_EVENT, eventName, payload });
 };
 
 const pushEvent = (channel, eventName, payload) => new Promise((resolve, reject) => {
@@ -41,7 +41,7 @@ function* externalListener(socketChannel) {
 
 function* internalListener(channel) {
   while (true) {
-    const { eventName, payload } = yield take(sendPlayerEventRoutine.REQUEST);
+    const { payload: { eventName, payload } } = yield take(sendPlayerEventRoutine.REQUEST);
     try {
       const msg = yield call(pushEvent, channel, eventName, payload);
       yield put(sendPlayerEventRoutine.success(msg));
