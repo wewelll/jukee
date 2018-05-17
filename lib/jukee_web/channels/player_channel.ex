@@ -13,7 +13,11 @@ defmodule JukeeWeb.PlayerChannel do
   end
 
   def handle_info(:player_progress, socket) do
-    broadcast socket, "player_progress", %{}
+    player_id = get_player_id(socket)
+    if (Players.is_playing(player_id)) do
+      Players.progress(player_id, 1000)
+      broadcast socket, "player_progress", %{ trackProgress: Players.get_track_progress(player_id) }
+    end
     {:noreply, socket}
   end
 

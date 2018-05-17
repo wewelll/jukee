@@ -113,7 +113,7 @@ defmodule Jukee.Players do
   def play_track_on_player(player_id, player_track_index) do
     player_track = Repo.get_by(PlayerTrack, [player_id: player_id, index: player_track_index])
     get_player!(player_id)
-    |> Player.changeset(%{playing: true, progress: 0})
+    |> Player.changeset(%{playing: true, track_progress: 0})
     |> Ecto.Changeset.put_assoc(:current_player_track, player_track)
     |> Repo.update()
   end
@@ -130,6 +130,20 @@ defmodule Jukee.Players do
     |> Repo.update()
   end
 
+  def is_playing(player_id) do
+    from(p in Player, where: p.id == ^player_id, select: p.playing)
+    |> Repo.one()
+  end
+
+  def get_track_progress(player_id) do
+    from(p in Player, where: p.id == ^player_id, select: p.track_progress)
+    |> Repo.one()
+  end
+
+  def progress(player_id, progress_duration \\ 1000) do
+    from(p in Player, where: p.id == ^player_id, update: [inc: [track_progress: ^progress_duration]])
+    |> Repo.update_all([])
+  end
 
   @doc """
   Returns the list of players_tracks.
