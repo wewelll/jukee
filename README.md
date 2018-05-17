@@ -14,7 +14,44 @@ yarn install
 cd ..
 ```
 
-## STARTING PROJECT
+## STARTING PROJECT WITH PIERRE
+
+Start at the root of the project.
+
+First install elixir (subset of erlang for web) and phoenix (framework for elixir)
+
+```
+brew update
+brew install elixir
+mix archive.install https://github.com/phoenixframework/archives/raw/master/phx_new.ez (installing phoenix)
+```
+
+Then compile the project
+```
+mix deps.get
+mix deps.compile
+```
+
+Add frontend dependencies
+```
+cd assets
+yarn install
+cd ..
+```
+
+Get docker compose and set up the db by running : 
+```
+docker-compose up
+```
+
+Finally, you can start the project
+```
+mix ecto.create
+mix ecto.migrate
+mix phx.server
+```
+
+## STARTING PROJECT WITH SAMUEL
 
 ### Start the database
 ```
