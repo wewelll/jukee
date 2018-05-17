@@ -15,6 +15,7 @@ import {
   MatchAuthenticated,
   RedirectAuthenticated,
   LandingPage,
+  PlayerBar,
 } from 'components';
 import routes from 'config/routes';
 
@@ -69,6 +70,7 @@ class Root extends Component {
             <Route component={NotFound} />
           </Switch>
         </Router>
+        <PlayerBar />
       </div>
     );
   }

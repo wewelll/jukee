@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactPlayer from 'react-player';
+import styled from 'styled-components';
 
 import { getPlayer } from 'selectors/player';
+
+const InvisiblePlayer = styled(ReactPlayer)`
+  display: none;
+`;
 
 class Player extends Component {
   render() {
@@ -11,7 +16,7 @@ class Player extends Component {
     if (!player) return null;
     const { currentTrack } = player;
     return (
-      currentTrack ? <ReactPlayer
+      currentTrack ? <InvisiblePlayer
         url={currentTrack.url}
         playing={player.playing}
         muted={player.muted}

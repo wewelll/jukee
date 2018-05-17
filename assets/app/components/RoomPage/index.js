@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
-import { Layout, Tracklist, Player } from 'components';
+import { Layout, Tracklist } from 'components';
 import { joinRoomRoutine, leaveRoomRoutine } from 'actions/room';
 
 export class RoomPage extends PureComponent {
@@ -19,7 +19,6 @@ export class RoomPage extends PureComponent {
     return (
       <DocumentTitle title="Room">
         <Layout>
-          <Player />
           <Tracklist />
         </Layout>
       </DocumentTitle>
