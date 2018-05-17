@@ -15,3 +15,18 @@ export const playerEvents = {
 };
 
 export const initializePlayer = player => ({ type: types.INITIALIZE_PLAYER, player });
+
+export const playTrack = playerTrackIndex => sendPlayerEventRoutine.request({
+  eventName: 'play_track',
+  payload: { playerTrackIndex },
+});
+
+export const pause = () => sendPlayerEventRoutine.request({
+  eventName: 'pause',
+  payload: {},
+});
+
+export const play = () => sendPlayerEventRoutine.request({
+  eventName: 'play',
+  payload: {},
+});

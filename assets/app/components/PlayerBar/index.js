@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Player from './player';
+import PlayerControls from './controls';
 
 const BottomPlayerBar = styled.div`
   position: fixed;
@@ -13,10 +14,12 @@ const BottomPlayerBar = styled.div`
 class PlayerBar extends Component {
   render() {
     return (
-      <BottomPlayerBar><Player /></BottomPlayerBar>
+      <BottomPlayerBar>
+        <Player />
+        <PlayerControls />
+      </BottomPlayerBar>
     );
   }
 }
-
 
 export default PlayerBar;

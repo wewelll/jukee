@@ -4,14 +4,11 @@ import { connect } from 'react-redux';
 import { Container, List, Image } from 'semantic-ui-react';
 
 import { getTracklist } from 'selectors/player';
-import { sendPlayerEventRoutine } from 'actions/player';
+import { sendPlayerEventRoutine, playTrack } from 'actions/player';
 
 class Tracklist extends Component {
   handleTrackClick = playerTrackIndex => () => {
-    this.props.sendPlayerEvent({
-      eventName: 'play_track',
-      payload: { playerTrackIndex },
-    });
+    this.props.playTrack(playerTrackIndex);
   }
 
   render() {
@@ -44,7 +41,7 @@ Tracklist.propTypes = {
     title: PropTypes.string.isRequired,
     channel_title: PropTypes.string.isRequired,
   })),
-  sendPlayerEvent: PropTypes.func.isRequired,
+  playTrack: PropTypes.func.isRequired,
 };
 
 Tracklist.defaultProps = {
@@ -57,6 +54,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   sendPlayerEvent: sendPlayerEventRoutine.request,
+  playTrack,
 };
 
 const PlayerWrapper = connect(mapStateToProps, mapDispatchToProps)(Tracklist);
