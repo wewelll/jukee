@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Player from './player';
 import PlayerControls from './controls';
+import CurrentTrack from './currentTrack';
 
 const BottomPlayerBarContainer1 = styled.div`
   position: fixed;
@@ -54,7 +55,9 @@ class PlayerBar extends Component {
         <Player />
         <BottomPlayerBarContainer2>
           <BottomPlayerBarContainer3>
-            <PlayerBarLeft />
+            <PlayerBarLeft>
+              <CurrentTrack />
+            </PlayerBarLeft>
             <PlayerBarMiddle>
               <PlayerControls />
             </PlayerBarMiddle>

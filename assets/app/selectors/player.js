@@ -6,3 +6,8 @@ export const getTracklist = createSelector(
   getPlayer,
   player => player.tracks,
 );
+
+export const getCurrentTrack = createSelector(
+  getPlayer,
+  player => player.currentTrack,
+);
