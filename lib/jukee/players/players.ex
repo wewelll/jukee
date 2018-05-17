@@ -111,7 +111,7 @@ defmodule Jukee.Players do
   end
 
   def play_track_on_player(player_id, player_track_index) do
-    player_track = Repo.get_by!(PlayerTrack, [player_id: player_id, index: player_track_index])
+    player_track = Repo.get_by(PlayerTrack, [player_id: player_id, index: player_track_index])
     player = get_player!(player_id)
     player
     |> Player.changeset(%{playing: true, progress: 0})
