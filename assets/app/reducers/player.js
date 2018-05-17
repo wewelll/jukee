@@ -7,6 +7,11 @@ const playerEventReducer = (state = initialState, action) => {
   switch (action.eventName) {
     case playerEvents.playerUpdate:
       return action.payload;
+    case playerEvents.playerProgress:
+      return {
+        ...state,
+        trackProgress: action.payload.trackProgress,
+      };
     default:
       return state;
   }
