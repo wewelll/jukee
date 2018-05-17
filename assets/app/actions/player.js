@@ -30,3 +30,8 @@ export const play = () => sendPlayerEventRoutine.request({
   eventName: 'play',
   payload: {},
 });
+
+export const seek = to => sendPlayerEventRoutine.request({
+  eventName: 'seek',
+  payload: { to },
+});

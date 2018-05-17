@@ -130,6 +130,12 @@ defmodule Jukee.Players do
     |> Repo.update()
   end
 
+  def seek(player_id, to) do
+    get_player!(player_id)
+    |> Player.changeset(%{track_progress: to})
+    |> Repo.update()
+  end
+
   def is_playing(player_id) do
     from(p in Player, where: p.id == ^player_id, select: p.playing)
     |> Repo.one()

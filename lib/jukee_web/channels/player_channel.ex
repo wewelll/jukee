@@ -48,6 +48,13 @@ defmodule JukeeWeb.PlayerChannel do
     {:reply, {:ok, %{ message: "paused" }}, socket}
   end
 
+  def handle_in("seek", %{"to" => to}, socket) do
+    player_id = get_player_id(socket)
+    Players.seek(player_id, to)
+    broadcast_player_update(socket)
+    {:reply, {:ok, %{ message: "paused" }}, socket}
+  end
+
   defp get_player_id(socket) do
     "player:" <> player_id = socket.topic
     player_id
