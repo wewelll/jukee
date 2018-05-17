@@ -26,21 +26,21 @@ defmodule JukeeWeb.PlayerChannel do
   def handle_in("play_track", %{"playerTrackIndex" => player_track_index}, socket) do
     player_id = get_player_id(socket)
     Players.play_track_on_player(player_id, player_track_index)
-    broadcast_player_update(player_id, socket)
+    broadcast_player_update(socket)
     {:reply, {:ok, %{ message: "new track playing" }}, socket}
   end
 
   def handle_in("play", _payload, socket) do
     player_id = get_player_id(socket)
     Players.play(player_id)
-    broadcast_player_update(player_id, socket)
+    broadcast_player_update(socket)
     {:reply, {:ok, %{ message: "playing" }}, socket}
   end
 
   def handle_in("pause", _payload, socket) do
     player_id = get_player_id(socket)
     Players.pause(player_id)
-    broadcast_player_update(player_id, socket)
+    broadcast_player_update(socket)
     {:reply, {:ok, %{ message: "paused" }}, socket}
   end
 
@@ -49,7 +49,8 @@ defmodule JukeeWeb.PlayerChannel do
     player_id
   end
 
-  defp broadcast_player_update(player_id, socket) do
+  defp broadcast_player_update(socket) do
+    player_id = get_player_id(socket)
     player = Players.get_player!(player_id)
     broadcast socket, "player_update", PlayerView.render("player.json", %{player: player})
   end
