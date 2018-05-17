@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ReactPlayer from 'react-player';
 import styled from 'styled-components';
 
 import { getPlayer } from 'selectors/player';
+import ControlledProgressReactPlayer from './controlledProgressReactPlayer';
 
-const InvisiblePlayer = styled(ReactPlayer)`
+const InvisiblePlayer = styled(ControlledProgressReactPlayer)`
   display: none;
 `;
 
@@ -21,6 +21,7 @@ class Player extends Component {
         playing={player.playing}
         muted={player.muted}
         volume={player.volume}
+        progress={player.trackProgress / 1000}
       /> : null
     );
   }
@@ -34,6 +35,7 @@ Player.propTypes = {
     playing: PropTypes.bool,
     muted: PropTypes.bool,
     volume: PropTypes.number,
+    trackProgress: PropTypes.number,
   }),
 };
 
@@ -42,6 +44,7 @@ Player.defaultProps = {
     playing: false,
     muted: false,
     volume: 1,
+    trackProgress: 0,
   },
 };
 

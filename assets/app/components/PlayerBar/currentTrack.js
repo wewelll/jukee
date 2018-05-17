@@ -23,7 +23,6 @@ class CurrentTrack extends Component {
 CurrentTrack.propTypes = {
   currentTrack: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    channelTitle: PropTypes.string.isRequired,
   }),
 };
 
