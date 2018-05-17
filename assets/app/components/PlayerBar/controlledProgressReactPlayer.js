@@ -35,5 +35,5 @@ ControlledProgressReactPlayer.propTypes = {
 
 ControlledProgressReactPlayer.defaultProps = {
   progress: null,
-  progressPrecision: 1,
+  progressPrecision: 2,
 };
