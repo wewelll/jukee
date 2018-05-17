@@ -12,9 +12,9 @@ class PlayerControls extends Component {
     return (
       <Container textAlign="center">
         {playing
-          ? <Button basic inverted color="violet" circular icon="pause" onClick={this.props.pause} />
-          : <Button basic inverted color="violet" circular icon="play" onClick={this.props.play} />
-        }
+            ? <Button basic inverted size="large" color="violet" circular icon="pause" onClick={this.props.pause} />
+            : <Button basic inverted size="large" color="violet" circular icon="play" onClick={this.props.play} />
+          }
       </Container>
     );
   }
