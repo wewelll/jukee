@@ -5,6 +5,7 @@ import { reducer as form } from 'redux-form';
 import session from 'reducers/session';
 import errors from 'reducers/errors';
 import player from 'reducers/player';
+import trackSearch from 'reducers/trackSearch';
 import { types as sessionTypes } from 'actions/session';
 
 const appReducer = combineReducers({
@@ -12,6 +13,7 @@ const appReducer = combineReducers({
   session,
   errors,
   player,
+  trackSearch,
   routing: routerReducer,
 });
 
