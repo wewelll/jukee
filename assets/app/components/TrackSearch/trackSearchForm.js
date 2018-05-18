@@ -8,13 +8,14 @@ import { trackSearchRoutine } from 'actions/trackSearch';
 
 class CreateRoomForm extends PureComponent {
   render() {
+    const { handleSubmit, submitting } = this.props;
     return (
       <Container textAlign="center">
-        <Form onSubmit={this.props.handleSubmit(trackSearchRoutine)}>
+        <Form onSubmit={handleSubmit(trackSearchRoutine)}>
           <Field
             name={TRACK_SEARCH_FORM.fields.query}
             component={FormInput}
-
+            loading={submitting}
             placeholder="search"
           />
         </Form>
@@ -25,6 +26,7 @@ class CreateRoomForm extends PureComponent {
 
 CreateRoomForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
 };
 
 export default reduxForm({
