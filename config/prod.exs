@@ -74,3 +74,7 @@ config :jukee, JukeeWeb.Guardian,
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
 # import_config "prod.secret.exs"
+
+
+config :tubex, Tubex,
+  api_key: System.get_env("YOUTUBE_API_KEY")

@@ -64,3 +64,6 @@ config :jukee, Jukee.Repo,
 # Configure Guardian secret key
 config :jukee, JukeeWeb.Guardian,
   secret_key: "OSMuzr1uWJthItzsyXItnRoM3MLNaZXUwkamEHTwxUBYPPDuQTLPJnMBMiMATRjF"
+
+config :tubex, Tubex,
+  api_key: "AIzaSyDUU98tmoZEvEwdkfKHLEsmmajaCPXoSag"
