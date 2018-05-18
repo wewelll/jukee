@@ -49,6 +49,10 @@ defmodule JukeeWeb.Router do
       resources("/rooms", RoomController)
       get("/room-by-url/:url", RoomController, :show_by_url)
       resources("/players", PlayerController, only: [:show])
+
+      scope "/search_tracks" do
+        get "/youtube", TrackSearchController, :youtube
+      end
     end
   end
 
