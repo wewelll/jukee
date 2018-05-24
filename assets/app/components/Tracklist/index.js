@@ -18,7 +18,7 @@ class Tracklist extends Component {
         <List selection verticalAlign="middle">
           {tracks.map(track => (
             <List.Item
-              active={track.playerTrackIndex === currentTrack.playerTrackIndex}
+              active={currentTrack && track.playerTrackIndex === currentTrack.playerTrackIndex}
               key={track.playerTrackIndex}
               onClick={this.handleTrackClick(track.playerTrackIndex)}
             >

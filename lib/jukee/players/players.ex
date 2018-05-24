@@ -192,6 +192,21 @@ defmodule Jukee.Players do
       {:error, %Ecto.Changeset{}}
 
   """
+
+  def add_track(player_id, track) do
+    max_track_index = Repo.one(
+      from(pt in PlayerTrack, where: pt.player_id == ^player_id, select: max(pt.index))
+    )
+    IO.puts max_track_index
+    %PlayerTrack{}
+    |> PlayerTrack.changeset(%{
+      player_id: player_id,
+      track_id: track.id,
+      index: max_track_index + 1
+    })
+    |> Repo.insert!()
+  end
+
   def create_player_track(attrs \\ %{}) do
     %PlayerTrack{}
     |> PlayerTrack.changeset(attrs)

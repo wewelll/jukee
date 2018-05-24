@@ -22,7 +22,34 @@ defmodule Jukee.TrackSearch do
   def get_track(%{"provider" => provider, "externalId" => external_id}) do
     case provider do
       "youtube" ->
-        "fake_track"
+        get_youtube_track(external_id)
     end
+  end
+
+  def get_youtube_track(external_id) do
+    case Tubex.Video.detail(external_id, [part: "snippet,contentDetails"]) do
+      response ->
+        item = List.first(Map.get(response, "items"))
+        map_youtube_track(item)
+      err -> err
+    end
+  end
+
+  def map_youtube_track(item) do
+    contentDetails = Map.get(item, "contentDetails")
+    snippet = Map.get(item, "snippet")
+    thumbnails = Map.get(snippet, "thumbnails")
+    %Track{
+      channel_id: Map.get(snippet, "channelId"),
+      channel_title: Map.get(snippet, "channelTitle"),
+      default_thumbnail: Map.get(Map.get(thumbnails, "default"), "url"),
+      description: "description",
+      duration: 20000,
+      external_id: Map.get(item, "id"),
+      large_thumbnail: Map.get(Map.get(thumbnails, "maxres"), "url"),
+      provider: "youtube",
+      title: Map.get(snippet, "title"),
+      url: "https://www.youtube.com/watch?v=" <> Map.get(item, "id")
+    }
   end
 end

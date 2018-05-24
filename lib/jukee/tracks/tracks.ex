@@ -49,10 +49,8 @@ defmodule Jukee.Tracks do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_track(attrs \\ %{}) do
-    %Track{}
-    |> Track.changeset(attrs)
-    |> Repo.insert()
+  def get_or_create_track(track) do
+    Repo.insert(track, on_conflict: :replace_all, conflict_target: [:provider, :external_id])
   end
 
   @doc """
