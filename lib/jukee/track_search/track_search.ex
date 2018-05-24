@@ -39,12 +39,14 @@ defmodule Jukee.TrackSearch do
     contentDetails = Map.get(item, "contentDetails")
     snippet = Map.get(item, "snippet")
     thumbnails = Map.get(snippet, "thumbnails")
+    {:ok, duration} = Timex.Duration.parse(Map.get(contentDetails, "duration"))
+
     %Track{
       channel_id: Map.get(snippet, "channelId"),
       channel_title: Map.get(snippet, "channelTitle"),
       default_thumbnail: Map.get(Map.get(thumbnails, "default"), "url"),
       description: "description",
-      duration: 20000,
+      duration: Timex.Duration.to_milliseconds(duration, truncate: true),
       external_id: Map.get(item, "id"),
       large_thumbnail: Map.get(Map.get(thumbnails, "maxres"), "url"),
       provider: "youtube",

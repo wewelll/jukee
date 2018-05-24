@@ -20,7 +20,7 @@ defmodule Jukee.Mixfile do
   def application do
     [
       mod: {Jukee.Application, []},
-      extra_applications: [:logger, :runtime_tools, :comeonin]
+      extra_applications: [:logger, :runtime_tools, :comeonin, :timex]
     ]
   end
 
@@ -46,6 +46,7 @@ defmodule Jukee.Mixfile do
       {:bcrypt_elixir, "~> 1.0"},
       {:guardian, "~> 1.0"},
       {:tubex, github: "samuelbriole/tubex"},
+      {:timex, "~> 3.3"}
     ]
   end
 
