@@ -52,7 +52,7 @@ defmodule JukeeWeb.PlayerChannel do
     player_id = get_player_id(socket)
     Players.seek(player_id, to)
     broadcast_player_update(socket)
-    {:reply, {:ok, %{ message: "paused" }}, socket}
+    {:reply, {:ok, %{ message: "seek success" }}, socket}
   end
 
   defp get_player_id(socket) do
