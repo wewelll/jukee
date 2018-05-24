@@ -137,8 +137,10 @@ defmodule Jukee.Players do
   end
 
   def next(player_id) do
-    next_track_index = get_next_track_index(player_id)
-    play_track_on_player(player_id, next_track_index)
+    case get_next_track_index(player_id) do
+      nil -> pause(player_id)
+      next_track_index -> play_track_on_player(player_id, next_track_index)
+    end
   end
 
   def is_playing(player_id) do
