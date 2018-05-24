@@ -136,6 +136,11 @@ defmodule Jukee.Players do
     |> Repo.update()
   end
 
+  def next(player_id) do
+    next_track_index = get_next_track_index(player_id)
+    play_track_on_player(player_id, next_track_index)
+  end
+
   def is_playing(player_id) do
     from(p in Player, where: p.id == ^player_id, select: p.playing)
     |> Repo.one()
@@ -144,6 +149,27 @@ defmodule Jukee.Players do
   def get_track_progress(player_id) do
     from(p in Player, where: p.id == ^player_id, select: p.track_progress)
     |> Repo.one()
+  end
+
+  def get_progress_action(player_id) do
+    { playing, track_progress, current_track_duration } = from(
+      p in Player,
+      where: p.id == ^player_id,
+      join: current_player_track in assoc(p, :current_player_track),
+      join: current_track in assoc(current_player_track, :track),
+      select: { p.playing, p.track_progress, current_track.duration }
+    )
+    |> Repo.one()
+
+    if playing do
+      if track_progress > current_track_duration do
+        :next
+      else
+        :progress
+      end
+    else
+      nil
+    end
   end
 
   def progress(player_id, progress_duration \\ 1000) do
@@ -196,6 +222,17 @@ defmodule Jukee.Players do
   defp get_highest_track_index(player_id) do
     from(pt in PlayerTrack, where: pt.player_id == ^player_id, select: max(pt.index))
     |> Repo.one() || 0
+  end
+
+  defp get_next_track_index(player_id) do
+    from(
+      pt in PlayerTrack,
+      join: player in assoc(pt, :player),
+      join: current_pt in assoc(player, :current_player_track),
+      where: pt.player_id == ^player_id and pt.index > current_pt.index,
+      select: min(pt.index)
+    )
+    |> Repo.one()
   end
 
   def add_track(player_id, track) do
