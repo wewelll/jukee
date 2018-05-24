@@ -2,6 +2,7 @@ defmodule JukeeWeb.PlayerChannel do
   use JukeeWeb, :channel
   alias Jukee.Players
   alias JukeeWeb.PlayerView
+  alias Jukee.TrackSearch
 
   def join("player:" <> player_id, payload, socket) do
     if authorized?(player_id, payload) do
@@ -53,6 +54,12 @@ defmodule JukeeWeb.PlayerChannel do
     Players.seek(player_id, to)
     broadcast_player_update(socket)
     {:reply, {:ok, %{ message: "seek success" }}, socket}
+  end
+
+  def handle_in("add_track", track_infos, socket) do
+    player_id = get_player_id(socket)
+    track = TrackSearch.get_track(track_infos)
+    {:reply, {:ok, %{ message: "track added" }}, socket}
   end
 
   defp get_player_id(socket) do

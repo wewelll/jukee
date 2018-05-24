@@ -1,6 +1,7 @@
 defmodule Jukee.TrackSearch do
   require Logger
   alias Jukee.TrackSearch
+  alias Jukee.Tracks.Track
   
   defstruct title: nil, provider: nil, external_id: nil, channel_title: nil, thumbnail: nil
   
@@ -15,6 +16,13 @@ defmodule Jukee.TrackSearch do
           thumbnail: Map.get(Map.get(result.thumbnails, "default"), "url")
         } end)
       err -> err
+    end
+  end
+
+  def get_track(%{"provider" => provider, "externalId" => external_id}) do
+    case provider do
+      "youtube" ->
+        "fake_track"
     end
   end
 end

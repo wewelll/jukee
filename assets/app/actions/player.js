@@ -35,3 +35,11 @@ export const seek = to => sendPlayerEventRoutine.request({
   eventName: 'seek',
   payload: { to },
 });
+
+export const addTrack = (provider, externalId) => sendPlayerEventRoutine.request({
+  eventName: 'add_track',
+  payload: {
+    provider,
+    externalId,
+  },
+});
