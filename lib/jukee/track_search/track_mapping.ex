@@ -11,7 +11,7 @@ defmodule Jukee.TrackMapping do
       channel_id: Map.get(snippet, "channelId"),
       channel_title: Map.get(snippet, "channelTitle"),
       default_thumbnail: Map.get(Map.get(thumbnails, "default"), "url"),
-      description: "description",
+      description: Map.get(snippet, "description"),
       duration: Timex.Duration.to_milliseconds(duration, truncate: true),
       external_id: Map.get(item, "id"),
       large_thumbnail: Map.get(get_youtube_largest_thumbnail(thumbnails), "url"),
