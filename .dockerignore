@@ -1,0 +1,7 @@
+_build
+deps
+assets/node_modules
+test
+.git
+.gitignore
+uploads/files
