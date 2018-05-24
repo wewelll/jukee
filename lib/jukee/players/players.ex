@@ -193,16 +193,17 @@ defmodule Jukee.Players do
 
   """
 
+  defp get_highest_track_index(player_id) do
+    from(pt in PlayerTrack, where: pt.player_id == ^player_id, select: max(pt.index))
+    |> Repo.one() || 0
+  end
+
   def add_track(player_id, track) do
-    max_track_index = Repo.one(
-      from(pt in PlayerTrack, where: pt.player_id == ^player_id, select: max(pt.index))
-    )
-    IO.puts max_track_index
     %PlayerTrack{}
     |> PlayerTrack.changeset(%{
       player_id: player_id,
       track_id: track.id,
-      index: (max_track_index || 0) + 1
+      index: get_highest_track_index(player_id) + 1
     })
     |> Repo.insert!()
   end
