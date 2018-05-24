@@ -202,7 +202,7 @@ defmodule Jukee.Players do
     |> PlayerTrack.changeset(%{
       player_id: player_id,
       track_id: track.id,
-      index: max_track_index + 1
+      index: (max_track_index || 0) + 1
     })
     |> Repo.insert!()
   end
