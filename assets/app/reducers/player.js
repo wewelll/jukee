@@ -1,7 +1,6 @@
-import { types as playerTypes, playerEvents } from 'actions/player';
+import { types as playerTypes, playerEvents, disconnectPlayerRoutine } from 'actions/player';
 
-const initialState = {
-};
+const initialState = {};
 
 const playerEventReducer = (state = initialState, action) => {
   switch (action.eventName) {
@@ -21,6 +20,8 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case playerTypes.INITIALIZE_PLAYER:
       return action.player;
+    case disconnectPlayerRoutine.SUCCESS:
+      return initialState;
     case playerTypes.PLAYER_EVENT:
       return playerEventReducer(state, action);
     default:
