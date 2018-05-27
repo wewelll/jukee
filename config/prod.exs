@@ -17,6 +17,7 @@ config :jukee, JukeeWeb.Endpoint,
   http: [port: 8000],
   url: [host: "ec2-52-47-180-55.eu-west-3.compute.amazonaws.com", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json",
+  server: true,
   code_reloader: false
 
 # Do not print debug messages in production
