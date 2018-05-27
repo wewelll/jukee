@@ -17,7 +17,7 @@ config :jukee, :environment, :prod
 # which you typically run after static files are built.
 config :jukee, JukeeWeb.Endpoint,
   http: [port: 8000],
-  url: [host: "ec2-52-47-180-55.eu-west-3.compute.amazonaws.com", port: 80],
+  url: [host: "jukee.app", port: 443, scheme: "https"],
   cache_static_manifest: "priv/static/cache_manifest.json",
   server: true,
   code_reloader: false
