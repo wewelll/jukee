@@ -9,7 +9,7 @@
 
     <title>Jukee</title>
 
-    <%= if Mix.env == :dev do %>
+    <%= if Application.get_env(:jukee, :environment) == :dev do %>
     <link rel="stylesheet" href="http://localhost:3000/css/style.css">
     <% else %>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/style.css") %>">
@@ -18,7 +18,7 @@
 
   <body>
     <div id="root"></div>
-    <%= if Mix.env == :dev do %>
+    <%= if Application.get_env(:jukee, :environment) == :dev do %>
       <script crossorigin src='http://localhost:3000/js/app.js'></script>
     <% else %>
       <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
