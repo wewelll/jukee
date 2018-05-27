@@ -1,5 +1,7 @@
 import { takeEvery } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
+import history from 'utils/history';
+import routes from 'config/routes';
 
 import api from 'utils/api';
 import { joinRoomRoutine } from 'actions/room';
@@ -16,6 +18,7 @@ function* calljoinRoom({ payload: url }) {
     yield put(joinRoomRoutine.success(room));
     yield put(connectToPlayerRoutine.request({ playerId: room.playerId }));
   } catch (error) {
+    yield call(history.push, routes.createRoom);
     yield put(joinRoomRoutine.failure());
   }
 }
