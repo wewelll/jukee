@@ -15,7 +15,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :jukee, JukeeWeb.Endpoint,
   load_from_system_env: true,
-  url: [scheme: "https", host: System.get_env("HOST"), port: System.get_env("PORT")],
+  url: [scheme: System.get_env("SCHEME"), host: System.get_env("HOST"), port: System.get_env("PORT")],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json",
   secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE")
@@ -60,7 +60,9 @@ config :jukee, Jukee.Repo,
 # If you are doing OTP releases, you need to instruct Phoenix
 # to start the server for all endpoints:
 #
-#     config :phoenix, :serve_endpoints, true
+
+config :phoenix, :serve_endpoints, true
+
 #
 # Alternatively, you can configure exactly which server to
 # start per endpoint:
