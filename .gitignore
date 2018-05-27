@@ -30,3 +30,4 @@ erl_crash.dump
 # Optional npm cache directory
 /assets/.npm
 /assets/npm-debug.log*
+.deliver/releases/
