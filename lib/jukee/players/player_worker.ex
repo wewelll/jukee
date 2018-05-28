@@ -17,7 +17,7 @@ defmodule Jukee.Players.PlayerWorker do
   end
 
   defp players_progress_update() do
-    Jukee.Players.players_progress_update()
+    Jukee.Players.players_progress_update(1000)
   end
 
   defp schedule_work() do

@@ -148,56 +148,53 @@ defmodule Jukee.Players do
     end
   end
 
-  def is_playing(player_id) do
-    from(p in Player, where: p.id == ^player_id, select: p.playing)
-    |> Repo.one()
-  end
-
-  def get_track_progress(player_id) do
-    from(p in Player, where: p.id == ^player_id, select: p.track_progress)
-    |> Repo.one()
-  end
-
-  def players_progress_update() do
-    results = from(
+  def players_progress_update(progress_duration \\ 1000) do
+    ## base query for players that should either progress or go to the next song
+    base_query = from(
       p in Player,
       join: current_player_track in assoc(p, :current_player_track),
       join: current_track in assoc(current_player_track, :track),
-      where: p.playing == true and not(is_nil(p.current_player_track_id)),
-      select: {
-        p.id,
-        p.track_progress,
-        current_track.duration
-      },
+      where: p.playing == true and not(is_nil(p.current_player_track_id))
+    )
+
+    ## base query for players that should progress
+    should_progress_base_query = from(
+      [p, current_player_track, current_track] in base_query,
+      where: p.track_progress <= current_track.duration
+    )
+
+    ## get the player ids that should progress
+    progressing_player_ids = from(
+      p in should_progress_base_query,
+      select: {p.id, p.track_progress}
     )
     |> Repo.all()
 
-    Enum.each results, fn result ->
-      if result !== nil do
-        { player_id, track_progress, current_track_duration } = result
-        case get_player_progress_action(track_progress, current_track_duration) do
-          :progress ->
-            progress(player_id, 1000)
-            broadcast(player_id, "player_progress", %{ trackProgress: get_track_progress(player_id) })
-          :next ->
-            next(player_id)
-            broadcast_player_update(player_id)
-        end
-      end
-    end
-  end
-
-  def get_player_progress_action(track_progress, current_track_duration) do
-    if track_progress > current_track_duration do
-      :next
-    else
-      :progress
-    end
-  end
-
-  def progress(player_id, progress_duration \\ 1000) do
-    from(p in Player, where: p.id == ^player_id, update: [inc: [track_progress: ^progress_duration]])
+    ## update all the players that should progress
+    from(
+      p in should_progress_base_query,
+      update: [inc: [track_progress: ^progress_duration]]
+    )
     |> Repo.update_all([])
+
+    ## broadcast the player progress on every player channel
+    Enum.each progressing_player_ids, fn {player_id, track_progress} ->
+      broadcast(player_id, "player_progress", %{ trackProgress: track_progress + progress_duration })
+    end
+
+    ## get all the tracks that should go next
+    should_next_player_ids = from(
+      [p, current_player_track, current_track] in base_query,
+      where: p.track_progress > current_track.duration,
+      select: p.id
+    )
+    |> Repo.all()
+
+    ## next each track that should go next
+    Enum.each should_next_player_ids, fn player_id ->
+      next(player_id)
+      broadcast_player_update(player_id)
+    end
   end
 
   def broadcast_player_update(player_id) do
