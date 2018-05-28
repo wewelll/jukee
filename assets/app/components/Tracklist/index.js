@@ -23,10 +23,10 @@ class Tracklist extends Component {
               key={track.playerTrackIndex}
               onClick={this.handleTrackClick(track.playerTrackIndex)}
             >
-              <Image avatar src={track.default_thumbnail} />
+              <Image avatar src={track.defaultThumbnail} />
               <List.Content>
                 <List.Header>{track.title}</List.Header>
-                <List.Description>{track.channel_title}</List.Description>
+                <List.Description>{track.channelTitle}</List.Description>
               </List.Content>
             </List.Item>
           ))}
@@ -39,9 +39,9 @@ class Tracklist extends Component {
 Tracklist.propTypes = {
   tracks: PropTypes.arrayOf(PropTypes.shape({
     playerTrackIndex: PropTypes.number.isRequired,
-    default_thumbnail: PropTypes.string,
+    defaultThumbnail: PropTypes.string,
     title: PropTypes.string.isRequired,
-    channel_title: PropTypes.string.isRequired,
+    channelTitle: PropTypes.string.isRequired,
   })),
   currentTrack: PropTypes.shape({
     playerTrackIndex: PropTypes.number,

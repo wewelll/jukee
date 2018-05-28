@@ -14,13 +14,13 @@ defmodule JukeeWeb.TrackView do
     %{id: track.id,
       url: track.url,
       provider: track.provider,
-      external_id: track.external_id,
+      externalId: track.external_id,
       title: track.title,
       description: track.description,
       duration: track.duration,
-      channel_title: track.channel_title,
-      channel_id: track.channel_id,
-      default_thumbnail: track.default_thumbnail,
-      large_thumbnail: track.large_thumbnail}
+      channelTitle: track.channel_title,
+      channelId: track.channel_id,
+      defaultThumbnail: track.default_thumbnail,
+      largeThumbnail: track.large_thumbnail}
   end
 end

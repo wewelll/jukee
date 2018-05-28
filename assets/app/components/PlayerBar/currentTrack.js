@@ -2,8 +2,23 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Image } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 import { getCurrentTrack } from 'selectors/player';
+
+const CurrentTrackContainer = styled.div`
+  display: flex;
+`;
+
+const ImageContainer = styled.div`
+  flex-basis: 100px;
+`;
+
+const TrackTitleContainer = styled.div`
+  flex: 1;
+  margin-left: 10px;
+  color: #fff;
+`;
 
 class CurrentTrack extends Component {
   render() {
@@ -11,9 +26,15 @@ class CurrentTrack extends Component {
     return (
       currentTrack
         ? (
-          <div>
-            <Image src={currentTrack.large_thumbnail} size="tiny" />
-          </div>
+          <CurrentTrackContainer>
+            <ImageContainer>
+              <Image src={currentTrack.largeThumbnail} size="tiny" />
+            </ImageContainer>
+            <TrackTitleContainer>
+              {currentTrack.title} <br />
+              {currentTrack.channelTitle}
+            </TrackTitleContainer>
+          </CurrentTrackContainer>
         )
         : null
     );
@@ -23,6 +44,7 @@ class CurrentTrack extends Component {
 CurrentTrack.propTypes = {
   currentTrack: PropTypes.shape({
     title: PropTypes.string.isRequired,
+    channelTitle: PropTypes.string.isRequired,
   }),
 };
 
