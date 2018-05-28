@@ -8,6 +8,7 @@ defmodule Jukee.Players do
 
   alias Jukee.Players.PlayerTrack
   alias Jukee.Players.Player
+  alias JukeeWeb.PlayerView
 
   @doc """
   Returns the list of players.
@@ -116,24 +117,28 @@ defmodule Jukee.Players do
     |> Player.changeset(%{playing: true, track_progress: track_progress})
     |> Ecto.Changeset.put_assoc(:current_player_track, player_track)
     |> Repo.update()
+    broadcast_player_update(player_id)
   end
 
   def play(player_id) do
     get_player!(player_id)
     |> Player.changeset(%{playing: true})
     |> Repo.update()
+    broadcast_player_update(player_id)
   end
 
   def pause(player_id) do
     get_player!(player_id)
     |> Player.changeset(%{playing: false})
     |> Repo.update()
+    broadcast_player_update(player_id)
   end
 
   def seek(player_id, to) do
     get_player!(player_id)
     |> Player.changeset(%{track_progress: to})
     |> Repo.update()
+    broadcast_player_update(player_id)
   end
 
   def next(player_id) do
@@ -153,35 +158,55 @@ defmodule Jukee.Players do
     |> Repo.one()
   end
 
-  def get_progress_action(player_id) do
-    result = from(
+  def players_progress_update() do
+    results = from(
       p in Player,
-      where: p.id == ^player_id,
       join: current_player_track in assoc(p, :current_player_track),
       join: current_track in assoc(current_player_track, :track),
-      select: { p.playing, p.track_progress, current_track.duration }
+      where: p.playing == true and not(is_nil(p.current_player_track_id)),
+      select: {
+        p.id,
+        p.track_progress,
+        current_track.duration
+      },
     )
-    |> Repo.one()
+    |> Repo.all()
 
-    if result !== nil do
-      { playing, track_progress, current_track_duration } = result
-      if playing do
-        if track_progress > current_track_duration do
-          :next
-        else
-          :progress
+    Enum.each results, fn result ->
+      if result !== nil do
+        { player_id, track_progress, current_track_duration } = result
+        case get_player_progress_action(track_progress, current_track_duration) do
+          :progress ->
+            progress(player_id, 1000)
+            broadcast(player_id, "player_progress", %{ trackProgress: get_track_progress(player_id) })
+          :next ->
+            next(player_id)
+            broadcast_player_update(player_id)
         end
-      else
-        :nothing
       end
+    end
+  end
+
+  def get_player_progress_action(track_progress, current_track_duration) do
+    if track_progress > current_track_duration do
+      :next
     else
-      :nothing
+      :progress
     end
   end
 
   def progress(player_id, progress_duration \\ 1000) do
     from(p in Player, where: p.id == ^player_id, update: [inc: [track_progress: ^progress_duration]])
     |> Repo.update_all([])
+  end
+
+  def broadcast_player_update(player_id) do
+    player = get_player!(player_id)
+    broadcast player_id, "player_update", PlayerView.render("player.json", %{player: player})
+  end
+
+  def broadcast(player_id, event, payload) do
+    JukeeWeb.Endpoint.broadcast "player:" <> to_string(player_id), event, payload
   end
 
   @doc """
@@ -250,6 +275,7 @@ defmodule Jukee.Players do
       index: get_highest_track_index(player_id) + 1
     })
     |> Repo.insert!()
+    broadcast_player_update(player_id)
   end
 
   def create_player_track(attrs \\ %{}) do
