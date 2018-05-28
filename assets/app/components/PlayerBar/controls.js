@@ -4,18 +4,35 @@ import { connect } from 'react-redux';
 import { Container, Button } from 'semantic-ui-react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import _throttle from 'lodash/throttle';
 
 import { getPlayer } from 'selectors/player';
 import { pause, play, seek } from 'actions/player';
 
 class PlayerControls extends Component {
-  handleSeek = _throttle((value) => {
+  state = {
+    seeking: false,
+    seekingValue: null,
+  }
+
+  handleStartSeeking = () => {
+    this.setState({ seeking: true });
+  }
+
+  handleSliderChange = (value) => {
+    this.setState({ seekingValue: value });
+  }
+
+  handleSeek = (value) => {
     this.props.seek(value);
-  }, 300)
+    setTimeout(() => {
+      this.setState({ seeking: false });
+    }, 100);
+  }
 
   render() {
     const { playing, currentTrack, trackProgress } = this.props.player;
+    const { seeking, seekingValue } = this.state;
+    const sliderValue = seeking ? seekingValue : Math.max(trackProgress, 0);
     return (
       <Container textAlign="center">
         {playing
@@ -25,10 +42,12 @@ class PlayerControls extends Component {
         {currentTrack &&
           <div>
             <Slider
-              value={trackProgress}
+              value={sliderValue}
               min={0}
               max={currentTrack.duration}
-              onChange={this.handleSeek}
+              onBeforeChange={this.handleStartSeeking}
+              onChange={this.handleSliderChange}
+              onAfterChange={this.handleSeek}
             />
           </div>
         }
