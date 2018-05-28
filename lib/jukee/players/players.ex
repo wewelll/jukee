@@ -38,10 +38,11 @@ defmodule Jukee.Players do
 
   """
   def get_player!(id) do
+    player_tracks_query = from pt in PlayerTrack, order_by: pt.index
     Player
     |> Repo.get!(id)
     |> Repo.preload([
-        player_tracks: [:track],
+        player_tracks: {player_tracks_query, [:track]},
         current_player_track: [:track],
       ])
   end
