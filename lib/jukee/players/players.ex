@@ -193,7 +193,6 @@ defmodule Jukee.Players do
     ## next each track that should go next
     Enum.each should_next_player_ids, fn player_id ->
       next(player_id)
-      broadcast_player_update(player_id)
     end
   end
 
