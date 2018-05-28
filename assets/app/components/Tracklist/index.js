@@ -15,6 +15,7 @@ class Tracklist extends Component {
     const { tracks, currentTrack } = this.props;
     return (
       <Container>
+        <h3>Tracklist</h3>
         <List selection verticalAlign="middle">
           {tracks.map(track => (
             <List.Item

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
 import { Layout, Tracklist, TrackSearch } from 'components';
 import { joinRoomRoutine, leaveRoomRoutine } from 'actions/room';
+import { Grid } from 'semantic-ui-react';
 
 export class RoomPage extends PureComponent {
   componentDidMount() {
@@ -19,8 +20,16 @@ export class RoomPage extends PureComponent {
     return (
       <DocumentTitle title="Room">
         <Layout>
-          <Tracklist />
-          <TrackSearch />
+          <Grid>
+            <Grid.Row columns={2}>
+              <Grid.Column>
+                <Tracklist />
+              </Grid.Column>
+              <Grid.Column>
+                <TrackSearch />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
         </Layout>
       </DocumentTitle>
     );

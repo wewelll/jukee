@@ -8,7 +8,7 @@ class TrackSearch extends Component {
   render() {
     return (
       <Container>
-        <h3>Search tracks</h3>
+        <h3>Jukee search</h3>
         <TrackSearchForm />
         <TrackSearchResultsList />
       </Container>
