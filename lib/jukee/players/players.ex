@@ -154,7 +154,7 @@ defmodule Jukee.Players do
   end
 
   def get_progress_action(player_id) do
-    { playing, track_progress, current_track_duration } = from(
+    result = from(
       p in Player,
       where: p.id == ^player_id,
       join: current_player_track in assoc(p, :current_player_track),
@@ -163,14 +163,19 @@ defmodule Jukee.Players do
     )
     |> Repo.one()
 
-    if playing do
-      if track_progress > current_track_duration do
-        :next
+    if result !== nil do
+      { playing, track_progress, current_track_duration } = result
+      if playing do
+        if track_progress > current_track_duration do
+          :next
+        else
+          :progress
+        end
       else
-        :progress
+        :nothing
       end
     else
-      nil
+      :nothing
     end
   end
 

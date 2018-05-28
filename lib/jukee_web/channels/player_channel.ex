@@ -23,7 +23,7 @@ defmodule JukeeWeb.PlayerChannel do
       :next ->
         Players.next(player_id)
         broadcast_player_update(socket)
-      nil -> nil
+      :nothing -> nil
     end
     {:noreply, socket}
   end
