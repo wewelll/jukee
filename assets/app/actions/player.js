@@ -31,6 +31,11 @@ export const play = () => sendPlayerEventRoutine.request({
   payload: {},
 });
 
+export const togglePause = () => sendPlayerEventRoutine.request({
+  eventName: 'toggle_pause',
+  payload: {},
+});
+
 export const seek = to => sendPlayerEventRoutine.request({
   eventName: 'seek',
   payload: { to },

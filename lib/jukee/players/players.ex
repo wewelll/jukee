@@ -135,6 +135,14 @@ defmodule Jukee.Players do
     broadcast_player_update(player_id)
   end
 
+  def toggle_pause(player_id) do
+    player = get_player!(player_id)
+    player
+    |> Player.changeset(%{playing: !player.playing})
+    |> Repo.update()
+    broadcast_player_update(player_id)
+  end
+
   def seek(player_id, to) do
     get_player!(player_id)
     |> Player.changeset(%{track_progress: to})

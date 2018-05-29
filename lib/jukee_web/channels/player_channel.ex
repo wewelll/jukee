@@ -37,6 +37,12 @@ defmodule JukeeWeb.PlayerChannel do
     {:reply, {:ok, %{ message: "paused" }}, socket}
   end
 
+  def handle_in("toggle_pause", _payload, socket) do
+    player_id = get_player_id(socket)
+    Players.toggle_pause(player_id)
+    {:reply, {:ok, %{ message: "toggled" }}, socket}
+  end
+
   def handle_in("seek", %{"to" => to}, socket) do
     player_id = get_player_id(socket)
     Players.seek(player_id, to)

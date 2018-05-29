@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, branch, renderNothing } from 'recompose';
 import styled from 'styled-components';
 
 import { playerExists } from 'selectors/player';
+import { togglePause } from 'actions/player';
 import Player from './player';
 import PlayerControls from './controls';
 import CurrentTrack from './currentTrack';
@@ -53,6 +55,23 @@ const PlayerBarRight = styled.div`
 `;
 
 class PlayerBar extends Component {
+  componentWillMount() {
+    document.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown = (event) => {
+    // check that space has been pressed, not on an input or textarea
+    const tag = event.target.tagName.toLowerCase();
+    if (event.keyCode === 32 && tag !== 'input' && tag !== 'textarea') {
+      event.preventDefault();
+      this.props.togglePause();
+    }
+  }
+
   render() {
     return (
       <BottomPlayerBarContainer1>
@@ -73,11 +92,19 @@ class PlayerBar extends Component {
   }
 }
 
+PlayerBar.propTypes = {
+  togglePause: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = state => ({
   shouldHide: !playerExists(state),
 });
 
+const mapDispatchToProps = {
+  togglePause,
+};
+
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   branch(({ shouldHide }) => shouldHide, renderNothing),
 )(PlayerBar);
