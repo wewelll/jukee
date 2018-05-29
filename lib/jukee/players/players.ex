@@ -121,6 +121,13 @@ defmodule Jukee.Players do
     broadcast_player_update(player_id)
   end
 
+  def delete_track_on_player(player_id, player_track_index) do
+    player_track = Repo.get_by(PlayerTrack, [player_id: player_id, index: player_track_index])
+    player_track
+    |> Repo.delete()
+    broadcast_player_update(player_id)
+  end
+
   def play(player_id) do
     get_player!(player_id)
     |> Player.changeset(%{playing: true})

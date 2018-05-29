@@ -48,3 +48,8 @@ export const addTrack = (provider, externalId) => sendPlayerEventRoutine.request
     externalId,
   },
 });
+
+export const deleteTrack = playerTrackIndex => sendPlayerEventRoutine.request({
+  eventName: 'delete_track',
+  payload: { playerTrackIndex },
+});

@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Container, List, Image } from 'semantic-ui-react';
+import { Container, List, Image, Button } from 'semantic-ui-react';
 
 import { getTracklist, getCurrentTrack } from 'selectors/player';
-import { playTrack } from 'actions/player';
+import { playTrack, deleteTrack } from 'actions/player';
 
 class Tracklist extends Component {
   handleTrackClick = playerTrackIndex => () => {
     this.props.playTrack(playerTrackIndex);
+  }
+
+  handleTrackDelete = playerTrackIndex => () => {
+    this.props.deleteTrack(playerTrackIndex);
   }
 
   render() {
@@ -21,12 +25,25 @@ class Tracklist extends Component {
             <List.Item
               active={currentTrack && track.playerTrackIndex === currentTrack.playerTrackIndex}
               key={track.playerTrackIndex}
-              onClick={this.handleTrackClick(track.playerTrackIndex)}
             >
               <Image avatar src={track.defaultThumbnail} />
               <List.Content>
                 <List.Header>{track.title}</List.Header>
                 <List.Description>{track.channelTitle}</List.Description>
+                <Button
+                  onClick={this.handleTrackClick(track.playerTrackIndex)}
+                  circular
+                  size="mini"
+                  color="teal"
+                  icon="play"
+                />
+                <Button
+                  onClick={this.handleTrackDelete(track.playerTrackIndex)}
+                  circular
+                  size="mini"
+                  color="red"
+                  icon="trash"
+                />
               </List.Content>
             </List.Item>
           ))}
@@ -47,6 +64,7 @@ Tracklist.propTypes = {
     playerTrackIndex: PropTypes.number,
   }),
   playTrack: PropTypes.func.isRequired,
+  deleteTrack: PropTypes.func.isRequired,
 };
 
 Tracklist.defaultProps = {
@@ -61,6 +79,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   playTrack,
+  deleteTrack,
 };
 
 const PlayerWrapper = connect(mapStateToProps, mapDispatchToProps)(Tracklist);

@@ -57,6 +57,12 @@ defmodule JukeeWeb.PlayerChannel do
     {:reply, {:ok, %{ message: "track added" }}, socket}
   end
 
+  def handle_in("delete_track", %{"playerTrackIndex" => player_track_index}, socket) do
+    player_id = get_player_id(socket)
+    Players.delete_track_on_player(player_id, player_track_index)
+    {:reply, {:ok, %{ message: "track deleted" }}, socket}
+  end
+
   defp get_player_id(socket) do
     "player:" <> player_id = socket.topic
     player_id
