@@ -4,9 +4,20 @@ import { connect } from 'react-redux';
 import { Container, Button } from 'semantic-ui-react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import styled from 'styled-components';
 
 import { getPlayer } from 'selectors/player';
 import { pause, play, seek } from 'actions/player';
+import { formatDuration } from 'utils/dataFormatting';
+
+const SliderContainer = styled.div`
+  display: flex;
+`;
+
+const SliderTime = styled.div`
+  flex-basis: 80px;
+  color: #fff;
+`;
 
 class PlayerControls extends Component {
   state = {
@@ -40,7 +51,10 @@ class PlayerControls extends Component {
             : <Button basic inverted size="large" color="violet" circular icon="play" onClick={this.props.play} />
           }
         {currentTrack &&
-          <div>
+          <SliderContainer>
+            <SliderTime>
+              {formatDuration(sliderValue)}
+            </SliderTime>
             <Slider
               value={sliderValue}
               min={0}
@@ -49,7 +63,10 @@ class PlayerControls extends Component {
               onChange={this.handleSliderChange}
               onAfterChange={this.handleSeek}
             />
-          </div>
+            <SliderTime>
+              {formatDuration(currentTrack.duration)}
+            </SliderTime>
+          </SliderContainer>
         }
       </Container>
     );
