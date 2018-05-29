@@ -16,6 +16,10 @@ const config = {
   },
   soundcloud: {
     preload: true,
+    single_active: false,
+    show_artwork: false,
+    show_playcount: false,
+    show_user: false,
   },
 };
 
