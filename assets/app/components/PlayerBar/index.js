@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { compose, branch, renderNothing } from 'recompose';
 import styled from 'styled-components';
+
+import { playerExists } from 'selectors/player';
 import Player from './player';
 import PlayerControls from './controls';
 import CurrentTrack from './currentTrack';
@@ -69,4 +73,11 @@ class PlayerBar extends Component {
   }
 }
 
-export default PlayerBar;
+const mapStateToProps = state => ({
+  shouldHide: !playerExists(state),
+});
+
+export default compose(
+  connect(mapStateToProps),
+  branch(({ shouldHide }) => shouldHide, renderNothing),
+)(PlayerBar);
