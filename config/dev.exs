@@ -67,5 +67,4 @@ config :jukee, Jukee.Repo,
 config :jukee, JukeeWeb.Guardian,
   secret_key: "OSMuzr1uWJthItzsyXItnRoM3MLNaZXUwkamEHTwxUBYPPDuQTLPJnMBMiMATRjF"
 
-config :tubex, Tubex,
-  api_key: "AIzaSyDUU98tmoZEvEwdkfKHLEsmmajaCPXoSag"
+import_config "dev.secret.exs"
