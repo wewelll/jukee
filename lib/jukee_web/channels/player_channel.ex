@@ -49,6 +49,18 @@ defmodule JukeeWeb.PlayerChannel do
     {:reply, {:ok, %{ message: "seek success" }}, socket}
   end
 
+  def handle_in("next", _payload, socket) do
+    player_id = get_player_id(socket)
+    Players.next(player_id)
+    {:reply, {:ok, %{ message: "next success" }}, socket}
+  end
+
+  def handle_in("previous", _payload, socket) do
+    player_id = get_player_id(socket)
+    Players.previous(player_id)
+    {:reply, {:ok, %{ message: "previous success" }}, socket}
+  end
+
   def handle_in("add_track", track_infos, socket) do
     player_id = get_player_id(socket)
     track = TrackSearch.get_track(track_infos)

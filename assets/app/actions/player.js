@@ -42,6 +42,16 @@ export const seek = to => sendPlayerEventRoutine.request({
   payload: { to },
 });
 
+export const next = () => sendPlayerEventRoutine.request({
+  eventName: 'next',
+  payload: {},
+});
+
+export const previous = () => sendPlayerEventRoutine.request({
+  eventName: 'previous',
+  payload: {},
+});
+
 export const addTrack = (provider, externalId) => sendPlayerEventRoutine.request({
   eventName: 'add_track',
   payload: {

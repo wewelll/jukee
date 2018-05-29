@@ -164,6 +164,13 @@ defmodule Jukee.Players do
     end
   end
 
+  def previous(player_id) do
+    case get_previous_track_index(player_id) do
+      nil -> seek(player_id, 0)
+      next_track_index -> play_track_on_player(player_id, next_track_index)
+    end
+  end
+
   def players_progress_update(progress_duration \\ 1000) do
     ## base query for players that should either progress or go to the next song
     base_query = from(
@@ -272,6 +279,28 @@ defmodule Jukee.Players do
       select: min(pt.index)
     )
     |> Repo.one()
+  end
+
+  defp get_previous_track_index(player_id) do
+    {
+      previous_track_index,
+      current_track_progress,
+      current_track_index,
+    } = from(
+      pt in PlayerTrack,
+      join: player in assoc(pt, :player),
+      join: current_pt in assoc(player, :current_player_track),
+      where: pt.player_id == ^player_id and pt.index < current_pt.index,
+      group_by: [player.id, current_pt.id],
+      select: {max(pt.index), player.track_progress, current_pt.index}
+    )
+    |> Repo.one()
+
+    if current_track_progress > 3000 do
+      current_track_index
+    else
+      previous_track_index
+    end
   end
 
   def add_track(player_id, track) do

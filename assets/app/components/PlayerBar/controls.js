@@ -7,7 +7,7 @@ import 'rc-slider/assets/index.css';
 import styled from 'styled-components';
 
 import { getPlayer } from 'selectors/player';
-import { pause, play, seek } from 'actions/player';
+import { pause, play, seek, next, previous } from 'actions/player';
 import { formatDuration } from 'utils/dataFormatting';
 
 const SliderContainer = styled.div`
@@ -46,10 +46,12 @@ class PlayerControls extends Component {
     const sliderValue = seeking ? seekingValue : Math.max(trackProgress, 0);
     return (
       <Container textAlign="center">
+        <Button basic inverted size="small" color="violet" circular icon="step backward" onClick={this.props.previous} />
         {playing
             ? <Button basic inverted size="large" color="violet" circular icon="pause" onClick={this.props.pause} />
             : <Button basic inverted size="large" color="violet" circular icon="play" onClick={this.props.play} />
           }
+        <Button basic inverted size="small" color="violet" circular icon="step forward" onClick={this.props.next} />
         {currentTrack &&
           <SliderContainer>
             <SliderTime>
@@ -86,6 +88,8 @@ PlayerControls.propTypes = {
   pause: PropTypes.func.isRequired,
   play: PropTypes.func.isRequired,
   seek: PropTypes.func.isRequired,
+  next: PropTypes.func.isRequired,
+  previous: PropTypes.func.isRequired,
 };
 
 PlayerControls.defaultProps = {
@@ -105,6 +109,8 @@ const mapDispatchToProps = {
   pause,
   play,
   seek,
+  next,
+  previous,
 };
 
 const PlayerControlsWrapper = connect(mapStateToProps, mapDispatchToProps)(PlayerControls);
