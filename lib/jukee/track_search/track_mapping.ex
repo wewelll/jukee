@@ -26,4 +26,19 @@ defmodule Jukee.TrackMapping do
       Map.get(thumbnails, "standard", Map.get(thumbnails, "high"))
     )
   end
+
+  def map_soundcloud_track(track) do
+    %Track{
+      channel_id: to_string(track.user_id),
+      channel_title: Map.get(track.user, "username"),
+      default_thumbnail: track.artwork_url,
+      description: track.description,
+      duration: track.duration,
+      external_id: to_string(track.id),
+      large_thumbnail: Regex.replace(~r/large/, track.artwork_url, "t500x500"),
+      provider: "soundcloud",
+      title: track.title,
+      url: track.permalink_url
+    }
+  end
 end

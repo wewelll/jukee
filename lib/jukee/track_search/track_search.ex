@@ -25,7 +25,7 @@ defmodule Jukee.TrackSearch do
     Enum.map(results, fn result -> %Jukee.TrackSearch{
       title: result.title,
       provider: "soundcloud",
-      external_id: result.id,
+      external_id: to_string(result.id),
       channel_title: Map.get(result.user, "username"),
       thumbnail: result.artwork_url,
     } end)
@@ -35,6 +35,8 @@ defmodule Jukee.TrackSearch do
     case provider do
       "youtube" ->
         get_youtube_track(external_id)
+      "soundcloud" ->
+        get_soundcloud_track(external_id)
     end
   end
 
@@ -45,5 +47,13 @@ defmodule Jukee.TrackSearch do
         TrackMapping.map_youtube_track(item)
       err -> err
     end
+  end
+
+  def get_soundcloud_track(external_id) do
+    client_id = Application.fetch_env!(:soundcloud_ex, :client_id)
+    client = SoundcloudEx.Client.new(%{ client_id: client_id })
+    IO.puts external_id
+    track = SoundcloudEx.Track.get(external_id, client)
+    TrackMapping.map_soundcloud_track(track)
   end
 end
