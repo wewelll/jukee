@@ -10,7 +10,6 @@ export const types = {
 };
 
 export const playerEvents = {
-  playerProgress: 'player_progress',
   playerUpdate: 'player_update',
 };
 

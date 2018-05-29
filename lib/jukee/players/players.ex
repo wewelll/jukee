@@ -132,29 +132,29 @@ defmodule Jukee.Players do
     get_player!(player_id)
     |> Player.changeset(%{playing: true})
     |> Repo.update()
-    broadcast_player_update(player_id)
+    broadcast(player_id, "player_update", %{ playing: true })
   end
 
   def pause(player_id) do
     get_player!(player_id)
     |> Player.changeset(%{playing: false})
     |> Repo.update()
-    broadcast_player_update(player_id)
+    broadcast(player_id, "player_update", %{ playing: false })
   end
 
   def toggle_pause(player_id) do
     player = get_player!(player_id)
-    player
-    |> Player.changeset(%{playing: !player.playing})
-    |> Repo.update()
-    broadcast_player_update(player_id)
+    case player.playing do
+      true -> pause(player_id)
+      false -> play(player_id)
+    end
   end
 
   def seek(player_id, to) do
     get_player!(player_id)
     |> Player.changeset(%{track_progress: to})
     |> Repo.update()
-    broadcast_player_update(player_id)
+    broadcast(player_id, "player_update", %{ trackProgress: to })
   end
 
   def next(player_id) do
@@ -195,7 +195,7 @@ defmodule Jukee.Players do
 
     ## broadcast the player progress on every player channel
     Enum.each progressing_player_ids, fn {player_id, track_progress} ->
-      broadcast(player_id, "player_progress", %{ trackProgress: track_progress + progress_duration })
+      broadcast(player_id, "player_update", %{ trackProgress: track_progress + progress_duration })
     end
 
     ## get all the tracks that should go next
