@@ -46,6 +46,7 @@ defmodule Jukee.Mixfile do
       {:bcrypt_elixir, "~> 1.0"},
       {:guardian, "~> 1.0"},
       {:tubex, github: "samuelbriole/tubex"},
+      {:soundcloud_ex, github: "samuelbriole/soundcloud_ex"},
       {:timex, "~> 3.3"},
       {:edeliver, "~> 1.5"},
       {:distillery, "~> 1.5"}
