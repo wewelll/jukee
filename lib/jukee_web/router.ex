@@ -52,6 +52,7 @@ defmodule JukeeWeb.Router do
 
       scope "/search_tracks" do
         get "/youtube", TrackSearchController, :youtube
+        get "/soundcloud", TrackSearchController, :soundcloud
       end
     end
   end

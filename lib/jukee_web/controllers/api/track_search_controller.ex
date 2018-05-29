@@ -9,4 +9,9 @@ defmodule JukeeWeb.TrackSearchController do
     results = TrackSearch.search_youtube_by_query(query)
     render(conn, "index.json", track_searchs: results)
   end
+
+  def soundcloud(conn, %{"query" => query}) do
+    results = TrackSearch.search_soundcloud_by_query(query)
+    render(conn, "index.json", track_searchs: results)
+  end
 end

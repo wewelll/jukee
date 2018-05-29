@@ -18,6 +18,19 @@ defmodule Jukee.TrackSearch do
     end
   end
 
+  def search_soundcloud_by_query(query) do
+    client_id = Application.fetch_env!(:soundcloud_ex, :client_id)
+    client = SoundcloudEx.Client.new(%{ client_id: client_id })
+    results = SoundcloudEx.Track.search(%{q: query, limit: 20}, client)
+    Enum.map(results, fn result -> %Jukee.TrackSearch{
+      title: result.title,
+      provider: "soundcloud",
+      external_id: result.id,
+      channel_title: Map.get(result.user, "username"),
+      thumbnail: result.artwork_url,
+    } end)
+  end
+
   def get_track(%{"provider" => provider, "externalId" => external_id}) do
     case provider do
       "youtube" ->
