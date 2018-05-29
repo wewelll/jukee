@@ -6,12 +6,12 @@ defmodule JukeeWeb.TrackSearchController do
   action_fallback JukeeWeb.FallbackController
 
   def youtube(conn, %{"query" => query}) do
-    results = TrackSearch.search_youtube_by_query(query)
-    render(conn, "index.json", track_searchs: results)
+    track_search_set = %{track_searchs: TrackSearch.search_youtube_by_query(query), provider: "youtube"}
+    render(conn, "index.json", track_search_set: track_search_set)
   end
 
   def soundcloud(conn, %{"query" => query}) do
-    results = TrackSearch.search_soundcloud_by_query(query)
-    render(conn, "index.json", track_searchs: results)
+    track_search_set = %{track_searchs: TrackSearch.search_soundcloud_by_query(query), provider: "soundcloud"}
+    render(conn, "index.json", track_search_set: track_search_set)
   end
 end

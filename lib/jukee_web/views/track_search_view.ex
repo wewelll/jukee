@@ -2,8 +2,11 @@ defmodule JukeeWeb.TrackSearchView do
   use JukeeWeb, :view
   alias JukeeWeb.TrackSearchView
 
-  def render("index.json", %{track_searchs: track_searchs}) do
-    %{data: render_many(track_searchs, TrackSearchView, "track_search.json")}
+  def render("index.json", %{track_search_set: track_search_set}) do
+    %{
+      data: render_many(track_search_set.track_searchs, TrackSearchView, "track_search.json"),
+      provider: track_search_set.provider
+    }
   end
 
   def render("show.json", %{track_search: track_search}) do
