@@ -10,6 +10,15 @@ const InvisiblePlayer = styled(ControlledProgressReactPlayer)`
   display: none;
 `;
 
+const config = {
+  youtube: {
+    preload: true,
+  },
+  soundcloud: {
+    preload: true,
+  },
+};
+
 class Player extends Component {
   render() {
     const { player } = this.props;
@@ -22,6 +31,7 @@ class Player extends Component {
         muted={player.muted}
         volume={player.volume}
         progress={player.trackProgress / 1000}
+        config={config}
       /> : null
     );
   }
