@@ -7,7 +7,6 @@ export const sendPlayerEventRoutine = createRoutine('SEND_PLAYER_EVENT');
 export const types = {
   PLAYER_EVENT: 'PLAYER_EVENT',
   INITIALIZE_PLAYER: 'INITIALIZE_PLAYER',
-  SET_TRACK_PROGRESS: 'SET_TRACK_PROGRESS',
 };
 
 export const playerEvents = {
@@ -15,7 +14,6 @@ export const playerEvents = {
 };
 
 export const initializePlayer = player => ({ type: types.INITIALIZE_PLAYER, player });
-export const setTrackProgress = progress => ({ type: types.SET_TRACK_PROGRESS, progress });
 
 export const playTrack = playerTrackIndex => sendPlayerEventRoutine.request({
   eventName: 'play_track',

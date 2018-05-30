@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import { getPlayer } from 'selectors/player';
-import { setTrackProgress } from 'actions/player';
 import ControlledProgressReactPlayer from './controlledProgressReactPlayer';
 
 const InvisiblePlayer = styled(ControlledProgressReactPlayer)`
@@ -25,10 +24,6 @@ const config = {
 };
 
 class Player extends Component {
-  handleProgress = ({ playedSeconds }) => {
-    this.props.setTrackProgress(Math.floor(playedSeconds * 1000));
-  }
-
   render() {
     const { player } = this.props;
     if (!player) return null;
@@ -40,7 +35,6 @@ class Player extends Component {
         muted={player.muted}
         volume={player.volume}
         progress={player.trackProgress / 1000}
-        onProgress={this.handleProgress}
         config={config}
       /> : null
     );
@@ -51,14 +45,12 @@ Player.propTypes = {
   player: PropTypes.shape({
     currentTrack: PropTypes.shape({
       url: PropTypes.string.isRequired,
-      duration: PropTypes.number.isRequired,
     }),
     playing: PropTypes.bool,
     muted: PropTypes.bool,
     volume: PropTypes.number,
     trackProgress: PropTypes.number,
   }),
-  setTrackProgress: PropTypes.func.isRequired,
 };
 
 Player.defaultProps = {
@@ -74,10 +66,6 @@ const mapStateToProps = state => ({
   player: getPlayer(state),
 });
 
-const mapDispatchToProps = {
-  setTrackProgress,
-};
-
-const PlayerWrapper = connect(mapStateToProps, mapDispatchToProps)(Player);
+const PlayerWrapper = connect(mapStateToProps)(Player);
 
 export default PlayerWrapper;

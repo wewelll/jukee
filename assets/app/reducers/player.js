@@ -20,11 +20,6 @@ export default function(state = initialState, action) {
       return action.player;
     case disconnectPlayerRoutine.SUCCESS:
       return initialState;
-    case playerTypes.SET_TRACK_PROGRESS:
-      return {
-        ...state,
-        trackProgress: action.progress,
-      };
     case playerTypes.PLAYER_EVENT:
       return playerEventReducer(state, action);
     default:

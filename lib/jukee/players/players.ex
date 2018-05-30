@@ -200,6 +200,11 @@ defmodule Jukee.Players do
     )
     |> Repo.update_all([])
 
+    ## broadcast the player progress on every player channel
+    Enum.each progressing_player_ids, fn {player_id, track_progress} ->
+      broadcast(player_id, "player_update", %{ trackProgress: track_progress + progress_duration })
+    end
+
     ## get all the tracks that should go next
     should_next_player_ids = from(
       [p, current_player_track, current_track] in base_query,
