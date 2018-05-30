@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Form } from 'semantic-ui-react';
-import { FormInput } from 'components';
+import Button from '@material-ui/core/Button';
+import { TextField } from 'redux-form-material-ui';
 import { signup } from 'actions/session';
-import routes from 'config/routes';
 
 class SignupForm extends Component {
   submit = (data, dispatch) => dispatch(signup(data));
@@ -14,7 +12,7 @@ class SignupForm extends Component {
     const { handleSubmit, submittingForm, invalid } = this.props;
 
     return (
-      <Form
+      <form
         onSubmit={handleSubmit(this.submit)}
         noValidate
       >
@@ -22,37 +20,42 @@ class SignupForm extends Component {
         <Field
           name="name"
           type="text"
-          component={FormInput}
+          component={TextField}
           placeholder="Full name"
         />
+        <br />
         <Field
           name="username"
           type="text"
-          component={FormInput}
+          component={TextField}
           placeholder="Username"
         />
+        <br />
         <Field
           name="email"
           type="email"
-          component={FormInput}
+          component={TextField}
           placeholder="Email"
         />
+        <br />
         <Field
           name="password"
           type="password"
-          component={FormInput}
+          component={TextField}
           placeholder="Password"
         />
-        <Form.Button
+        <br />
+        <br />
+        <Button
+          variant="raised"
           type="submit"
           disabled={invalid || submittingForm}
+          color="primary"
+          fullWidth
         >
           {submittingForm ? 'Submitting...' : 'Sign up'}
-        </Form.Button>
-        <Link to={routes.login} className="btn">
-          Login to your account
-        </Link>
-      </Form>
+        </Button>
+      </form>
     );
   }
 }
