@@ -4,23 +4,11 @@ import ReactPlayer from 'react-player';
 
 export default class ControlledProgressReactPlayer extends Component {
   componentWillReceiveProps(nextProps) {
-    this.seekIfNeeded(nextProps.progress, nextProps.progressPrecision);
-  }
-
-  seekIfNeeded(progress, progressPrecision) {
     if (
-      progress &&
-      Math.abs(this.player.getCurrentTime() - progress) > progressPrecision
+      nextProps.progress &&
+      Math.abs(this.player.getCurrentTime() - nextProps.progress) > nextProps.progressPrecision
     ) {
-      this.player.seekTo(progress);
-    }
-  }
-
-  handleOnReady = () => {
-    const { progress, progressPrecision, onReady } = this.props;
-    this.seekIfNeeded(progress, progressPrecision);
-    if (onReady) {
-      onReady();
+      this.player.seekTo(nextProps.progress);
     }
   }
 
@@ -34,7 +22,6 @@ export default class ControlledProgressReactPlayer extends Component {
       <ReactPlayer
         ref={this.ref}
         {...props}
-        onReady={this.handleOnReady}
       />
     );
   }
@@ -43,12 +30,10 @@ export default class ControlledProgressReactPlayer extends Component {
 ControlledProgressReactPlayer.propTypes = {
   progress: PropTypes.number,
   progressPrecision: PropTypes.number,
-  onReady: PropTypes.func,
 };
 
 
 ControlledProgressReactPlayer.defaultProps = {
   progress: null,
-  progressPrecision: 0.5,
-  onReady: undefined,
+  progressPrecision: 2,
 };
