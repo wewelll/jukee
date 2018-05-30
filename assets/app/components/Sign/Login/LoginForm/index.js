@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Form } from 'semantic-ui-react';
-import { FormInput } from 'components';
+import Button from '@material-ui/core/Button';
+import { TextField } from 'redux-form-material-ui';
 import { login } from 'actions/session';
-import routes from 'config/routes';
 
 class LoginForm extends Component {
   submit = (data, dispatch) => dispatch(login(data));
@@ -14,7 +12,7 @@ class LoginForm extends Component {
     const { handleSubmit, submittingForm, invalid } = this.props;
 
     return (
-      <Form
+      <form
         onSubmit={handleSubmit(this.submit)}
         noValidate
       >
@@ -22,25 +20,28 @@ class LoginForm extends Component {
         <Field
           name="email"
           type="email"
-          component={FormInput}
+          component={TextField}
           placeholder="Email"
         />
+        <br />
         <Field
           name="password"
           type="password"
-          component={FormInput}
+          component={TextField}
           placeholder="Password"
         />
-        <Form.Button
+        <br />
+        <br />
+        <Button
+          variant="raised"
           type="submit"
+          color="primary"
+          fullWidth
           disabled={invalid || submittingForm}
         >
           {submittingForm ? 'Logging in...' : 'Login'}
-        </Form.Button>
-        <Link to={routes.signup} className="btn">
-          Create a new account
-        </Link>
-      </Form>
+        </Button>
+      </form>
     );
   }
 }

@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Container, List, Image, Button } from 'semantic-ui-react';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Avatar from '@material-ui/core/Avatar';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import IconButton from '@material-ui/core/IconButton';
+import Icon from '@material-ui/core/Icon';
+import styled from 'styled-components';
 
 import { getTracklist, getCurrentTrack } from 'selectors/player';
 import { playTrack, deleteTrack } from 'actions/player';
+
+const TracklistItem = styled(({ active, ...props }) => <ListItem {...props} />)`
+  background-color: ${({ active }) => (active ? 'lightgrey' : '')};
+`;
 
 class Tracklist extends Component {
   handleTrackClick = playerTrackIndex => () => {
@@ -18,37 +29,32 @@ class Tracklist extends Component {
   render() {
     const { tracks, currentTrack } = this.props;
     return (
-      <Container>
+      <div>
         <h3>Tracklist</h3>
-        <List selection verticalAlign="middle">
+        <List dense>
           {tracks.map(track => (
-            <List.Item
+            <TracklistItem
               active={currentTrack && track.playerTrackIndex === currentTrack.playerTrackIndex}
               key={track.playerTrackIndex}
+              color="primary"
             >
-              <Image avatar src={track.defaultThumbnail} />
-              <List.Content>
-                <List.Header>{track.title}</List.Header>
-                <List.Description>{track.channelTitle}</List.Description>
-                <Button
-                  onClick={this.handleTrackClick(track.playerTrackIndex)}
-                  circular
-                  size="mini"
-                  color="teal"
-                  icon="play"
-                />
-                <Button
-                  onClick={this.handleTrackDelete(track.playerTrackIndex)}
-                  circular
-                  size="mini"
-                  color="red"
-                  icon="trash"
-                />
-              </List.Content>
-            </List.Item>
+              <Avatar src={track.defaultThumbnail} />
+              <ListItemText
+                primary={track.title}
+                secondary={track.channelTitle}
+              />
+              <ListItemSecondaryAction>
+                <IconButton aria-label="play" color="primary" onClick={this.handleTrackClick(track.playerTrackIndex)}>
+                  <Icon>play_arrow</Icon>
+                </IconButton>
+                <IconButton aria-label="delete" color="secondary" onClick={this.handleTrackDelete(track.playerTrackIndex)}>
+                  <Icon>delete</Icon>
+                </IconButton>
+              </ListItemSecondaryAction>
+            </TracklistItem>
           ))}
         </List>
-      </Container>
+      </div>
     );
   }
 }

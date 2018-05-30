@@ -1,33 +1,17 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import { Form, Container } from 'semantic-ui-react';
-import { FormInput } from 'components';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import { TextField } from 'redux-form-material-ui';
+import Button from '@material-ui/core/Button';
+import StarIcon from '@material-ui/icons/Star';
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import { createRoomRoutine } from 'actions/room';
 import { CREATE_ROOM_FORM } from 'utils/constants/forms';
 import history from 'utils/history';
 import routes, { createRoute } from 'config/routes';
 
 class CreateRoomForm extends PureComponent {
-  getLabelProps() {
-    const { roomExists } = this.props;
-    return {
-      content: 'jukee.co/room/',
-      color: roomExists ? 'pink' : 'teal',
-    };
-  }
-
-  getSubmitButtonProps() {
-    const { roomExists, submitting } = this.props;
-    return {
-      loading: submitting,
-      labelPosition: 'right',
-      content: roomExists ? 'Join the room' : 'Create a room',
-      icon: roomExists ? 'right arrow' : 'star',
-      color: roomExists ? 'pink' : 'teal',
-    };
-  }
-
   handleSubmit = (event) => {
     const { handleSubmit, urlValue } = this.props;
     handleSubmit(createRoomRoutine)(event)
@@ -39,19 +23,36 @@ class CreateRoomForm extends PureComponent {
   }
 
   render() {
+    const { roomExists } = this.props;
     return (
-      <Container textAlign="center">
-        <Form onSubmit={this.handleSubmit}>
+      <div>
+        <form onSubmit={this.handleSubmit}>
           <Field
             name={CREATE_ROOM_FORM.fields.url}
-            label={this.getLabelProps()}
-            component={FormInput}
-            action={this.getSubmitButtonProps()}
-
+            component={TextField}
             placeholder="room name"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  jukee.co/room/
+                </InputAdornment>
+              ),
+            }}
+            autoComplete="off"
           />
-        </Form>
-      </Container>
+          <br />
+          <br />
+          <Button
+            type="submit"
+            variant="raised"
+            color={roomExists ? 'secondary' : 'primary'}
+            fullWidth
+          >
+            {roomExists ? 'Join the room ' : 'Create a room '}
+            {roomExists ? <MusicNoteIcon /> : <StarIcon />}
+          </Button>
+        </form>
+      </div>
     );
   }
 }
@@ -60,7 +61,6 @@ CreateRoomForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   urlValue: PropTypes.string,
   roomExists: PropTypes.bool.isRequired,
-  submitting: PropTypes.bool.isRequired,
 };
 
 CreateRoomForm.defaultProps = {

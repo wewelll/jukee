@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Image } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import { getCurrentTrack } from 'selectors/player';
+
+const TrackImage = styled.img`
+  max-height: 80px;
+  max-width: 100px;
+`;
 
 const CurrentTrackContainer = styled.div`
   display: flex;
@@ -28,7 +32,7 @@ class CurrentTrack extends Component {
         ? (
           <CurrentTrackContainer>
             <ImageContainer>
-              <Image src={currentTrack.largeThumbnail} size="tiny" />
+              <TrackImage src={currentTrack.largeThumbnail} size="tiny" alt="current_track" />
             </ImageContainer>
             <TrackTitleContainer>
               {currentTrack.title} <br />

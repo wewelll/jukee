@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
-import { Grid, Segment } from 'semantic-ui-react';
+import Grid from '@material-ui/core/Grid';
 import { Layout, LoginForm } from 'components';
 
 
@@ -13,15 +13,8 @@ export class Login extends Component {
     return (
       <DocumentTitle title="Login">
         <Layout>
-          <Grid
-            textAlign="center"
-            verticalAlign="middle"
-          >
-            <Grid.Column style={{ maxWidth: 450 }}>
-              <Segment stacked>
-                <LoginForm submittingForm={submittingForm} />
-              </Segment>
-            </Grid.Column>
+          <Grid container justify="center">
+            <LoginForm submittingForm={submittingForm} />
           </Grid>
         </Layout>
       </DocumentTitle>

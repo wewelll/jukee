@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Container, Button } from 'semantic-ui-react';
+import IconButton from '@material-ui/core/IconButton';
+import Icon from '@material-ui/core/Icon';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import styled from 'styled-components';
@@ -9,6 +10,10 @@ import styled from 'styled-components';
 import { getPlayer } from 'selectors/player';
 import { pause, play, seek, next, previous } from 'actions/player';
 import { formatDuration } from 'utils/dataFormatting';
+
+const ControlsContainer = styled.div`
+  text-align: center;
+`;
 
 const SliderContainer = styled.div`
   display: flex;
@@ -45,13 +50,20 @@ class PlayerControls extends Component {
     const { seeking, seekingValue } = this.state;
     const sliderValue = seeking ? seekingValue : Math.max(trackProgress, 0);
     return (
-      <Container textAlign="center">
-        <Button basic inverted size="small" color="violet" circular icon="step backward" onClick={this.props.previous} />
-        {playing
-            ? <Button basic inverted size="large" color="violet" circular icon="pause" onClick={this.props.pause} />
-            : <Button basic inverted size="large" color="violet" circular icon="play" onClick={this.props.play} />
-          }
-        <Button basic inverted size="small" color="violet" circular icon="step forward" onClick={this.props.next} />
+      <ControlsContainer>
+        <IconButton aria-label="skip next" color="primary" onClick={this.props.previous}>
+          <Icon>skip_previous</Icon>
+        </IconButton>
+        <IconButton
+          aria-label="play pause"
+          color="primary"
+          onClick={playing ? this.props.pause : this.props.play}
+        >
+          <Icon style={{ fontSize: 45 }}>{playing ? 'pause' : 'play_arrow'}</Icon>
+        </IconButton>
+        <IconButton aria-label="skip next" color="primary" onClick={this.props.next}>
+          <Icon>skip_next</Icon>
+        </IconButton>
         {currentTrack &&
           <SliderContainer>
             <SliderTime>
@@ -70,7 +82,7 @@ class PlayerControls extends Component {
             </SliderTime>
           </SliderContainer>
         }
-      </Container>
+      </ControlsContainer>
     );
   }
 }

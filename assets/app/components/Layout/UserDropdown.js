@@ -1,36 +1,49 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon, Dropdown } from 'semantic-ui-react';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 export class UserDropdown extends Component {
-  getOptions() {
-    const { username, logout } = this.props;
-    return [{
-      key: 'user',
-      text: <span>Signed in as <strong>{username}</strong></span>,
-      disabled: true,
-    }, {
-      key: 'logout',
-      text: 'Logout',
-      onClick: logout,
-    }];
+  state = { anchorEl: null };
+
+  handleLogout = () => {
+    this.handleCloseMenu();
+    this.props.logout();
   }
 
-  renderDropdown() {
-    const { username } = this.props;
-    return (
-      <span>
-        <Icon name="user" /> {username}
-      </span>
-    );
-  }
+  handleOpenMenu = (event) => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleCloseMenu = () => {
+    this.setState({ anchorEl: null });
+  };
 
   render() {
+    const { anchorEl } = this.state;
+    const { username } = this.props;
     return (
-      <Dropdown
-        trigger={this.renderDropdown()}
-        options={this.getOptions()}
-      />
+      <div>
+        <IconButton
+          aria-owns={anchorEl ? 'menu-appbar' : null}
+          aria-haspopup="true"
+          onClick={this.handleOpenMenu}
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorEl}
+          open={!!anchorEl}
+          onClose={this.handleCloseMenu}
+        >
+          <MenuItem disabled>Signed in as {username}</MenuItem>
+          <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+        </Menu>
+      </div>
     );
   }
 }
