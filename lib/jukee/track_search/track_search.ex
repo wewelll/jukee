@@ -31,7 +31,7 @@ defmodule Jukee.TrackSearch do
     } end)
   end
 
-  def get_track(%{"provider" => provider, "externalId" => external_id}) do
+  def get_track(provider, external_id) do
     case provider do
       "youtube" ->
         get_youtube_track(external_id)
@@ -52,8 +52,31 @@ defmodule Jukee.TrackSearch do
   def get_soundcloud_track(external_id) do
     client_id = Application.fetch_env!(:soundcloud_ex, :client_id)
     client = SoundcloudEx.Client.new(%{ client_id: client_id })
-    IO.puts external_id
     track = SoundcloudEx.Track.get(external_id, client)
     TrackMapping.map_soundcloud_track(track)
+  end
+
+  def get_related_tracks(provider, external_id) do
+    case provider do
+      "youtube" ->
+        get_youtube_related_tracks(external_id)
+      "soundcloud" ->
+        get_soundcloud_related_tracks(external_id)
+    end
+  end
+
+  def get_youtube_related_tracks(external_id) do
+    case Tubex.Video.related_with_video(external_id, [part: "snippet,contentDetails"]) do
+      response ->
+        Enum.map(response, TrackMapping.map_youtube_track)
+      err -> err
+    end
+  end
+
+  def get_soundcloud_related_tracks(external_id) do
+    client_id = Application.fetch_env!(:soundcloud_ex, :client_id)
+    client = SoundcloudEx.Client.new(%{ client_id: client_id })
+    tracks = SoundcloudEx.Track.related(external_id, client)
+    Enum.map(tracks, TrackMapping.map_soundcloud_track)
   end
 end
