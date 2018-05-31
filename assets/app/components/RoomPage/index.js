@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
-import { Layout, Tracklist, TrackSearch } from 'components';
+import { Layout, Tracklist, TrackSearch, PlayerPresences } from 'components';
 import { joinRoomRoutine, leaveRoomRoutine } from 'actions/room';
 import Grid from '@material-ui/core/Grid';
 
@@ -21,10 +21,13 @@ export class RoomPage extends PureComponent {
       <DocumentTitle title="Room">
         <Layout>
           <Grid container>
-            <Grid item xs>
+            <Grid item xs={12}>
+              <PlayerPresences />
+            </Grid>
+            <Grid item xs={12} sm={6}>
               <Tracklist />
             </Grid>
-            <Grid item xs>
+            <Grid item xs={12} sm={6}>
               <TrackSearch />
             </Grid>
           </Grid>

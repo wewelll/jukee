@@ -17,7 +17,8 @@ defmodule JukeeWeb.PlayerChannel do
 
   def handle_info(:after_join, socket) do
     push socket, "presence_state", PlayerPresence.list(socket)
-    {:ok, _} = PlayerPresence.track(socket, socket.assigns.user_id, %{
+    {:ok, _} = PlayerPresence.track(socket, socket.assigns.user.id, %{
+      username: socket.assigns.user.username,
       online_at: inspect(System.system_time(:seconds))
     })
     {:noreply, socket}

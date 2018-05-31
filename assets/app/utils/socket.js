@@ -64,7 +64,8 @@ import { Socket } from 'phoenix';
 /* eslint-enable */
 
 export const connectToSocket = () => {
-  const socket = new Socket('/socket', { params: { token: window.userToken } });
+  const token = JSON.parse(localStorage.getItem('token'));
+  const socket = new Socket('/socket', { params: { token } });
   socket.connect();
   return socket;
 };

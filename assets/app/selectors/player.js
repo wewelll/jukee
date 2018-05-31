@@ -11,7 +11,11 @@ export const getPlayer = createSelector(
 
 export const getPresences = createSelector(
   getPlayerState,
-  playerState => Presence.list(playerState.presences),
+  playerState => Presence.list(playerState.presences, (id, { metas: [first, ...rest] }) => ({
+    ...first,
+    id,
+    count: rest.length + 1, // count of this user's presences
+  })),
 );
 
 export const playerExists = createSelector(

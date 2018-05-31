@@ -19,8 +19,18 @@ defmodule JukeeWeb.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(params, socket) do
-    {:ok, assign(socket, :user_id, params["user_id"])}
+  def connect(%{"token" => token}, socket) do
+    case Guardian.Phoenix.Socket.authenticate(socket, JukeeWeb.Guardian, token) do
+      {:ok, authed_socket} ->
+        user = Guardian.Phoenix.Socket.current_resource(authed_socket)
+        {:ok, assign(socket, :user, user)}
+      {:error, _} -> :error
+    end
+  end
+
+  # This function will be called when there was no authentication information
+  def connect(_params, socket) do
+    :error
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
