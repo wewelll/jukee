@@ -1,11 +1,11 @@
 import { createSelector } from 'reselect';
-import _isEmptry from 'lodash/isEmpty';
+import _isEmpty from 'lodash/isEmpty';
 
 export const getPlayer = state => state.player;
 
 export const playerExists = createSelector(
   getPlayer,
-  player => !_isEmptry(player),
+  player => !_isEmpty(player),
 );
 
 export const getTracklist = createSelector(
