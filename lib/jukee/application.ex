@@ -14,7 +14,8 @@ defmodule Jukee.Application do
       supervisor(JukeeWeb.Endpoint, []),
       # Start your own worker by calling: Jukee.Worker.start_link(arg1, arg2, arg3)
       # worker(Jukee.Worker, [arg1, arg2, arg3]),
-      worker(Jukee.Players.PlayerWorker, [])
+      worker(Jukee.Players.PlayerWorker, []),
+      supervisor(JukeeWeb.PlayerPresence, []),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -11,6 +11,8 @@ export const types = {
 
 export const playerEvents = {
   playerUpdate: 'player_update',
+  presenceState: 'presence_state',
+  presenceDiff: 'presence_diff',
 };
 
 export const initializePlayer = player => ({ type: types.INITIALIZE_PLAYER, player });

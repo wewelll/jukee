@@ -1,5 +1,5 @@
 import { eventChannel } from 'redux-saga';
-import { call, put, take, race } from 'redux-saga/effects';
+import { call, put, take, race, fork } from 'redux-saga/effects';
 import api from 'utils/api';
 
 import {
@@ -64,7 +64,7 @@ export default function* playerChannelSaga() {
     try {
       const socket = yield call(connectToSocket, '/socket');
       channel = yield call(joinChannel, socket, `player:${playerId}`);
-      yield call(fetchPlayer, playerId); // initialize the player
+      yield fork(fetchPlayer, playerId); // initialize the player
       yield put(connectToPlayerRoutine.success());
     } catch (error) {
       yield put(connectToPlayerRoutine.failure(error));

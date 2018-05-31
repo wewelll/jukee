@@ -4,13 +4,23 @@ defmodule JukeeWeb.PlayerChannel do
   alias JukeeWeb.PlayerView
   alias Jukee.TrackSearch
   alias Jukee.Tracks
+  alias JukeeWeb.PlayerPresence
 
   def join("player:" <> player_id, payload, socket) do
     if authorized?(player_id, payload) do
+      send(self(), :after_join)
       {:ok, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end
+  end
+
+  def handle_info(:after_join, socket) do
+    push socket, "presence_state", PlayerPresence.list(socket)
+    {:ok, _} = PlayerPresence.track(socket, socket.assigns.user_id, %{
+      online_at: inspect(System.system_time(:seconds))
+    })
+    {:noreply, socket}
   end
 
   # Channels can be used in a request/response fashion
