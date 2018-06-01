@@ -21,6 +21,7 @@ defmodule JukeeWeb.PlayerView do
       trackProgress: player.track_progress,
       currentTrack: render_one(player.current_player_track, PlayerTrackView, "player_track.json"),
       tracks: render_many(player.player_tracks, PlayerTrackView, "player_track.json"),
+      autoplay: player.autoplay,
     }
   end
 

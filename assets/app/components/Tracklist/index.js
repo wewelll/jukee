@@ -8,10 +8,12 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import styled from 'styled-components';
 
-import { getTracklist, getCurrentTrack } from 'selectors/player';
-import { playTrack, deleteTrack } from 'actions/player';
+import { getTracklist, getCurrentTrack, getAutoplay } from 'selectors/player';
+import { playTrack, deleteTrack, setAutoplay } from 'actions/player';
 
 const TracklistItem = styled(({ active, ...props }) => <ListItem {...props} />)`
   background-color: ${({ active }) => (active ? 'lightgrey' : '')};
@@ -26,11 +28,25 @@ class Tracklist extends Component {
     this.props.deleteTrack(playerTrackIndex);
   }
 
+  handleSetAutoplay = (event) => {
+    this.props.setAutoplay(event.target.checked);
+  }
+
   render() {
-    const { tracks, currentTrack } = this.props;
+    const { tracks, currentTrack, autoplay } = this.props;
     return (
       <div>
         <h3>Tracklist</h3>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={autoplay}
+              onChange={this.handleSetAutoplay}
+              color="primary"
+            />
+          }
+          label="Autoplay"
+        />
         <List dense>
           {tracks.map(track => (
             <TracklistItem
@@ -71,21 +87,26 @@ Tracklist.propTypes = {
   }),
   playTrack: PropTypes.func.isRequired,
   deleteTrack: PropTypes.func.isRequired,
+  setAutoplay: PropTypes.func.isRequired,
+  autoplay: PropTypes.bool,
 };
 
 Tracklist.defaultProps = {
   tracks: [],
   currentTrack: {},
+  autoplay: false,
 };
 
 const mapStateToProps = state => ({
   tracks: getTracklist(state),
   currentTrack: getCurrentTrack(state),
+  autoplay: getAutoplay(state),
 });
 
 const mapDispatchToProps = {
   playTrack,
   deleteTrack,
+  setAutoplay,
 };
 
 const PlayerWrapper = connect(mapStateToProps, mapDispatchToProps)(Tracklist);

@@ -72,10 +72,9 @@ defmodule JukeeWeb.PlayerChannel do
     {:reply, {:ok, %{ message: "previous success" }}, socket}
   end
 
-  def handle_in("add_track", track_infos, socket) do
+  def handle_in("add_track", %{"provider" => provider, "externalId" => external_id}, socket) do
     player_id = get_player_id(socket)
-    track = TrackSearch.get_track(track_infos)
-    {:ok, track} = Tracks.get_or_create_track(track)
+    track = TrackSearch.get_track(provider, external_id)
     Players.add_track(player_id, track)
     {:reply, {:ok, %{ message: "track added" }}, socket}
   end
@@ -84,6 +83,12 @@ defmodule JukeeWeb.PlayerChannel do
     player_id = get_player_id(socket)
     Players.delete_track_on_player(player_id, player_track_index)
     {:reply, {:ok, %{ message: "track deleted" }}, socket}
+  end
+
+  def handle_in("autoplay", %{"autoplay" => autoplay}, socket) do
+    player_id = get_player_id(socket)
+    Players.set_autoplay(player_id, autoplay)
+    {:reply, {:ok, %{ message: "ok" }}, socket}
   end
 
   defp get_player_id(socket) do
