@@ -165,7 +165,7 @@ defmodule Jukee.Players do
         case has_autoplay(player_id) do
           false -> pause(player_id)
           true ->
-            add_related_tracks(player_id)
+            add_related_tracks(player_id, 3)
         end
       next_track_index -> play_track_on_player(player_id, next_track_index)
     end
@@ -240,9 +240,9 @@ defmodule Jukee.Players do
     JukeeWeb.Endpoint.broadcast "player:" <> to_string(player_id), event, payload
   end
 
-  def add_related_tracks(player_id) do
+  def add_related_tracks(player_id, tracks_number \\ 5) do
     current_track = get_current_track(player_id)
-    related_tracks = TrackSearch.get_related_tracks(current_track.provider, current_track.external_id)
+    related_tracks = TrackSearch.get_related_tracks(current_track.provider, current_track.external_id, tracks_number)
     Enum.each related_tracks, fn related_track ->
       add_track(player_id, related_track)
     end

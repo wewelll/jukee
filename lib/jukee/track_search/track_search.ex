@@ -5,18 +5,18 @@ defmodule Jukee.TrackSearch do
   
   defstruct title: nil, provider: nil, external_id: nil, channel_title: nil, thumbnail: nil
   
-  def search_youtube_by_query(query) do
-    case Tubex.Video.search_by_query(query) do
+  def search_youtube_by_query(query, max_results \\ 20) do
+    case Tubex.Video.search_by_query(query, [maxResults: max_results]) do
       {:ok, results, response} ->
         Enum.map(results, fn result -> TrackSearchMapping.map_youtube_track_search(result) end)
       err -> err
     end
   end
 
-  def search_soundcloud_by_query(query) do
+  def search_soundcloud_by_query(query, max_results \\ 20) do
     client_id = Application.fetch_env!(:soundcloud_ex, :client_id)
     client = SoundcloudEx.Client.new(%{ client_id: client_id })
-    results = SoundcloudEx.Track.search(%{q: query, limit: 20}, client)
+    results = SoundcloudEx.Track.search(%{q: query, limit: max_results}, client)
     Enum.map(results, fn result -> TrackSearchMapping.map_soundcloud_track_search(result) end)
   end
 
@@ -54,17 +54,17 @@ defmodule Jukee.TrackSearch do
     TrackMapping.map_soundcloud_track(track)
   end
 
-  def get_related_tracks(provider, external_id) do
+  def get_related_tracks(provider, external_id, max_results \\ 5) do
     case provider do
       "youtube" ->
-        get_youtube_related_tracks(external_id)
+        get_youtube_related_tracks(external_id, max_results)
       "soundcloud" ->
-        get_soundcloud_related_tracks(external_id)
+        get_soundcloud_related_tracks(external_id, max_results)
     end
   end
 
-  def get_youtube_related_tracks(external_id) do
-    case Tubex.Video.related_with_video(external_id, [part: "snippet"]) do
+  def get_youtube_related_tracks(external_id, max_results \\ 5) do
+    case Tubex.Video.related_with_video(external_id, [part: "snippet", maxResults: max_results]) do
       {:ok, results, response} ->
         video_ids = Enum.map(results, fn result -> result.video_id end)
         get_youtube_tracks(video_ids)
@@ -72,10 +72,10 @@ defmodule Jukee.TrackSearch do
     end
   end
 
-  def get_soundcloud_related_tracks(external_id) do
+  def get_soundcloud_related_tracks(external_id, max_results \\ 5) do
     client_id = Application.fetch_env!(:soundcloud_ex, :client_id)
     client = SoundcloudEx.Client.new(%{ client_id: client_id })
-    tracks = SoundcloudEx.Track.related(external_id, client)
+    tracks = SoundcloudEx.Track.related(external_id, %{limit: max_results}, client)
     Enum.map(tracks, fn track -> TrackMapping.map_soundcloud_track(track) end)
   end
 end
