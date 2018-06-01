@@ -9,6 +9,8 @@ defmodule Jukee.Players do
   alias Jukee.Players.PlayerTrack
   alias Jukee.Players.Player
   alias JukeeWeb.PlayerView
+  alias Jukee.TrackSearch
+  alias Jukee.Tracks
 
   @doc """
   Returns the list of players.
@@ -309,14 +311,18 @@ defmodule Jukee.Players do
   end
 
   def add_track(player_id, track) do
-    %PlayerTrack{}
-    |> PlayerTrack.changeset(%{
-      player_id: player_id,
-      track_id: track.id,
-      index: get_highest_track_index(player_id) + 1
-    })
-    |> Repo.insert!()
-    broadcast_player_update(player_id)
+    case Tracks.get_or_create_track(track) do
+      {:ok, track} ->
+        %PlayerTrack{}
+        |> PlayerTrack.changeset(%{
+          player_id: player_id,
+          track_id: track.id,
+          index: get_highest_track_index(player_id) + 1
+        })
+        |> Repo.insert!()
+        broadcast_player_update(player_id)
+      err -> err
+    end
   end
 
   def create_player_track(attrs \\ %{}) do

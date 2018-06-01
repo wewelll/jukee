@@ -75,7 +75,6 @@ defmodule JukeeWeb.PlayerChannel do
   def handle_in("add_track", %{"provider" => provider, "externalId" => external_id}, socket) do
     player_id = get_player_id(socket)
     track = TrackSearch.get_track(provider, external_id)
-    {:ok, track} = Tracks.get_or_create_track(track)
     Players.add_track(player_id, track)
     {:reply, {:ok, %{ message: "track added" }}, socket}
   end
