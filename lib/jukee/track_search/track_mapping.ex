@@ -35,7 +35,7 @@ defmodule Jukee.TrackMapping do
       description: track.description,
       duration: track.duration,
       external_id: to_string(track.id),
-      large_thumbnail: Regex.replace(~r/large/, track.artwork_url, "t500x500"),
+      large_thumbnail: (if track.artwork_url != nil, do: Regex.replace(~r/large/, track.artwork_url, "t500x500"), else: nil),
       provider: "soundcloud",
       title: track.title,
       url: track.permalink_url
