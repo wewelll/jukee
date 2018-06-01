@@ -166,6 +166,7 @@ defmodule Jukee.Players do
           false -> pause(player_id)
           true ->
             add_related_tracks(player_id, 3)
+            next(player_id)
         end
       next_track_index -> play_track_on_player(player_id, next_track_index)
     end
