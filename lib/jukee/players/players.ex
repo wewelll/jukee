@@ -161,7 +161,12 @@ defmodule Jukee.Players do
 
   def next(player_id) do
     case get_next_track_index(player_id) do
-      nil -> pause(player_id)
+      nil ->
+        case has_autoplay(player_id) do
+          false -> pause(player_id)
+          true ->
+            add_related_tracks(player_id)
+        end
       next_track_index -> play_track_on_player(player_id, next_track_index)
     end
   end
@@ -171,6 +176,11 @@ defmodule Jukee.Players do
       nil -> seek(player_id, 0)
       next_track_index -> play_track_on_player(player_id, next_track_index)
     end
+  end
+
+  defp has_autoplay(player_id) do
+    from(p in Player, where: p.id == ^player_id, select: p.autoplay)
+    |> Repo.one()
   end
 
   def players_progress_update(progress_duration \\ 1000) do
@@ -230,6 +240,14 @@ defmodule Jukee.Players do
     JukeeWeb.Endpoint.broadcast "player:" <> to_string(player_id), event, payload
   end
 
+  def add_related_tracks(player_id) do
+    current_track = get_current_track(player_id)
+    related_tracks = TrackSearch.get_related_tracks(current_track.provider, current_track.external_id)
+    Enum.each related_tracks, fn related_track ->
+      add_track(player_id, related_track)
+    end
+  end
+
   @doc """
   Returns the list of players_tracks.
 
@@ -271,6 +289,17 @@ defmodule Jukee.Players do
       {:error, %Ecto.Changeset{}}
 
   """
+
+  defp get_current_track(player_id) do
+    from(
+      p in Player,
+      join: current_player_track in assoc(p, :current_player_track),
+      join: current_track in assoc(current_player_track, :track),
+      where: p.id == ^player_id,
+      select: current_track
+    )
+    |> Repo.one()
+  end
 
   defp get_highest_track_index(player_id) do
     from(pt in PlayerTrack, where: pt.player_id == ^player_id, select: max(pt.index))
