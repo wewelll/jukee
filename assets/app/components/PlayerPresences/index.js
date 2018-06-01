@@ -14,9 +14,9 @@ class PlayerPresences extends PureComponent {
     return (
       <Grid container direction="row" justify="center" spacing={16}>
         {presences.map(presence => (
-          <Grid item>
+          <Grid item key={presence.id}>
             <Tooltip title={presence.username} placement="bottom">
-              <Avatar key={presence.id}>
+              <Avatar>
                 <PersonIcon />
               </Avatar>
             </Tooltip>
