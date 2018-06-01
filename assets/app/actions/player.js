@@ -64,3 +64,8 @@ export const deleteTrack = playerTrackIndex => sendPlayerEventRoutine.request({
   eventName: 'delete_track',
   payload: { playerTrackIndex },
 });
+
+export const setAutoplay = autoplay => sendPlayerEventRoutine.request({
+  eventName: 'autoplay',
+  payload: { autoplay },
+});

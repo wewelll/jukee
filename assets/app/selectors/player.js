@@ -32,3 +32,8 @@ export const getCurrentTrack = createSelector(
   getPlayer,
   player => player.currentTrack,
 );
+
+export const getAutoplay = createSelector(
+  getPlayer,
+  player => player.autoplay,
+);

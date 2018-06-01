@@ -85,6 +85,12 @@ defmodule JukeeWeb.PlayerChannel do
     {:reply, {:ok, %{ message: "track deleted" }}, socket}
   end
 
+  def handle_in("autoplay", %{"autoplay" => autoplay}, socket) do
+    player_id = get_player_id(socket)
+    Players.set_autoplay(player_id, autoplay)
+    {:reply, {:ok, %{ message: "ok" }}, socket}
+  end
+
   defp get_player_id(socket) do
     "player:" <> player_id = socket.topic
     player_id

@@ -178,6 +178,13 @@ defmodule Jukee.Players do
     end
   end
 
+  def set_autoplay(player_id, autoplay) do
+    get_player!(player_id)
+    |> Player.changeset(%{autoplay: autoplay})
+    |> Repo.update()
+    broadcast(player_id, "player_update", %{ autoplay: autoplay })
+  end
+
   defp has_autoplay(player_id) do
     from(p in Player, where: p.id == ^player_id, select: p.autoplay)
     |> Repo.one()
