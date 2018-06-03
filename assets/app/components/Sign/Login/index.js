@@ -15,7 +15,9 @@ export class Login extends Component {
       <DocumentTitle title="Login">
         <LandingPageLayout>
           <Grid container justify="center">
-            <LoginForm submittingForm={submittingForm} />
+            <Grid item xs={11} md={6}>
+              <LoginForm submittingForm={submittingForm} />
+            </Grid>
           </Grid>
         </LandingPageLayout>
       </DocumentTitle>

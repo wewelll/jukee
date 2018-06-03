@@ -14,7 +14,9 @@ export class Signup extends Component {
       <DocumentTitle title="Signup">
         <LandingPageLayout>
           <Grid container justify="center">
-            <SignupForm submittingForm={submittingForm} />
+            <Grid item xs={11} md={6}>
+              <SignupForm submittingForm={submittingForm} />
+            </Grid>
           </Grid>
         </LandingPageLayout>
       </DocumentTitle>

@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 import { TextField } from 'redux-form-material-ui';
 import { signup } from 'actions/session';
 
@@ -12,50 +16,55 @@ class SignupForm extends Component {
     const { handleSubmit, submittingForm, invalid } = this.props;
 
     return (
-      <form
-        onSubmit={handleSubmit(this.submit)}
-        noValidate
-      >
-        <h3>Create an account</h3>
-        <Field
-          name="name"
-          type="text"
-          component={TextField}
-          placeholder="Full name"
-        />
-        <br />
-        <Field
-          name="username"
-          type="text"
-          component={TextField}
-          placeholder="Username"
-        />
-        <br />
-        <Field
-          name="email"
-          type="email"
-          component={TextField}
-          placeholder="Email"
-        />
-        <br />
-        <Field
-          name="password"
-          type="password"
-          component={TextField}
-          placeholder="Password"
-        />
-        <br />
-        <br />
-        <Button
-          variant="raised"
-          type="submit"
-          disabled={invalid || submittingForm}
-          color="primary"
-          fullWidth
+      <Card>
+        <form
+          onSubmit={handleSubmit(this.submit)}
+          noValidate
         >
-          {submittingForm ? 'Submitting...' : 'Sign up'}
-        </Button>
-      </form>
+          <CardContent>
+            <Typography gutterBottom variant="headline" component="h2">
+            Create an account
+            </Typography>
+            <Field
+              name="name"
+              type="text"
+              component={TextField}
+              label="Full name"
+              fullWidth
+              margin="normal"
+            />
+            <Field
+              name="username"
+              type="text"
+              component={TextField}
+              label="Username"
+              fullWidth
+              margin="normal"
+            />
+            <Field
+              name="email"
+              type="email"
+              component={TextField}
+              label="Email"
+              fullWidth
+              margin="normal"
+            />
+            <Field
+              name="password"
+              type="password"
+              component={TextField}
+              label="Password"
+              fullWidth
+              margin="normal"
+            />
+          </CardContent>
+          <CardActions>
+            <Button fullWidth type="submit" size="small" color="primary" disabled={invalid || submittingForm}>
+              {submittingForm ? 'Submitting...' : 'Sign up'}
+            </Button>
+          </CardActions>
+        </form>
+      </Card>
     );
   }
 }

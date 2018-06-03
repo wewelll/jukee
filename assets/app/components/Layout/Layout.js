@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import styled from 'styled-components';
 import UserDropdown from './UserDropdown';
 import LoginDropdown from './LoginDropdown';
+
+const MainContainer = styled.div`
+  min-height: calc(100vh - 56px);
+`;
 
 export class Layout extends Component {
   render() {
@@ -22,9 +27,9 @@ export class Layout extends Component {
           </Toolbar>
         </AppBar>
 
-        <div role="main">
+        <MainContainer role="main">
           {children}
-        </div>
+        </MainContainer>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Layout from './LayoutWrapper';
-import landingBackgroundImage from './landing_background.jpg';
+import landingBackgroundImage from './landing_background_2.jpg';
 
 const LandingPageLayout = styled(Layout)`
   height: 100vh;
