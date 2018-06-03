@@ -33,7 +33,7 @@ export class Layout extends Component {
 Layout.propTypes = {
   username: PropTypes.string,
   logout: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   isAuthenticated: PropTypes.bool.isRequired,
   className: PropTypes.string,
 };
@@ -41,6 +41,7 @@ Layout.propTypes = {
 Layout.defaultProps = {
   username: '',
   className: '',
+  children: null,
 };
 
 export default Layout;

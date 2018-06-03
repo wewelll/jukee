@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
-import { Layout, SignupForm } from 'components';
+import { SignupForm } from 'components';
+import { LandingPageLayout } from 'components/Layout';
 import Grid from '@material-ui/core/Grid';
 
 export class Signup extends Component {
@@ -11,11 +12,11 @@ export class Signup extends Component {
 
     return (
       <DocumentTitle title="Signup">
-        <Layout>
+        <LandingPageLayout>
           <Grid container justify="center">
             <SignupForm submittingForm={submittingForm} />
           </Grid>
-        </Layout>
+        </LandingPageLayout>
       </DocumentTitle>
     );
   }
