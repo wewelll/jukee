@@ -79,7 +79,7 @@ const config = {
         }),
       },
       { test: /\.css$/, loader: ['style-loader', 'css-loader'] },
-      { test: /\.(png|jpg)$/, use: 'url-loader?limit=15000' },
+      { test: /\.(png|jpg)$/, use: 'url-loader?limit=15000&outputPath=images/' },
       { test: /\.svg$/, loader: 'url-loader?limit=65000&mimetype=image/svg+xml&name=fonts/[name].[ext]' },
       { test: /\.woff$/, loader: 'url-loader?limit=65000&mimetype=application/font-woff&name=fonts/[name].[ext]' },
       { test: /\.woff2$/, loader: 'url-loader?limit=65000&mimetype=application/font-woff2&name=fonts/[name].[ext]' },
