@@ -10,8 +10,8 @@ export class LoginDropdown extends Component {
   render() {
     return (
       <div>
-        <Button color="inherit" onClick={this.goToLogin}>Login</Button>
-        <Button color="inherit" onClick={this.goToSignUp}>Sign Up</Button>
+        <Button onClick={this.goToLogin}>Login</Button>
+        <Button onClick={this.goToSignUp}>Sign Up</Button>
       </div>
     );
   }

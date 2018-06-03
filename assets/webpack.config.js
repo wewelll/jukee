@@ -31,7 +31,7 @@ const config = {
 
   resolve: {
     alias: {
-      components: resolve(__dirname, 'app/components/index.js'),
+      components: resolve(__dirname, 'app/components'),
       reducers: resolve(__dirname, 'app/reducers'),
       actions: resolve(__dirname, 'app/actions'),
       config: resolve(__dirname, 'app/config'),

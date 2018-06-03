@@ -30,7 +30,6 @@ export class UserDropdown extends Component {
           aria-owns={anchorEl ? 'menu-appbar' : null}
           aria-haspopup="true"
           onClick={this.handleOpenMenu}
-          color="inherit"
         >
           <AccountCircle />
         </IconButton>

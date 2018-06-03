@@ -8,12 +8,12 @@ import LoginDropdown from './LoginDropdown';
 export class Layout extends Component {
   render() {
     const {
-      username, children, logout, isAuthenticated,
+      username, children, logout, isAuthenticated, className,
     } = this.props;
 
     return (
-      <div>
-        <AppBar position="static">
+      <div className={className}>
+        <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
           <Toolbar>
             {isAuthenticated
             ? <UserDropdown username={username} logout={logout} />
@@ -35,10 +35,12 @@ Layout.propTypes = {
   logout: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
+  className: PropTypes.string,
 };
 
 Layout.defaultProps = {
   username: '',
+  className: '',
 };
 
 export default Layout;
