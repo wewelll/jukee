@@ -59,7 +59,7 @@
     "react-router-redux": "5.0.0-alpha.8",
     "recompose": "^0.27.0",
     "redbox-react": "^1.5.0",
-    "redux": "^3.6.0",
+    "redux": "^4.0.0",
     "redux-form": "^7.2.0",
     "redux-form-material-ui": "^5.0.0-beta.3",
     "redux-form-saga": "^0.2.0",
