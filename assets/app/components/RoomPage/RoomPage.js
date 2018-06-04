@@ -5,6 +5,7 @@ import DocumentTitle from 'react-document-title';
 import { Layout, Tracklist, TrackSearch, PlayerPresences } from 'components';
 import { joinRoomRoutine, leaveRoomRoutine } from 'actions/room';
 import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
 
 export class RoomPage extends PureComponent {
   componentDidMount() {
@@ -20,14 +21,16 @@ export class RoomPage extends PureComponent {
     return (
       <DocumentTitle title="Room">
         <Layout>
-          <Grid container>
-            <Grid item xs={12}>
-              <PlayerPresences />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+          <Grid container spacing={24}>
+            <Hidden xsDown>
+              <Grid item sm={2} style={{ flexBasis: 80 }}>
+                <PlayerPresences />
+              </Grid>
+            </Hidden>
+            <Grid item xs={12} sm={10} md={6}>
               <Tracklist />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={5}>
               <TrackSearch />
             </Grid>
           </Grid>
