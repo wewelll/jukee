@@ -12,6 +12,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import styled from 'styled-components';
 
+import PlayerBar from 'components/PlayerBar';
 import { getTracklist, getCurrentTrack, getAutoplay } from 'selectors/player';
 import { playTrack, deleteTrack, setAutoplay } from 'actions/player';
 
@@ -36,7 +37,7 @@ class Tracklist extends Component {
     const { tracks, currentTrack, autoplay } = this.props;
     return (
       <div>
-        <h3>Tracklist</h3>
+        <PlayerBar />
         <FormControlLabel
           control={
             <Switch

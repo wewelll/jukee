@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import { getPlayer } from 'selectors/player';
-import ControlledProgressReactPlayer from './controlledProgressReactPlayer';
+import ControlledProgressReactPlayer from './ControlledProgressReactPlayer';
 
 const InvisiblePlayer = styled(ControlledProgressReactPlayer)`
   display: none;

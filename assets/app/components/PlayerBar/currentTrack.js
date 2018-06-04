@@ -21,7 +21,6 @@ const ImageContainer = styled.div`
 const TrackTitleContainer = styled.div`
   flex: 1;
   margin-left: 10px;
-  color: #fff;
 `;
 
 class CurrentTrack extends Component {

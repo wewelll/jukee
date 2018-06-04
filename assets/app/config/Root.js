@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router';
 import { ConnectedRouter as Router } from 'react-router-redux';
@@ -15,7 +15,7 @@ import {
   MatchAuthenticated,
   RedirectAuthenticated,
   LandingPage,
-  PlayerBar,
+  Player,
 } from 'components';
 import routes from 'config/routes';
 
@@ -40,7 +40,7 @@ class Root extends Component {
     };
 
     return (
-      <div className="full-height">
+      <Fragment>
         <CssBaseline />
         <ErrorMessage />
         <Router history={this.props.history}>
@@ -73,8 +73,8 @@ class Root extends Component {
             <Route component={NotFound} />
           </Switch>
         </Router>
-        <PlayerBar />
-      </div>
+        <Player />
+      </Fragment>
     );
   }
 }

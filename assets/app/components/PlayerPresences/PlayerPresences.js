@@ -12,7 +12,7 @@ class PlayerPresences extends PureComponent {
   render() {
     const { presences } = this.props;
     return (
-      <Grid container direction="column" alignItems="center" spacing={16} style={{ height: '100%' }}>
+      <Grid container direction="column" alignItems="center" spacing={16}>
         {presences.map(presence => (
           <Grid item key={presence.id}>
             <Tooltip title={presence.username} placement="right">

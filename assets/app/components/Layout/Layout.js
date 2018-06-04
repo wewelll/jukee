@@ -11,10 +11,12 @@ import JukeeLogo from './jukee_logo.png';
 
 const Container = styled.div`
   background: #E1E5CF;
+  padding-top: 56px;
 `;
 
 const MainContainer = styled.div`
   min-height: calc(100vh - 56px);
+  padding-top: 20px;
 `;
 
 const JukeeToolbar = styled(Toolbar)`
@@ -28,12 +30,19 @@ const Logo = styled.img`
 export class Layout extends Component {
   render() {
     const {
-      username, children, logout, isAuthenticated, className,
+      username, children, logout, isAuthenticated, className, transparentAppBar,
     } = this.props;
+
+    const appBarStyle = transparentAppBar ? {
+      background: 'transparent',
+      boxShadow: 'none',
+    } : {
+      background: '#E1E5CF',
+    };
 
     return (
       <Container className={className}>
-        <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
+        <AppBar position="fixed" style={appBarStyle}>
           <JukeeToolbar>
             <Link to={routes.landing}>
               <Logo src={JukeeLogo} alt="logo" />
@@ -58,6 +67,7 @@ Layout.propTypes = {
   logout: PropTypes.func.isRequired,
   children: PropTypes.node,
   isAuthenticated: PropTypes.bool.isRequired,
+  transparentAppBar: PropTypes.bool,
   className: PropTypes.string,
 };
 
@@ -65,6 +75,7 @@ Layout.defaultProps = {
   username: '',
   className: '',
   children: null,
+  transparentAppBar: false,
 };
 
 export default Layout;

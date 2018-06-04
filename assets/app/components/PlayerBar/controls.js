@@ -21,7 +21,6 @@ const SliderContainer = styled.div`
 
 const SliderTime = styled.div`
   flex-basis: 80px;
-  color: #fff;
 `;
 
 class PlayerControls extends Component {
@@ -51,17 +50,17 @@ class PlayerControls extends Component {
     const sliderValue = seeking ? seekingValue : Math.max(trackProgress, 0);
     return (
       <ControlsContainer>
-        <IconButton aria-label="skip next" color="primary" onClick={this.props.previous}>
+        <IconButton aria-label="skip next" color="secondary" onClick={this.props.previous}>
           <Icon>skip_previous</Icon>
         </IconButton>
         <IconButton
           aria-label="play pause"
-          color="primary"
+          color="secondary"
           onClick={playing ? this.props.pause : this.props.play}
         >
           <Icon style={{ fontSize: 45 }}>{playing ? 'pause' : 'play_arrow'}</Icon>
         </IconButton>
-        <IconButton aria-label="skip next" color="primary" onClick={this.props.next}>
+        <IconButton aria-label="skip next" color="secondary" onClick={this.props.next}>
           <Icon>skip_next</Icon>
         </IconButton>
         {currentTrack &&
