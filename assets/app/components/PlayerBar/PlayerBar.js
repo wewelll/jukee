@@ -3,30 +3,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, branch, renderNothing } from 'recompose';
 import styled from 'styled-components';
+import Grid from '@material-ui/core/Grid';
 
 import { playerExists } from 'selectors/player';
 import { togglePause } from 'actions/player';
 import PlayerControls from './controls';
 import CurrentTrack from './currentTrack';
 
-const BottomPlayerBarContainer = styled.div`
+const BottomPlayerBarContainer = styled(Grid)`
   background: #353883;
   align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 90px;
-  padding: 0 16px;
-`;
-
-const PlayerBarLeft = styled.div`
-  /* width: 30%; */
-  min-width: 180px;
-`;
-
-const PlayerBarMiddle = styled.div`
-  min-width: 40%;
-  max-width: 722px;
+  padding: 10px 16px;
 `;
 
 class PlayerBar extends Component {
@@ -49,13 +39,13 @@ class PlayerBar extends Component {
 
   render() {
     return (
-      <BottomPlayerBarContainer>
-        <PlayerBarLeft>
+      <BottomPlayerBarContainer container>
+        <Grid item xs={12} sm={6}>
           <CurrentTrack />
-        </PlayerBarLeft>
-        <PlayerBarMiddle>
+        </Grid>
+        <Grid item xs={12} sm={6}>
           <PlayerControls />
-        </PlayerBarMiddle>
+        </Grid>
       </BottomPlayerBarContainer>
     );
   }

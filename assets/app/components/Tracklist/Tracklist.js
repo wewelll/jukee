@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 
 import PlayerBar from 'components/PlayerBar';
@@ -36,7 +37,7 @@ class Tracklist extends Component {
   render() {
     const { tracks, currentTrack, autoplay } = this.props;
     return (
-      <div>
+      <Grid container direction="column">
         <PlayerBar />
         <FormControlLabel
           control={
@@ -71,7 +72,7 @@ class Tracklist extends Component {
             </TracklistItem>
           ))}
         </List>
-      </div>
+      </Grid>
     );
   }
 }
