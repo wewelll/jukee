@@ -23,7 +23,11 @@ export default class MatchAuthenticated extends Component {
           if (isAuthenticated) return <RouteComponent {...props} />;
           if (willAuthenticate) return null;
           if (!willAuthenticate && !isAuthenticated) {
-            return <Redirect to={{ pathname: routes.login }} />;
+            return (<Redirect to={{
+                pathname: routes.login,
+                state: { referrer: props.location },
+              }}
+            />);
           }
           return null;
         }}

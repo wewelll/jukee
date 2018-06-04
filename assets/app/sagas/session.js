@@ -1,6 +1,5 @@
 import { takeEvery } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
-// import { push } from 'react-router-redux';
 import { reset } from 'redux-form';
 
 import api from 'utils/api';
@@ -53,12 +52,10 @@ function* callSignup({ data }) {
     });
     setCurrentUser(result.data);
     yield put(reset('signup'));
-    // yield put(push('/'));
   } catch (error) {
     yield put({ type: sessionTypes.AUTHENTICATION_FAILURE });
     yield put({ type: errorTypes.NEW_ERROR, message: error.response.data.errors });
     localStorage.removeItem('token');
-    // yield put(push('/login'));
   }
 }
 

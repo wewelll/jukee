@@ -20,8 +20,11 @@ export default class RedirectAuthenticated extends Component {
         exact={exact}
         path={path}
         render={(props) => {
+          const referrer = props.location && props.location.state
+            ? props.location.state.referrer
+            : null;
           if (isAuthenticated) {
-            return <Redirect to={{ pathname: routes.createRoom }} />;
+            return <Redirect to={referrer || { pathname: routes.createRoom }} />;
           }
           if (willAuthenticate) {
             return null;
