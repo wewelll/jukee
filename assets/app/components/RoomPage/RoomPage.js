@@ -30,9 +30,11 @@ export class RoomPage extends PureComponent {
             <Grid item xs={12} sm={10} md={6}>
               <Tracklist />
             </Grid>
-            <Grid item xs={12} md={5}>
-              <TrackSearch />
-            </Grid>
+            <Hidden mdDown>
+              <Grid item xs={12} md={5}>
+                <TrackSearch />
+              </Grid>
+            </Hidden>
           </Grid>
         </Layout>
       </DocumentTitle>

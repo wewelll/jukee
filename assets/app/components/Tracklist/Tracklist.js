@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
@@ -10,12 +10,16 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 
 import PlayerBar from 'components/PlayerBar';
 import { getTracklist, getCurrentTrack, getAutoplay } from 'selectors/player';
 import { playTrack, deleteTrack, setAutoplay } from 'actions/player';
+
+const ScrollingList = styled(List)`
+  max-height: 500px;
+  overflow: scroll;
+`;
 
 const TracklistItem = styled(({ active, ...props }) => <ListItem {...props} />)`
   background-color: ${({ active }) => (active ? 'lightgrey' : '')};
@@ -37,7 +41,7 @@ class Tracklist extends Component {
   render() {
     const { tracks, currentTrack, autoplay } = this.props;
     return (
-      <Grid container direction="column">
+      <Fragment>
         <PlayerBar />
         <FormControlLabel
           control={
@@ -49,7 +53,7 @@ class Tracklist extends Component {
           }
           label="Autoplay"
         />
-        <List dense>
+        <ScrollingList dense>
           {tracks.map(track => (
             <TracklistItem
               active={currentTrack && track.playerTrackIndex === currentTrack.playerTrackIndex}
@@ -71,8 +75,8 @@ class Tracklist extends Component {
               </ListItemSecondaryAction>
             </TracklistItem>
           ))}
-        </List>
-      </Grid>
+        </ScrollingList>
+      </Fragment>
     );
   }
 }

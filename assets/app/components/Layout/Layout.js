@@ -11,11 +11,21 @@ import JukeeLogo from './jukee_logo.png';
 
 const Container = styled.div`
   background: #E1E5CF;
-  padding-top: 64px;
+  padding-top: 56px;
+
+  @media (min-width: 600px) {
+    padding-top: 64px;
+  }
 `;
 
 const MainContainer = styled.div`
-  min-height: calc(100vh - 64px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: calc(100vh - 56px);
+
+  @media (min-width: 600px) {
+    height: calc(100vh - 64px);
+  }
 `;
 
 const JukeeToolbar = styled(Toolbar)`
