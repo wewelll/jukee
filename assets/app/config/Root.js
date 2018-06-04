@@ -19,6 +19,8 @@ import {
 } from 'components';
 import routes from 'config/routes';
 
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 class Root extends Component {
   componentDidMount() {
     const token = localStorage.getItem('token');
@@ -39,6 +41,7 @@ class Root extends Component {
 
     return (
       <div className="full-height">
+        <CssBaseline />
         <ErrorMessage />
         <Router history={this.props.history}>
           <Switch>
