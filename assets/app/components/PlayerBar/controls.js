@@ -45,9 +45,25 @@ class PlayerControls extends Component {
   }
 
   render() {
-    const { playing, currentTrack, trackProgress } = this.props.player;
+    const { onlyPlayPause, player } = this.props;
+    const { playing, currentTrack, trackProgress } = player;
     const { seeking, seekingValue } = this.state;
     const sliderValue = seeking ? seekingValue : Math.max(trackProgress, 0);
+
+    if (onlyPlayPause) {
+      return (
+        <ControlsContainer>
+          <IconButton
+            aria-label="play pause"
+            color="secondary"
+            onClick={playing ? this.props.pause : this.props.play}
+          >
+            <Icon style={{ fontSize: 45 }}>{playing ? 'pause' : 'play_arrow'}</Icon>
+          </IconButton>
+        </ControlsContainer>
+      );
+    }
+
     return (
       <ControlsContainer>
         <IconButton aria-label="skip next" color="secondary" onClick={this.props.previous}>
@@ -101,6 +117,7 @@ PlayerControls.propTypes = {
   seek: PropTypes.func.isRequired,
   next: PropTypes.func.isRequired,
   previous: PropTypes.func.isRequired,
+  onlyPlayPause: PropTypes.bool,
 };
 
 PlayerControls.defaultProps = {
@@ -110,6 +127,7 @@ PlayerControls.defaultProps = {
     volume: 1,
     trackProgress: 0,
   },
+  onlyPlayPause: false,
 };
 
 const mapStateToProps = state => ({

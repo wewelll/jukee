@@ -7,12 +7,13 @@ import PlayerBar from 'components/PlayerBar';
 
 const MobileRoomPageContainer = styled.div`
   background: #ffffff;
-  padding-top: 150px;
+  padding-bottom: 90px;
 `;
 
 const MobilePlayerBar = styled(PlayerBar)`
-  max-height: 150px;
+  max-height: 90px;
   position: absolute;
+  bottom: 0;
 `;
 
 export class MobileRoomPage extends PureComponent {
@@ -26,7 +27,7 @@ export class MobileRoomPage extends PureComponent {
             </Grid>
           </Grid>
         </MobileRoomPageContainer>
-        <MobilePlayerBar />
+        <MobilePlayerBar mini />
       </Fragment>
     );
   }

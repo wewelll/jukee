@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, branch, renderNothing } from 'recompose';
@@ -19,7 +19,7 @@ const PlayerBarContainer = styled(Grid)`
   padding: 10px 16px;
 `;
 
-class PlayerBar extends Component {
+class PlayerBar extends PureComponent {
   componentWillMount() {
     document.addEventListener('keydown', this.handleKeyDown);
   }
@@ -38,14 +38,31 @@ class PlayerBar extends Component {
   }
 
   render() {
+    const { mini } = this.props;
     return (
       <PlayerBarContainer container className={this.props.className}>
-        <Grid item xs={12} sm={6}>
-          <CurrentTrack />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <PlayerControls />
-        </Grid>
+        {mini
+        ? (
+          <Fragment>
+            <Grid item xs={10}>
+              <CurrentTrack />
+            </Grid>
+            <Grid item xs={2}>
+              <PlayerControls onlyPlayPause />
+            </Grid>
+          </Fragment>
+           )
+        : (
+          <Fragment>
+            <Grid item xs={12} sm={6}>
+              <CurrentTrack />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <PlayerControls />
+            </Grid>
+          </Fragment>
+           )
+        }
       </PlayerBarContainer>
     );
   }
@@ -54,10 +71,12 @@ class PlayerBar extends Component {
 PlayerBar.propTypes = {
   togglePause: PropTypes.func.isRequired,
   className: PropTypes.string,
+  mini: PropTypes.bool,
 };
 
 PlayerBar.defaultProps = {
   className: '',
+  mini: false,
 };
 
 const mapStateToProps = state => ({
