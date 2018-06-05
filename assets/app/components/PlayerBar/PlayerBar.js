@@ -45,7 +45,7 @@ class PlayerBar extends PureComponent {
         ? (
           <Fragment>
             <Grid item xs={10}>
-              <CurrentTrack />
+              <CurrentTrack mini={mini} />
             </Grid>
             <Grid item xs={2}>
               <PlayerControls onlyPlayPause />
