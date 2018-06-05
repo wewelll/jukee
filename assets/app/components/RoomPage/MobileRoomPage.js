@@ -9,7 +9,7 @@ import ActionsBar from './ActionsBar';
 const MobileRoomPageContainer = styled.div`
   background: #ffffff;
   padding-bottom: 68px;
-  padding-top: 68px;
+  padding-top: 56px;
 `;
 
 const MobilePlayerBar = styled(PlayerBar)`
@@ -19,8 +19,9 @@ const MobilePlayerBar = styled(PlayerBar)`
 `;
 
 const MobileActionsBar = styled(ActionsBar)`
-  height: 68px;
+  height: 56px;
   position: absolute;
+  width: 100%;
 `;
 
 export class MobileRoomPage extends PureComponent {

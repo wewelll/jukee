@@ -1,42 +1,18 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
-import Grid from '@material-ui/core/Grid';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
 
 export class ActionsBar extends PureComponent {
   render() {
     return (
-      <Grid container className={this.props.className} justify="space-around" alignItems="center">
-        <Grid item>
-          <Button
-            variant="fab"
-            aria-label="search"
-            color="primary"
-          >
-            <Icon>search</Icon>
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            variant="fab"
-            aria-label="people"
-            color="primary"
-          >
-            <Icon>people</Icon>
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            variant="fab"
-            aria-label="chat"
-            color="primary"
-          >
-            <Icon>chat</Icon>
-          </Button>
-        </Grid>
-      </Grid>
+      <BottomNavigation className={this.props.className}>
+        <BottomNavigationAction label="Search" value="recents" icon={<Icon>search</Icon>} />
+        <BottomNavigationAction label="People" value="favorites" icon={<Icon>people</Icon>} />
+        <BottomNavigationAction label="Chat" value="nearby" icon={<Icon>chat</Icon>} />
+      </BottomNavigation>
     );
   }
 }
