@@ -7,11 +7,11 @@ import PlayerBar from 'components/PlayerBar';
 
 const MobileRoomPageContainer = styled.div`
   background: #ffffff;
-  padding-bottom: 90px;
+  padding-bottom: 68px;
 `;
 
 const MobilePlayerBar = styled(PlayerBar)`
-  max-height: 90px;
+  max-height: 68px;
   position: absolute;
   bottom: 0;
 `;

@@ -16,7 +16,12 @@ export class WebRoomPage extends PureComponent {
         </Grid>
         <Grid item xs={12} sm={10} md={6}>
           <Card style={{ height: '100%' }}>
-            <PlayerBar />
+            <Hidden mdUp>
+              <PlayerBar mini />
+            </Hidden>
+            <Hidden mdDown>
+              <PlayerBar />
+            </Hidden>
             <CardContent style={{ maxHeight: '100%', overflow: 'scroll' }}>
               <Tracklist />
             </CardContent>
