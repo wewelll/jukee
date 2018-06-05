@@ -2,10 +2,13 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
-import { Layout, Tracklist, TrackSearch, PlayerPresences } from 'components';
+import { Layout } from 'components';
 import { joinRoomRoutine, leaveRoomRoutine } from 'actions/room';
-import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
+
+import MobileRoomPage from './MobileRoomPage';
+import WebRoomPage from './WebRoomPage';
+
 
 export class RoomPage extends PureComponent {
   componentDidMount() {
@@ -21,21 +24,12 @@ export class RoomPage extends PureComponent {
     return (
       <DocumentTitle title="Room">
         <Layout>
-          <Grid container spacing={24}>
-            <Hidden xsDown>
-              <Grid item sm={2} style={{ flexBasis: 80 }}>
-                <PlayerPresences />
-              </Grid>
-            </Hidden>
-            <Grid item xs={12} sm={10} md={6}>
-              <Tracklist />
-            </Grid>
-            <Hidden mdDown>
-              <Grid item xs={12} md={5}>
-                <TrackSearch />
-              </Grid>
-            </Hidden>
-          </Grid>
+          <Hidden only="xs">
+            <WebRoomPage />
+          </Hidden>
+          <Hidden smUp>
+            <MobileRoomPage />
+          </Hidden>
         </Layout>
       </DocumentTitle>
     );

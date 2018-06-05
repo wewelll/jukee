@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import routes from 'config/routes';
@@ -18,14 +19,16 @@ const Container = styled.div`
   }
 `;
 
-const MainContainer = styled.div`
-  overflow-y: scroll;
-  overflow-x: hidden;
+const MainContainer = styled(Grid)`
   height: calc(100vh - 56px);
+  padding: 0;
 
   @media (min-width: 600px) {
     height: calc(100vh - 64px);
+    padding: 12px;
   }
+
+  overflow: scroll;
 `;
 
 const JukeeToolbar = styled(Toolbar)`
@@ -63,7 +66,7 @@ export class Layout extends Component {
           </JukeeToolbar>
         </AppBar>
 
-        <MainContainer role="main">
+        <MainContainer container role="main">
           {children}
         </MainContainer>
       </Container>

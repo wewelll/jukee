@@ -1,16 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 
 import TrackSearchForm from './trackSearchForm';
 import TrackSearchResultsList from './resultsList';
 
-class TrackSearch extends Component {
+class TrackSearch extends PureComponent {
   render() {
     return (
-      <div>
-        <h3>Jukee search</h3>
+      <Fragment>
         <TrackSearchForm />
         <TrackSearchResultsList />
-      </div>
+      </Fragment>
     );
   }
 }
