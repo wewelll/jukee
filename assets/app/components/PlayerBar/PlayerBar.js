@@ -10,7 +10,7 @@ import { togglePause } from 'actions/player';
 import PlayerControls from './controls';
 import CurrentTrack from './currentTrack';
 
-const BottomPlayerBarContainer = styled(Grid)`
+const PlayerBarContainer = styled(Grid)`
   background: #353883;
   align-items: center;
   display: flex;
@@ -39,20 +39,25 @@ class PlayerBar extends Component {
 
   render() {
     return (
-      <BottomPlayerBarContainer container>
+      <PlayerBarContainer container className={this.props.className}>
         <Grid item xs={12} sm={6}>
           <CurrentTrack />
         </Grid>
         <Grid item xs={12} sm={6}>
           <PlayerControls />
         </Grid>
-      </BottomPlayerBarContainer>
+      </PlayerBarContainer>
     );
   }
 }
 
 PlayerBar.propTypes = {
   togglePause: PropTypes.func.isRequired,
+  className: PropTypes.string,
+};
+
+PlayerBar.defaultProps = {
+  className: '',
 };
 
 const mapStateToProps = state => ({
