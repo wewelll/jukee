@@ -24,10 +24,10 @@ export class RoomPage extends PureComponent {
     return (
       <DocumentTitle title={`${this.props.match.params.roomUrl} - Jukee`}>
         <Layout>
-          <Hidden only="xs">
+          <Hidden smDown>
             <WebRoomPage />
           </Hidden>
-          <Hidden smUp>
+          <Hidden mdUp>
             <MobileRoomPage />
           </Hidden>
         </Layout>

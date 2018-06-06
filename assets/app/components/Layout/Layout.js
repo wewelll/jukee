@@ -25,6 +25,9 @@ const MainContainer = styled(Grid)`
 
   @media (min-width: 600px) {
     height: calc(100vh - 64px);
+  }
+
+  @media (min-width: 960px) {
     padding: 12px;
   }
 
