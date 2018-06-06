@@ -20,7 +20,7 @@ const DialogContainer = styled.div`
 
 const DialogContent = styled.div`
   height: calc(100vh - 56px);
-  padding: 0;
+  padding: 12px;
 
   @media (min-width: 600px) {
     height: calc(100vh - 64px);
@@ -40,7 +40,7 @@ class ResponsiveDialog extends React.Component {
 
   render() {
     const {
-      fullScreen, open, children, title,
+      fullScreen, open, children, title, contentClassName,
     } = this.props;
 
     return (
@@ -62,7 +62,7 @@ class ResponsiveDialog extends React.Component {
               </Typography>
             </Toolbar>
           </AppBar>
-          <DialogContent>
+          <DialogContent className={contentClassName}>
             {children}
           </DialogContent>
         </DialogContainer>
@@ -76,10 +76,12 @@ ResponsiveDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
   closeDialog: PropTypes.func.isRequired,
+  contentClassName: PropTypes.string,
   title: PropTypes.string,
 };
 
 ResponsiveDialog.defaultProps = {
+  contentClassName: '',
   title: '',
 };
 

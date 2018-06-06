@@ -31,10 +31,10 @@ export class ActionsBar extends PureComponent {
           }
         />
         <BottomNavigationAction label="Chat" value={roomDialogs.CHAT} icon={<Icon>chat</Icon>} />
-        <RoomDialog value={roomDialogs.SEARCH}>
+        <RoomDialog value={roomDialogs.SEARCH} title="Search tracks">
           <TrackSearch autoFocus />
         </RoomDialog>
-        <RoomDialog value={roomDialogs.USERS}>
+        <RoomDialog value={roomDialogs.USERS} title="Users online">
           <PlayerPresences />
         </RoomDialog>
       </BottomNavigation>
