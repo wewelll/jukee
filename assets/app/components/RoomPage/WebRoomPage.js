@@ -1,10 +1,14 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import styled from 'styled-components';
 
 import PlayerBar from 'components/PlayerBar';
-import { Tracklist, TrackSearch } from 'components';
+import { Tracklist, TrackSearch, PlayerPresences } from 'components';
+import { roomTabs } from 'config/roomViews';
+import { getActiveTab } from 'selectors/room';
 import ActionsTabs from './ActionsTabs';
 
 const WebPlayerBar = styled(PlayerBar)`
@@ -28,6 +32,17 @@ const TabContent = styled.div`
 `;
 
 export class WebRoomPage extends PureComponent {
+  getTabContent = () => {
+    switch (this.props.activeTab) {
+      case roomTabs.SEARCH:
+        return <TrackSearch />;
+      case roomTabs.USERS:
+        return <PlayerPresences />;
+      default:
+        return null;
+    }
+  }
+
   render() {
     return (
       <Grid container spacing={24} justify="center" style={{ height: '100%' }}>
@@ -44,7 +59,7 @@ export class WebRoomPage extends PureComponent {
             <WebActionsTabs />
           </Paper>
           <TabContent>
-            <TrackSearch />
+            {this.getTabContent()}
           </TabContent>
         </Grid>
       </Grid>
@@ -53,6 +68,12 @@ export class WebRoomPage extends PureComponent {
 }
 
 WebRoomPage.propTypes = {
+  activeTab: PropTypes.string.isRequired,
 };
 
-export default WebRoomPage;
+
+const mapStateToProps = state => ({
+  activeTab: getActiveTab(state),
+});
+
+export default connect(mapStateToProps)(WebRoomPage);

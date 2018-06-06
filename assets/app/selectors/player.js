@@ -18,6 +18,11 @@ export const getPresences = createSelector(
   })),
 );
 
+export const getPresencesNumber = createSelector(
+  getPresences,
+  presences => presences.length,
+);
+
 export const playerExists = createSelector(
   getPlayer,
   player => !_isEmpty(player),

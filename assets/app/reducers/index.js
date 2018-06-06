@@ -6,6 +6,7 @@ import session from 'reducers/session';
 import errors from 'reducers/errors';
 import player from 'reducers/player';
 import trackSearch from 'reducers/trackSearch';
+import room from 'reducers/room';
 import { types as sessionTypes } from 'actions/session';
 
 const appReducer = combineReducers({
@@ -14,6 +15,7 @@ const appReducer = combineReducers({
   errors,
   player,
   trackSearch,
+  room,
   routing: routerReducer,
 });
 
