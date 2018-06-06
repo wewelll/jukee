@@ -22,7 +22,7 @@ export class RoomPage extends PureComponent {
 
   render() {
     return (
-      <DocumentTitle title="Room">
+      <DocumentTitle title={`${this.props.match.params.roomUrl} - Jukee`}>
         <Layout>
           <Hidden only="xs">
             <WebRoomPage />
