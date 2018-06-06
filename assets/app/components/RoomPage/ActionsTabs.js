@@ -11,7 +11,7 @@ import { getActiveTab } from 'selectors/room';
 import { getPresencesNumber } from 'selectors/player';
 import { changeTab } from 'actions/room';
 
-export class ActionsBar extends PureComponent {
+export class ActionsTabs extends PureComponent {
   handleChange = (event, value) => {
     this.props.changeTab(value);
   };
@@ -42,14 +42,14 @@ export class ActionsBar extends PureComponent {
   }
 }
 
-ActionsBar.propTypes = {
+ActionsTabs.propTypes = {
   changeTab: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
   className: PropTypes.string,
   presencesNumber: PropTypes.number.isRequired,
 };
 
-ActionsBar.defaultProps = {
+ActionsTabs.defaultProps = {
   className: '',
 };
 
@@ -62,4 +62,4 @@ const mapDispatchToProps = {
   changeTab,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ActionsBar);
+export default connect(mapStateToProps, mapDispatchToProps)(ActionsTabs);
