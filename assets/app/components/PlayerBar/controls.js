@@ -54,6 +54,7 @@ class PlayerControls extends Component {
       return (
         <ControlsContainer>
           <IconButton
+            id="play_pause_button"
             aria-label="play pause"
             color="secondary"
             onClick={playing ? this.props.pause : this.props.play}
@@ -70,6 +71,7 @@ class PlayerControls extends Component {
           <Icon>skip_previous</Icon>
         </IconButton>
         <IconButton
+          id="play_pause_button"
           aria-label="play pause"
           color="secondary"
           onClick={playing ? this.props.pause : this.props.play}

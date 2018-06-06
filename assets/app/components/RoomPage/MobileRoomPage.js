@@ -1,10 +1,9 @@
 import React, { PureComponent, Fragment } from 'react';
 import Tracklist from 'components/Tracklist';
-import Paper from '@material-ui/core/Paper';
 import styled from 'styled-components';
 
-import PlayerBar from 'components/PlayerBar';
 import ActionsBar from './ActionsBar';
+import MiniPlayerBar from './MiniPlayerBar';
 
 const MobileRoomPageContainer = styled.div`
   background: #ffffff;
@@ -13,7 +12,7 @@ const MobileRoomPageContainer = styled.div`
   width: 100%;
 `;
 
-const MobilePlayerBarContainer = styled(Paper)`
+const MobileMiniPlayerBar = styled(MiniPlayerBar)`
   height: 68px;
   position: absolute;
   bottom: 0;
@@ -39,9 +38,7 @@ export class MobileRoomPage extends PureComponent {
         <MobileRoomPageContainer>
           <FullWidthTracklist />
         </MobileRoomPageContainer>
-        <MobilePlayerBarContainer>
-          <PlayerBar mini />
-        </MobilePlayerBarContainer>
+        <MobileMiniPlayerBar />
         <MobileActionsBar />
       </Fragment>
     );
