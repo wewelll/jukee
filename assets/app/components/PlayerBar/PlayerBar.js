@@ -54,10 +54,10 @@ class PlayerBar extends PureComponent {
            )
         : (
           <Fragment>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <CurrentTrack />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <PlayerControls />
             </Grid>
           </Fragment>

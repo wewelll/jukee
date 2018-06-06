@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
@@ -33,9 +33,11 @@ class Tracklist extends Component {
   }
 
   render() {
-    const { tracks, currentTrack, autoplay } = this.props;
+    const {
+      tracks, currentTrack, autoplay, className,
+    } = this.props;
     return (
-      <Fragment>
+      <div className={className}>
         <FormControlLabel
           control={
             <Switch
@@ -69,7 +71,7 @@ class Tracklist extends Component {
             </TracklistItem>
           ))}
         </List>
-      </Fragment>
+      </div>
     );
   }
 }
@@ -88,12 +90,14 @@ Tracklist.propTypes = {
   deleteTrack: PropTypes.func.isRequired,
   setAutoplay: PropTypes.func.isRequired,
   autoplay: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 Tracklist.defaultProps = {
   tracks: [],
   currentTrack: {},
   autoplay: false,
+  className: '',
 };
 
 const mapStateToProps = state => ({

@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
-import { Tracklist } from 'components';
-import Grid from '@material-ui/core/Grid';
+import Tracklist from 'components/Tracklist';
+import Paper from '@material-ui/core/Paper';
 import styled from 'styled-components';
 
 import PlayerBar from 'components/PlayerBar';
@@ -10,12 +10,14 @@ const MobileRoomPageContainer = styled.div`
   background: #ffffff;
   padding-bottom: 68px;
   padding-top: 56px;
+  width: 100%;
 `;
 
-const MobilePlayerBar = styled(PlayerBar)`
+const MobilePlayerBarContainer = styled(Paper)`
   height: 68px;
   position: absolute;
   bottom: 0;
+  width: 100%;
 `;
 
 const MobileActionsBar = styled(ActionsBar)`
@@ -24,18 +26,20 @@ const MobileActionsBar = styled(ActionsBar)`
   width: 100%;
 `;
 
+const FullWidthTracklist = styled(Tracklist)`
+  width: 100%;
+`;
+
 export class MobileRoomPage extends PureComponent {
   render() {
     return (
       <Fragment>
         <MobileRoomPageContainer>
-          <Grid container style={{ maxHeight: '100%', overflow: 'scroll' }}>
-            <Grid item>
-              <Tracklist />
-            </Grid>
-          </Grid>
+          <FullWidthTracklist />
         </MobileRoomPageContainer>
-        <MobilePlayerBar mini />
+        <MobilePlayerBarContainer>
+          <PlayerBar mini />
+        </MobilePlayerBarContainer>
         <MobileActionsBar />
       </Fragment>
     );
