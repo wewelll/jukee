@@ -12,7 +12,7 @@ defmodule JukeeWeb.Endpoint do
     at: "/",
     from: :jukee,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: ~w(css fonts images js favicons robots.txt)
   )
 
   # Code reloading can be explicitly enabled under the
