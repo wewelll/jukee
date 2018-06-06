@@ -28,6 +28,8 @@ const MobileActionsBar = styled(ActionsBar)`
 
 const FullWidthTracklist = styled(Tracklist)`
   width: 100%;
+  height: 100%;
+  overflow: scroll;
 `;
 
 export class MobileRoomPage extends PureComponent {

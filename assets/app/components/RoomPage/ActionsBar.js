@@ -9,12 +9,17 @@ import Badge from '@material-ui/core/Badge';
 import { roomDialogs } from 'config/roomViews';
 import { getPresencesNumber } from 'selectors/player';
 import { openDialog } from 'actions/room';
+import { TrackSearch, PlayerPresences, RoomDialog } from 'components';
 
 export class ActionsBar extends PureComponent {
+  handleOpenDialog = (event, value) => {
+    this.props.openDialog(value);
+  };
+
   render() {
     const { presencesNumber } = this.props;
     return (
-      <BottomNavigation className={this.props.className}>
+      <BottomNavigation className={this.props.className} onChange={this.handleOpenDialog}>
         <BottomNavigationAction label="Search" value={roomDialogs.SEARCH} icon={<Icon>search</Icon>} />
         <BottomNavigationAction
           label="People"
@@ -26,6 +31,12 @@ export class ActionsBar extends PureComponent {
           }
         />
         <BottomNavigationAction label="Chat" value={roomDialogs.CHAT} icon={<Icon>chat</Icon>} />
+        <RoomDialog value={roomDialogs.SEARCH}>
+          <TrackSearch />
+        </RoomDialog>
+        <RoomDialog value={roomDialogs.USERS}>
+          <PlayerPresences />
+        </RoomDialog>
       </BottomNavigation>
     );
   }
@@ -34,6 +45,7 @@ export class ActionsBar extends PureComponent {
 ActionsBar.propTypes = {
   className: PropTypes.string,
   presencesNumber: PropTypes.number.isRequired,
+  openDialog: PropTypes.func.isRequired,
 };
 
 ActionsBar.defaultProps = {
