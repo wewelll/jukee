@@ -1,4 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import styled from 'styled-components';
 
@@ -19,10 +20,11 @@ const ResultsContainer = styled(Paper)`
 
 class TrackSearch extends PureComponent {
   render() {
+    const { autoFocus } = this.props;
     return (
       <Fragment>
         <SearchFormContainer>
-          <TrackSearchForm />
+          <TrackSearchForm autoFocus={autoFocus} />
         </SearchFormContainer>
         <ResultsContainer>
           <TrackSearchResultsList />
@@ -31,5 +33,13 @@ class TrackSearch extends PureComponent {
     );
   }
 }
+
+TrackSearch.propTypes = {
+  autoFocus: PropTypes.bool,
+};
+
+TrackSearch.defaultProps = {
+  autoFocus: false,
+};
 
 export default TrackSearch;

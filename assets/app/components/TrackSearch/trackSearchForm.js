@@ -10,7 +10,7 @@ import { trackSearchRoutine } from 'actions/trackSearch';
 
 class CreateRoomForm extends PureComponent {
   render() {
-    const { handleSubmit, submitting } = this.props;
+    const { handleSubmit, submitting, autoFocus } = this.props;
     return (
       <div>
         <form onSubmit={handleSubmit(trackSearchRoutine)}>
@@ -28,6 +28,7 @@ class CreateRoomForm extends PureComponent {
                 ),
               }}
               autoComplete="off"
+              autoFocus={autoFocus}
             />
           </div>
         </form>
@@ -39,6 +40,11 @@ class CreateRoomForm extends PureComponent {
 CreateRoomForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
+  autoFocus: PropTypes.bool,
+};
+
+CreateRoomForm.defaultProps = {
+  autoFocus: false,
 };
 
 export default reduxForm({
