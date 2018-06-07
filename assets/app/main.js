@@ -8,7 +8,9 @@ import history from 'utils/history';
 import configureStore, { sagaMiddleware } from 'store';
 import Root from 'config/Root';
 import CustomRedbox from 'config/CustomRedbox';
+import theme from 'config/theme';
 import Sagas from 'sagas';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 
 import './main.scss';
 
@@ -20,7 +22,9 @@ const render = (Component) => {
   ReactDOM.render(
     <AppContainer errorReporter={CustomRedbox}>
       <Provider store={store}>
-        <Component history={history} />
+        <MuiThemeProvider theme={theme}>
+          <Component history={history} />
+        </MuiThemeProvider>
       </Provider>
     </AppContainer>,
     document.getElementById('root'),
