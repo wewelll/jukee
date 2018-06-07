@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import { getPlayer } from 'selectors/player';
+import { getPlayer, getPlayback } from 'selectors/player';
 import ControlledProgressReactPlayer from './ControlledProgressReactPlayer';
 
 const InvisiblePlayer = styled(ControlledProgressReactPlayer)`
@@ -26,8 +26,8 @@ const config = {
 
 class Player extends Component {
   render() {
-    const { player } = this.props;
-    if (!player) return null;
+    const { player, playback } = this.props;
+    if (!player || !playback) return null;
     const { currentTrack } = player;
     return (
       currentTrack ? <InvisiblePlayer
@@ -52,6 +52,7 @@ Player.propTypes = {
     volume: PropTypes.number,
     trackProgress: PropTypes.number,
   }),
+  playback: PropTypes.bool.isRequired,
 };
 
 Player.defaultProps = {
@@ -65,6 +66,7 @@ Player.defaultProps = {
 
 const mapStateToProps = state => ({
   player: getPlayer(state),
+  playback: getPlayback(state),
 });
 
 const PlayerWrapper = connect(mapStateToProps)(Player);

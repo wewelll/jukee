@@ -1,9 +1,11 @@
 import { Presence } from 'phoenix';
 import { types as playerTypes, playerEvents, disconnectPlayerRoutine } from 'actions/player';
+import isMobile from 'utils/isMobile';
 
 const initialState = {
   presences: {},
   player: {},
+  playback: !isMobile(),
 };
 
 const playerEventReducer = (state = initialState, action) => {

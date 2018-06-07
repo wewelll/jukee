@@ -28,6 +28,11 @@ export const playerExists = createSelector(
   player => !_isEmpty(player),
 );
 
+export const getPlayback = createSelector(
+  getPlayerState,
+  playerState => playerState.playback,
+);
+
 export const getTracklist = createSelector(
   getPlayer,
   player => player.tracks,
