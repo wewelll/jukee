@@ -165,7 +165,7 @@ defmodule Jukee.Players do
         case has_autoplay(player_id) do
           false -> pause(player_id)
           true ->
-            add_related_tracks(player_id, 3)
+            add_related_tracks(player_id, 5)
             next(player_id)
         end
       next_track_index -> play_track_on_player(player_id, next_track_index)
