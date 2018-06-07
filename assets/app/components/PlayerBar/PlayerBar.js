@@ -5,12 +5,13 @@ import { compose, branch, renderNothing } from 'recompose';
 import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
 
+import AutoplaySwitch from 'components/AutoplaySwitch';
 import { playerExists } from 'selectors/player';
 import { togglePause } from 'actions/player';
 import PlayerControls from './controls';
 import CurrentTrack from './currentTrack';
 
-const PlayerBarContainer = styled(Grid)`
+const PlayerBarContainer = styled(Grid).attrs({ justify: 'center' })`
   background: #353883;
   align-items: center;
   display: flex;
@@ -60,6 +61,7 @@ class PlayerBar extends PureComponent {
             <Grid item xs={12}>
               <PlayerControls />
             </Grid>
+            <AutoplaySwitch />
           </Fragment>
            )
         }

@@ -12,12 +12,12 @@ import { getActiveTab } from 'selectors/room';
 import ActionsTabs from './ActionsTabs';
 
 const WebPlayerBar = styled(PlayerBar)`
-  height: 200px;
+  height: 250px;
 `;
 
 const TracklistContainer = styled(Paper)`
   margin-top: 24px;
-  height: calc(100% - 224px);
+  height: calc(100% - 274px);
   min-height: 300px;
   overflow: scroll;
 `;

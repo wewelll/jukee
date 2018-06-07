@@ -20,7 +20,7 @@ class Tracklist extends Component {
           <Switch
             checked={autoplay}
             onChange={this.handleSetAutoplay}
-            color="primary"
+            color="secondary"
           />
           }
         label="Autoplay"

@@ -9,6 +9,10 @@ import { RoomDialog, PlayerBar } from 'components';
 import { roomDialogs } from 'config/roomViews';
 import { openDialog } from 'actions/room';
 
+const DialogPlayerBar = styled(PlayerBar)`
+  height: 300px;
+`;
+
 const PlayerBarButton = styled(ButtonBase).attrs({ component: 'div' })`
   width: 100%;
 `;
@@ -29,7 +33,7 @@ export class MiniPlayerBar extends PureComponent {
           <PlayerBar mini />
         </PlayerBarButton>
         <RoomDialog value={roomDialogs.PLAYER} title="Player">
-          <PlayerBar />
+          <DialogPlayerBar />
         </RoomDialog>
       </Paper>
     );
