@@ -44,6 +44,8 @@ export default function(state = initialState, action) {
       return initialState;
     case playerTypes.PLAYER_EVENT:
       return playerEventReducer(state, action);
+    case playerTypes.SET_PLAYBACK:
+      return { ...state, playback: action.playback };
     default:
       return state;
   }

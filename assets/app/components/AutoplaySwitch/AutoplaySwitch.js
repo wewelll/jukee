@@ -7,7 +7,7 @@ import Switch from '@material-ui/core/Switch';
 import { getAutoplay } from 'selectors/player';
 import { setAutoplay } from 'actions/player';
 
-class Tracklist extends Component {
+class AutoplaySwitch extends Component {
   handleSetAutoplay = (event) => {
     this.props.setAutoplay(event.target.checked);
   }
@@ -30,13 +30,13 @@ class Tracklist extends Component {
   }
 }
 
-Tracklist.propTypes = {
+AutoplaySwitch.propTypes = {
   autoplay: PropTypes.bool,
   className: PropTypes.string,
   setAutoplay: PropTypes.func.isRequired,
 };
 
-Tracklist.defaultProps = {
+AutoplaySwitch.defaultProps = {
   autoplay: false,
   className: '',
 };
@@ -49,6 +49,6 @@ const mapDispatchToProps = {
   setAutoplay,
 };
 
-const PlayerWrapper = connect(mapStateToProps, mapDispatchToProps)(Tracklist);
+const PlayerWrapper = connect(mapStateToProps, mapDispatchToProps)(AutoplaySwitch);
 
 export default PlayerWrapper;

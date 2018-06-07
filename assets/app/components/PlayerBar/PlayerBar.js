@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
 
 import AutoplaySwitch from 'components/AutoplaySwitch';
+import PlaybackSwitch from 'components/PlaybackSwitch';
 import { playerExists } from 'selectors/player';
 import { togglePause } from 'actions/player';
 import PlayerControls from './controls';
@@ -62,6 +63,7 @@ class PlayerBar extends PureComponent {
               <PlayerControls />
             </Grid>
             <AutoplaySwitch />
+            <PlaybackSwitch />
           </Fragment>
            )
         }

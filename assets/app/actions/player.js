@@ -7,6 +7,7 @@ export const sendPlayerEventRoutine = createRoutine('SEND_PLAYER_EVENT');
 export const types = {
   PLAYER_EVENT: 'PLAYER_EVENT',
   INITIALIZE_PLAYER: 'INITIALIZE_PLAYER',
+  SET_PLAYBACK: 'SET_PLAYBACK',
 };
 
 export const playerEvents = {
@@ -68,4 +69,9 @@ export const deleteTrack = playerTrackIndex => sendPlayerEventRoutine.request({
 export const setAutoplay = autoplay => sendPlayerEventRoutine.request({
   eventName: 'autoplay',
   payload: { autoplay },
+});
+
+export const setPlayback = playback => ({
+  type: types.SET_PLAYBACK,
+  playback,
 });
