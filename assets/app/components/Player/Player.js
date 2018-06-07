@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import { getPlayer, getPlayback } from 'selectors/player';
+import { playLocal, pauseLocal, seekLocal } from 'actions/player';
 import ControlledProgressReactPlayer from './ControlledProgressReactPlayer';
 
 const InvisiblePlayer = styled(ControlledProgressReactPlayer)`
@@ -25,6 +26,18 @@ const config = {
 };
 
 class Player extends Component {
+  handlePlay = () => {
+    this.props.playLocal();
+  }
+
+  handlePause = () => {
+    this.props.pauseLocal();
+  }
+
+  handleSeek = (seconds) => {
+    this.props.seekLocal(seconds * 1000);
+  }
+
   render() {
     const { player, playback } = this.props;
     if (!player || !playback) return null;
@@ -37,6 +50,10 @@ class Player extends Component {
         volume={player.volume}
         progress={player.trackProgress / 1000}
         config={config}
+        onStart={this.handlePlay}
+        onPlay={this.handlePlay}
+        onPause={this.handlePause}
+        onSeek={this.handleSeek}
       /> : null
     );
   }
@@ -53,15 +70,13 @@ Player.propTypes = {
     trackProgress: PropTypes.number,
   }),
   playback: PropTypes.bool.isRequired,
+  playLocal: PropTypes.func.isRequired,
+  pauseLocal: PropTypes.func.isRequired,
+  seekLocal: PropTypes.func.isRequired,
 };
 
 Player.defaultProps = {
-  player: {
-    playing: false,
-    muted: false,
-    volume: 1,
-    trackProgress: 0,
-  },
+  player: {},
 };
 
 const mapStateToProps = state => ({
@@ -69,6 +84,12 @@ const mapStateToProps = state => ({
   playback: getPlayback(state),
 });
 
-const PlayerWrapper = connect(mapStateToProps)(Player);
+const mapDispatchToProps = {
+  playLocal,
+  pauseLocal,
+  seekLocal,
+};
+
+const PlayerWrapper = connect(mapStateToProps, mapDispatchToProps)(Player);
 
 export default PlayerWrapper;
