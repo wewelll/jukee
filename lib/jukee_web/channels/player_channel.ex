@@ -5,6 +5,7 @@ defmodule JukeeWeb.PlayerChannel do
   alias Jukee.TrackSearch
   alias Jukee.Tracks
   alias JukeeWeb.PlayerPresence
+  require Logger
 
   def join("player:" <> player_id, payload, socket) do
     if authorized?(player_id, payload) do
@@ -15,7 +16,12 @@ defmodule JukeeWeb.PlayerChannel do
     end
   end
 
+  def terminate(_reason, socket) do
+    Logger.info "user left the room"
+  end
+
   def handle_info(:after_join, socket) do
+    Logger.info "user joined the room"
     push socket, "presence_state", PlayerPresence.list(socket)
     {:ok, _} = PlayerPresence.track(socket, socket.assigns.user.id, %{
       username: socket.assigns.user.username,
