@@ -22,7 +22,7 @@ class TrackSearchResultsList extends Component {
     const { results } = this.props;
     return (
       <div>
-        <List dense style={{ paddingTop: 0 }}>
+        <List dense>
           <ListSubheader style={{ background: '#fff' }}>Results ({results.length})</ListSubheader>
           {results.map(result => (
             <ListItem

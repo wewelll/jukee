@@ -33,7 +33,7 @@ class Tracklist extends Component {
     } = this.props;
     return (
       <div className={className}>
-        <List dense style={{ paddingTop: 0 }}>
+        <List dense>
           <ListSubheader style={{ background: '#fff' }}>Tracklist</ListSubheader>
           {tracks.map(track => (
             <TracklistItem

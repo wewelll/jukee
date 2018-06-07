@@ -23,7 +23,7 @@ class PlayerPresences extends PureComponent {
     const { presences } = this.props;
     return (
       <PresencesContainer>
-        <List dense style={{ paddingTop: 0 }}>
+        <List dense>
           <ListSubheader style={{ background: '#fff' }}>People ({presences.length})</ListSubheader>
           {presences.map(presence => (
             <ListItem key={presence.id}>
