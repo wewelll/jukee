@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
+import { Prompt } from 'react-router';
 import { Layout } from 'components';
 import { joinRoomRoutine, leaveRoomRoutine } from 'actions/room';
 import Hidden from '@material-ui/core/Hidden';
@@ -24,6 +25,7 @@ export class RoomPage extends PureComponent {
     return (
       <DocumentTitle title={`${this.props.match.params.roomUrl} - Jukee`}>
         <Layout>
+          <Prompt message="Are you sure you want to leave? Music will stop" />
           <Hidden smDown>
             <WebRoomPage />
           </Hidden>
