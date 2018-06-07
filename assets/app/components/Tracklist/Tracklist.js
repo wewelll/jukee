@@ -9,14 +9,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
-import styled from 'styled-components';
 
 import { getTracklist, getCurrentTrack } from 'selectors/player';
 import { playTrack, deleteTrack } from 'actions/player';
-
-const TracklistItem = styled(({ active, ...props }) => <ListItem {...props} />)`
-  background-color: ${({ active }) => (active ? 'lightgrey' : '')};
-`;
 
 class Tracklist extends Component {
   handleTrackClick = playerTrackIndex => () => {
@@ -36,8 +31,13 @@ class Tracklist extends Component {
         <List dense>
           <ListSubheader style={{ background: '#fff' }}>Tracklist</ListSubheader>
           {tracks.map(track => (
-            <TracklistItem
-              active={currentTrack && track.playerTrackIndex === currentTrack.playerTrackIndex}
+            <ListItem
+              button
+              divider
+              onClick={this.handleTrackClick(track.playerTrackIndex)}
+              style={{
+                background: currentTrack && track.playerTrackIndex === currentTrack.playerTrackIndex ? '#fb3f1d4d' : undefined,
+              }}
               key={track.playerTrackIndex}
               color="primary"
             >
@@ -47,14 +47,11 @@ class Tracklist extends Component {
                 secondary={track.channelTitle}
               />
               <ListItemSecondaryAction>
-                <IconButton aria-label="play" color="primary" onClick={this.handleTrackClick(track.playerTrackIndex)}>
-                  <Icon>play_arrow</Icon>
-                </IconButton>
                 <IconButton aria-label="delete" color="secondary" onClick={this.handleTrackDelete(track.playerTrackIndex)}>
-                  <Icon>delete</Icon>
+                  <Icon>clear</Icon>
                 </IconButton>
               </ListItemSecondaryAction>
-            </TracklistItem>
+            </ListItem>
           ))}
         </List>
       </div>

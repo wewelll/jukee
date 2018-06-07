@@ -26,7 +26,7 @@ class PlayerPresences extends PureComponent {
         <List dense>
           <ListSubheader style={{ background: '#fff' }}>People ({presences.length})</ListSubheader>
           {presences.map(presence => (
-            <ListItem key={presence.id}>
+            <ListItem key={presence.id} divider>
               <Avatar><PersonIcon /></Avatar>
               <ListItemText primary={presence.username} />
             </ListItem>

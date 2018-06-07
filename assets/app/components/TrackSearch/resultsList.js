@@ -26,6 +26,7 @@ class TrackSearchResultsList extends Component {
           <ListSubheader style={{ background: '#fff' }}>Results ({results.length})</ListSubheader>
           {results.map(result => (
             <ListItem
+              divider
               key={result.externalId}
             >
               <Avatar src={result.thumbnail} />
@@ -35,7 +36,7 @@ class TrackSearchResultsList extends Component {
               />
               <ListItemSecondaryAction>
                 <IconButton aria-label="add to playlist" color="primary" onClick={this.handleResultClick(result)}>
-                  <Icon>add</Icon>
+                  <Icon>add_circle_outline</Icon>
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItem>
