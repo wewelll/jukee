@@ -6,6 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 
@@ -21,7 +22,8 @@ class TrackSearchResultsList extends Component {
     const { results } = this.props;
     return (
       <div>
-        <List dense>
+        <List dense style={{ paddingTop: 0 }}>
+          <ListSubheader style={{ background: '#fff' }}>Results ({results.length})</ListSubheader>
           {results.map(result => (
             <ListItem
               key={result.externalId}
