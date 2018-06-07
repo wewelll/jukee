@@ -7,7 +7,8 @@ import { getPlayer } from 'selectors/player';
 import ControlledProgressReactPlayer from './ControlledProgressReactPlayer';
 
 const InvisiblePlayer = styled(ControlledProgressReactPlayer)`
-  display: none;
+  position: fixed;
+  opacity: 0;
 `;
 
 const config = {
