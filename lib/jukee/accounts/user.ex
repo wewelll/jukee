@@ -12,6 +12,8 @@ defmodule Jukee.Accounts.User do
     field(:is_staff, :boolean, default: false)
     field(:is_superuser, :boolean, default: false)
     field(:last_login, :naive_datetime)
+    has_many :rooms, Jukee.Rooms.Room
+    has_many :player_connections, Jukee.Players.PlayerConnection
 
     timestamps()
   end

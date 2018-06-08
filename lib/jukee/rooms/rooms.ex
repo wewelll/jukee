@@ -26,9 +26,22 @@ defmodule Jukee.Rooms do
   end
 
   def list_rooms_created_by(user) do
-    from(r in Room, where: r.creator_id == ^user.id)
+    from(
+      r in Room, where: r.creator_id == ^user.id
+    )
     |> Repo.all()
-    |> Repo.preload(:player)
+  end
+
+  def list_rooms_visited_by(user) do
+    from(
+      r in Room,
+      join: player in assoc(r, :player),
+      join: player_connection in assoc(player, :player_connections),
+      join: user in assoc(player_connection, :user),
+      where: user.id == ^user.id,
+      group_by: r.id
+    )
+    |> Repo.all()
   end
 
   @doc """

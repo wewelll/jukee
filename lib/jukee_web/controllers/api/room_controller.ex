@@ -17,6 +17,12 @@ defmodule JukeeWeb.RoomController do
     render(conn, "index.json", rooms: rooms)
   end
 
+  def list_visited_by_user(conn, _params) do
+    current_user = Jukee.Accounts.get_current_user(conn)
+    rooms = Rooms.list_rooms_visited_by(current_user)
+    render(conn, "index.json", rooms: rooms)
+  end
+
   def create(conn, %{"room" => room_params}) do
     current_user = Jukee.Accounts.get_current_user(conn)
     with {:ok, %Room{} = room} <- Rooms.create_room(room_params, current_user) do
