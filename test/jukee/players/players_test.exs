@@ -126,4 +126,66 @@
 #       assert %Ecto.Changeset{} = Players.change_player_track(player_track)
 #     end
 #   end
+# 
+#   describe "players_connections" do
+#     alias Jukee.Players.PlayerConnection
+
+#     @valid_attrs %{end_date: ~N[2010-04-17 14:00:00.000000], start_date: ~N[2010-04-17 14:00:00.000000]}
+#     @update_attrs %{end_date: ~N[2011-05-18 15:01:01.000000], start_date: ~N[2011-05-18 15:01:01.000000]}
+#     @invalid_attrs %{end_date: nil, start_date: nil}
+
+#     def player_connection_fixture(attrs \\ %{}) do
+#       {:ok, player_connection} =
+#         attrs
+#         |> Enum.into(@valid_attrs)
+#         |> Players.create_player_connection()
+
+#       player_connection
+#     end
+
+#     test "list_players_connections/0 returns all players_connections" do
+#       player_connection = player_connection_fixture()
+#       assert Players.list_players_connections() == [player_connection]
+#     end
+
+#     test "get_player_connection!/1 returns the player_connection with given id" do
+#       player_connection = player_connection_fixture()
+#       assert Players.get_player_connection!(player_connection.id) == player_connection
+#     end
+
+#     test "create_player_connection/1 with valid data creates a player_connection" do
+#       assert {:ok, %PlayerConnection{} = player_connection} = Players.create_player_connection(@valid_attrs)
+#       assert player_connection.end_date == ~N[2010-04-17 14:00:00.000000]
+#       assert player_connection.start_date == ~N[2010-04-17 14:00:00.000000]
+#     end
+
+#     test "create_player_connection/1 with invalid data returns error changeset" do
+#       assert {:error, %Ecto.Changeset{}} = Players.create_player_connection(@invalid_attrs)
+#     end
+
+#     test "update_player_connection/2 with valid data updates the player_connection" do
+#       player_connection = player_connection_fixture()
+#       assert {:ok, player_connection} = Players.update_player_connection(player_connection, @update_attrs)
+#       assert %PlayerConnection{} = player_connection
+#       assert player_connection.end_date == ~N[2011-05-18 15:01:01.000000]
+#       assert player_connection.start_date == ~N[2011-05-18 15:01:01.000000]
+#     end
+
+#     test "update_player_connection/2 with invalid data returns error changeset" do
+#       player_connection = player_connection_fixture()
+#       assert {:error, %Ecto.Changeset{}} = Players.update_player_connection(player_connection, @invalid_attrs)
+#       assert player_connection == Players.get_player_connection!(player_connection.id)
+#     end
+
+#     test "delete_player_connection/1 deletes the player_connection" do
+#       player_connection = player_connection_fixture()
+#       assert {:ok, %PlayerConnection{}} = Players.delete_player_connection(player_connection)
+#       assert_raise Ecto.NoResultsError, fn -> Players.get_player_connection!(player_connection.id) end
+#     end
+
+#     test "change_player_connection/1 returns a player_connection changeset" do
+#       player_connection = player_connection_fixture()
+#       assert %Ecto.Changeset{} = Players.change_player_connection(player_connection)
+#     end
+#   end
 # end

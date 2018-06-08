@@ -414,4 +414,100 @@ defmodule Jukee.Players do
   def change_player_track(%PlayerTrack{} = player_track) do
     PlayerTrack.changeset(player_track, %{})
   end
+
+  alias Jukee.Players.PlayerConnection
+
+  @doc """
+  Returns the list of players_connections.
+
+  ## Examples
+
+      iex> list_players_connections()
+      [%PlayerConnection{}, ...]
+
+  """
+  def list_players_connections do
+    Repo.all(PlayerConnection)
+  end
+
+  @doc """
+  Gets a single player_connection.
+
+  Raises `Ecto.NoResultsError` if the Player connection does not exist.
+
+  ## Examples
+
+      iex> get_player_connection!(123)
+      %PlayerConnection{}
+
+      iex> get_player_connection!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_player_connection!(id), do: Repo.get!(PlayerConnection, id)
+
+  @doc """
+  Creates a player_connection.
+
+  ## Examples
+
+      iex> create_player_connection(%{field: value})
+      {:ok, %PlayerConnection{}}
+
+      iex> create_player_connection(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_player_connection(attrs \\ %{}) do
+    %PlayerConnection{}
+    |> PlayerConnection.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a player_connection.
+
+  ## Examples
+
+      iex> update_player_connection(player_connection, %{field: new_value})
+      {:ok, %PlayerConnection{}}
+
+      iex> update_player_connection(player_connection, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_player_connection(%PlayerConnection{} = player_connection, attrs) do
+    player_connection
+    |> PlayerConnection.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a PlayerConnection.
+
+  ## Examples
+
+      iex> delete_player_connection(player_connection)
+      {:ok, %PlayerConnection{}}
+
+      iex> delete_player_connection(player_connection)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_player_connection(%PlayerConnection{} = player_connection) do
+    Repo.delete(player_connection)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking player_connection changes.
+
+  ## Examples
+
+      iex> change_player_connection(player_connection)
+      %Ecto.Changeset{source: %PlayerConnection{}}
+
+  """
+  def change_player_connection(%PlayerConnection{} = player_connection) do
+    PlayerConnection.changeset(player_connection, %{})
+  end
 end
