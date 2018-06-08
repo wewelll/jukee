@@ -3,6 +3,7 @@ import Session from 'sagas/session';
 import Room from 'sagas/room';
 import Player from 'sagas/player';
 import TrackSearch from 'sagas/trackSearch';
+import Home from 'sagas/home';
 import formActionSaga from 'redux-form-saga';
 
 const sagas = [
@@ -10,6 +11,7 @@ const sagas = [
   ...Room,
   ...Player,
   ...TrackSearch,
+  ...Home,
   formActionSaga,
 ];
 

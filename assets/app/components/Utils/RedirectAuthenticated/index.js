@@ -24,7 +24,7 @@ export default class RedirectAuthenticated extends Component {
             ? props.location.state.referrer
             : null;
           if (isAuthenticated) {
-            return <Redirect to={referrer || { pathname: routes.createRoom }} />;
+            return <Redirect to={referrer || { pathname: routes.home }} />;
           }
           if (willAuthenticate) {
             return null;

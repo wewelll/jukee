@@ -15,6 +15,7 @@ import {
   MatchAuthenticated,
   RedirectAuthenticated,
   LandingPage,
+  HomePage,
   Player,
 } from 'components';
 import routes from 'config/routes';
@@ -45,7 +46,12 @@ class Root extends Component {
         <ErrorMessage />
         <Router history={this.props.history}>
           <Switch>
-            <Route exact path={routes.landing} component={LandingPage} />
+            <RedirectAuthenticated
+              exact
+              path={routes.landing}
+              component={LandingPage}
+              {...authProps}
+            />
             <RedirectAuthenticated
               exact
               path={routes.signup}
@@ -56,6 +62,12 @@ class Root extends Component {
               exact
               path={routes.login}
               component={Login}
+              {...authProps}
+            />
+            <MatchAuthenticated
+              exact
+              path={routes.home}
+              component={HomePage}
               {...authProps}
             />
             <MatchAuthenticated

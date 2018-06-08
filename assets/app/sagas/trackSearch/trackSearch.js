@@ -20,6 +20,6 @@ function* searchTracks({ payload: { query } }) {
   }
 }
 
-export default function* createRoomSaga() {
+export default function* searchTracksSaga() {
   yield* takeEvery(trackSearchRoutine.REQUEST, searchTracks);
 }
