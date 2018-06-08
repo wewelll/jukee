@@ -17,11 +17,11 @@ defmodule JukeeWeb.PlayerChannel do
   end
 
   def terminate(_reason, socket) do
-    Logger.info "user left the room"
+    end_player_connection(socket)
   end
 
   def handle_info(:after_join, socket) do
-    Logger.info "user joined the room"
+    socket = create_player_connection(socket)
     push socket, "presence_state", PlayerPresence.list(socket)
     {:ok, _} = PlayerPresence.track(socket, socket.assigns.user.id, %{
       username: socket.assigns.user.username,
@@ -105,5 +105,21 @@ defmodule JukeeWeb.PlayerChannel do
   # Everyone can join a player channel
   defp authorized?(_player_id, _payload) do
     true
+  end
+
+  defp create_player_connection(socket) do
+    user = socket.assigns.user
+    player_id = get_player_id(socket)
+    {:ok, player_connection} = Players.create_player_connection(%{
+      user_id: user.id,
+      player_id: player_id,
+      start_date: NaiveDateTime.utc_now()
+    })
+    Phoenix.Socket.assign(socket, :player_connection, player_connection)
+  end
+
+  defp end_player_connection(socket) do
+    player_connection = socket.assigns.player_connection
+    Players.update_player_connection(player_connection, %{ end_date: NaiveDateTime.utc_now() })
   end
 end

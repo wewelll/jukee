@@ -15,7 +15,7 @@ defmodule Jukee.Players.PlayerConnection do
   @doc false
   def changeset(player_connection, attrs) do
     player_connection
-    |> cast(attrs, [:start_date, :end_date])
-    |> validate_required([:start_date])
+    |> cast(attrs, [:player_id, :user_id, :start_date, :end_date])
+    |> validate_required([:player_id, :user_id])
   end
 end
