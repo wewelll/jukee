@@ -25,6 +25,12 @@ defmodule Jukee.Rooms do
     |> Repo.preload(:player)
   end
 
+  def list_rooms_created_by(user) do
+    from(r in Room, where: r.creator_id == ^user.id)
+    |> Repo.all()
+    |> Repo.preload(:player)
+  end
+
   @doc """
   Gets a single room.
 
