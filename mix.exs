@@ -4,7 +4,7 @@ defmodule Jukee.Mixfile do
   def project do
     [
       app: :jukee,
-      version: "0.0.27",
+      version: "0.0.28",
       elixir: "~> 1.6",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
