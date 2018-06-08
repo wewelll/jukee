@@ -8,6 +8,7 @@ RELEASE_DIR="/tmp/edeliver/$APP/builds/_build/prod/rel/$APP"
 
 # prevent re-installing node modules; this defaults to "."
 GIT_CLEAN_PATHS="_build rel priv/static"
+AUTO_VERSION="git-revision+git-branch+build-date"
 
 # STAGING_HOSTS="jukee.app"
 # STAGING_USER="deploy"
