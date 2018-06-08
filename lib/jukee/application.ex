@@ -14,6 +14,7 @@ defmodule Jukee.Application do
       supervisor(JukeeWeb.Endpoint, []),
       # Start your own worker by calling: Jukee.Worker.start_link(arg1, arg2, arg3)
       # worker(Jukee.Worker, [arg1, arg2, arg3]),
+      worker(Task, [&Jukee.Players.set_open_player_connections_as_closed/0], restart: :temporary),
       worker(Jukee.Players.PlayerWorker, []),
       supervisor(JukeeWeb.PlayerPresence, []),
     ]

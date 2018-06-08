@@ -482,6 +482,11 @@ defmodule Jukee.Players do
     |> Repo.update()
   end
 
+  def set_open_player_connections_as_closed() do
+    from(pc in PlayerConnection, where: is_nil(pc.end_date))
+    |> Repo.update_all(set: [end_date: NaiveDateTime.utc_now()])
+  end
+
   @doc """
   Deletes a PlayerConnection.
 
