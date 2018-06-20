@@ -46,6 +46,14 @@ export default function(state = initialState, action) {
       return playerEventReducer(state, action);
     case playerTypes.SET_PLAYBACK:
       return { ...state, playback: action.playback };
+    case playerTypes.PLAY_LOCAL:
+      return { ...state, player: { ...state.player, playing: true } };
+    case playerTypes.PAUSE_LOCAL:
+      return { ...state, player: { ...state.player, playing: false } };
+    case playerTypes.TOGGLE_PAUSE_LOCAL:
+      return { ...state, player: { ...state.player, playing: !state.player.playing } };
+    case playerTypes.SEEK_LOCAL:
+      return { ...state, player: { ...state.player, trackProgress: action.to } };
     default:
       return state;
   }

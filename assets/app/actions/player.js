@@ -8,6 +8,10 @@ export const types = {
   PLAYER_EVENT: 'PLAYER_EVENT',
   INITIALIZE_PLAYER: 'INITIALIZE_PLAYER',
   SET_PLAYBACK: 'SET_PLAYBACK',
+  PLAY_LOCAL: 'PLAY_LOCAL',
+  PAUSE_LOCAL: 'PAUSE_LOCAL',
+  TOGGLE_PAUSE_LOCAL: 'TOGGLE_PAUSE_LOCAL',
+  SEEK_LOCAL: 'SEEK_LOCAL',
 };
 
 export const playerEvents = {
@@ -74,4 +78,21 @@ export const setAutoplay = autoplay => sendPlayerEventRoutine.request({
 export const setPlayback = playback => ({
   type: types.SET_PLAYBACK,
   playback,
+});
+
+export const playLocal = () => ({
+  type: types.PLAY_LOCAL,
+});
+
+export const pauseLocal = () => ({
+  type: types.PAUSE_LOCAL,
+});
+
+export const togglePauseLocal = () => ({
+  type: types.TOGGLE_PAUSE_LOCAL,
+});
+
+export const seekLocal = to => ({
+  type: types.SEEK_LOCAL,
+  to,
 });
